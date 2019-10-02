@@ -1,10 +1,4 @@
-<html>
-  <head></head>
-  <body>
+
     <a href="https://xkcd.com/2163/">
       <img src="https://imgs.xkcd.com/comics/chernobyl.png">
     </a>
-    <br>
-    <font size=small>Source: xkcd</font>
-  </body>
-</html>
