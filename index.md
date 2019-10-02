@@ -6,6 +6,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Nuclear Meltdown Explained
 
-![](https://imgs.xkcd.com/comics/chernobyl.png)
+<a href="https://xkcd.com/2163/"> <img src="https://imgs.xkcd.com/comics/chernobyl.png"> </a>
 
 Source: [xkcd](https://xkcd.com/2163/)
