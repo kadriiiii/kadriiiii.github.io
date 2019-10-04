@@ -11,3 +11,5 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 ![Example of NM](https://imgs.xkcd.com/comics/chernobyl.png)
 
 Source: [xkcd](https://xkcd.com/2163/)
+
+<script src="//api.glia.com/salemove_integration.js"></script>
