@@ -47,6 +47,22 @@
 
         <p><img src="https://imgs.xkcd.com/comics/chernobyl.png" alt="Example of NM" /></p>
 
+
+// The button to show Visitor Code
+<button class="omnibrowse-code-button">Get CoBrowsing code</button>;
+
+function showVisitorCode() {
+  var code = document.createElement('sm-visitor-code');
+  document.body.appendChild(code);
+}
+
+// Add a "click" event listener to the button. <sm-visitor-code />
+// is added to the DOM when the button is clicked.
+document
+  .querySelector('.omnibrowse-code-button')
+  .addEventListener('click', showVisitorCode);
+        
+
         <p>Source: <a href="https://xkcd.com/2163/" target="_blank">xkcd</a></p>
 
         <a data-sm-show-media-selection-on="click" href="javascript:void(0);" style="display: block;">
