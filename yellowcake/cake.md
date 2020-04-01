@@ -8,6 +8,14 @@
     font-size: 16px;
     border-radius: 8px;
   }
+   .footer {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    margin-top: 40px;
+    font-size: 13px;
+    color: #aaa;
+    background: transparent url(../images/hr.png) 0 0 no-repeat;
+}
  </style>
 
 # Yellowcake
@@ -20,8 +28,9 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 
 <br>
 <br>
-<div align="center">
-  <button name="help-button">Help</button>
-</div>
+<button name="help-button">Help</button>
 
 
+<footer>
+  
+</footer>
