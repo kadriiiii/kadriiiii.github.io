@@ -8,6 +8,8 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 
 <br>
 <br>
-<button name="help-button">Help</button>
+<div align=center>
+  <button name="help-button">Help</button>
+</div>
 
 <script src="//api.glia.com/salemove_integration.js"></script>
