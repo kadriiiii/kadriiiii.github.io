@@ -13,8 +13,8 @@
     }
   .button1:hover {
     color: #F8F9F9;
-    background-color: #2C0735;
-    border-color: #2C0735;
+    background-color: #D11149;
+    border-color: #D11149;
     }
   .button1:active {
     color: #F8F9F9;
@@ -23,7 +23,7 @@
     }
   .button1:focus {
     outline: none;
-    box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+    box-shadow: 0 0 0 5px #D11149;
     }
   .footer {
     padding-top: 20px;
