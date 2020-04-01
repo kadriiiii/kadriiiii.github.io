@@ -3,11 +3,12 @@
 <style>
   .button1 {
     type: button
-    background-color: white;
-    color: black;
+    background-color: #FFEEEB;
+    color: #2C0735;
     border: 2px solid #D11149;
     font-size: 16px;
     border-radius: 8px;
+    padding: 10px 24px;
   }
    .footer {
     padding-top: 20px;
