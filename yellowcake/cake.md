@@ -8,7 +8,7 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 
 <br>
 <br>
-<div align=center>
+<div align="center">
   <button name="help-button">Help</button>
 </div>
 
