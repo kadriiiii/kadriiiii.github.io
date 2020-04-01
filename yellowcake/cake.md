@@ -7,4 +7,4 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 <script src="//api.glia.com/salemove_integration.js"></script>
 
 
-<button name=help-button>Help</button>
+<button name="help-button">Help</button>
