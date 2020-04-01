@@ -13,3 +13,10 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 </div>
 
 <script src="//api.glia.com/salemove_integration.js"></script>
+.button {
+  background-color: white;
+  color: black;
+  border: 2px solid #D11149;
+  font-size: 16px;
+  border-radius: 8px;
+}
