@@ -8,6 +8,8 @@
     font-size: 16px;
     border-radius: 14px;
     padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
    .footer {
     padding-top: 20px;
@@ -17,12 +19,7 @@
     color: #aaa;
     background: transparent url(../images/hr.png) 0 0 no-repeat;
   }
-  .btnd:focus, .btnd:active, .btnd.active, .btnd:focus:active {
-  background-image: none;
-  outline: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  }
+}
  </style>
 
 # Yellowcake
