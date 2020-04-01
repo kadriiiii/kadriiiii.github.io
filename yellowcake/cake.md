@@ -16,7 +16,13 @@
     font-size: 13px;
     color: #aaa;
     background: transparent url(../images/hr.png) 0 0 no-repeat;
-}
+  }
+  .btnd:focus, .btnd:active, .btnd.active, .btnd:focus:active {
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  }
  </style>
 
 # Yellowcake
