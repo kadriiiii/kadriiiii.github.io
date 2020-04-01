@@ -28,8 +28,8 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 
 <br>
 <br>
-<div align="center" font-size="16">
-  <button1 name="help-button">Help</button>
+<div align="center">
+  <button1 name="help-button">Help</button1>
 </div>
 
 <footer>
