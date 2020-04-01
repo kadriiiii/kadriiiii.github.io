@@ -2,6 +2,7 @@
 
 <style>
   .button1 {
+    type: button
     background-color: white;
     color: black;
     border: 2px solid #D11149;
@@ -29,7 +30,7 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 <br>
 <br>
 <div align="center">
-  <button1 name="help-button">Help</button1>
+  <button class="button1" name="help-button">Help</button>
 </div>
 
 <footer>
