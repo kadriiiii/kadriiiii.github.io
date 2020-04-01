@@ -1,7 +1,7 @@
 <script src="//api.glia.com/salemove_integration.js"></script>
 
 <style>
-  .button {
+  .button1 {
     background-color: white;
     color: black;
     border: 2px solid #D11149;
@@ -28,8 +28,9 @@ See more in: <a href="https://en.wikipedia.org/wiki/Yellowcake" target="_blank">
 
 <br>
 <br>
-<button name="help-button">Help</button>
-
+<div align="center" font-size="16">
+  <button1 name="help-button">Help</button>
+</div>
 
 <footer>
   
