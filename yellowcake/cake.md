@@ -23,7 +23,7 @@
     }
   .button1:focus {
     outline: none;
-    box-shadow: 0 0 0 5px #D11149;
+    box-shadow: 0 0 0 2px #FB5607;
     }
   .footer {
     padding-top: 20px;
