@@ -1,6 +1,6 @@
 <style>
   .button1 {
-    background-color: #F8F9F9; // light gray
+    background-color: #F8F9F9; /* light gray */
     color: #2C0735; // Glia black purple
     border: 2px solid rgb(124,25,221); //Glia purple
     font-size: 16px;
