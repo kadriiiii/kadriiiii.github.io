@@ -1,8 +1,8 @@
 <style>
   .button1 {
-    background-color: #F8F9F9;
-    color: #2C0735;
-    border: 2px solid #D11149;
+    background-color: #F8F9F9; // light gray
+    color: #2C0735; // Glia black purple
+    border: 2px solid #7C19DD; //Glia purple
     font-size: 16px;
     border-radius: 14px;
     padding: 10px 24px;
@@ -10,18 +10,18 @@
     transition: all 0.3s ease;
     }
   .button1:hover {
-    color: #F8F9F9;
-    background-color: #7C19DD;
-    border-color: #7C19DD;
+    color: #F8F9F9; //light gray
+    background-color: #C04CFD; // Glia orchid
+    border-color: #C04CFD; // Glia orchid
     }
   .button1:active {
-    color: #F8F9F9;
-    background-color: #C04CFD;
-    border-color: #C04CFD;
+    color: #F8F9F9; //light gray
+    background-color: #7C19DD; // Glia purple
+    border-color: ##7C19DD; // Glia purple
     }
   .button1:focus {
     outline: none;
-    box-shadow: 0 0 0 5px #C04CFD;
+    box-shadow: 0 0 0 5px #EA7AF4; // Glia light violet
     }
   .footer {
     padding-top: 20px;
@@ -37,10 +37,10 @@
 <script src="//api.glia.com/salemove_integration.js"></script>
     
 <div id="title">
-  # Meltdown
+  <h1>Meltdown</h1>
 </div>         
         
-<div id="meltdown_pic" align="center">
+<div id="meltdown_pic">
   <img src="../img/meltdown.png" alt="Example of NM" />
   <br>
   Source: <a href="https://xkcd.com/2163/" target="_blank">xkcd</a>
