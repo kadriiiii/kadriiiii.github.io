@@ -33,7 +33,6 @@
     color: #aaa;
     background: transparent url(../images/hr.png) 0 0 no-repeat;
   }
-}
  </style>
 
 # Yellowcake
