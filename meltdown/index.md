@@ -21,7 +21,7 @@
     }
   .button1:focus {
     outline: none;
-    box-shadow: 0 0 0 5px #EA7AF4; /* Glia light violet */
+    box-shadow: 0 0 0 5px #C04CFD; /* Glia orchid */
     }
   .footer {
     padding-top: 20px;
