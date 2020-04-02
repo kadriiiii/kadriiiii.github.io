@@ -2,9 +2,9 @@
 
 <style>
   .button1 {
-    background-color: #F8F9F9; // light gray
-    color: #2C0735; // Glia black purple
-    border: 2px solid #D11149; // Glia red
+    background-color: #F8F9F9; /* light gray */
+    color: #2C0735; /* Glia black purple */
+    border: 2px solid #D11149; /* Glia red */
     font-size: 16px; 
     border-radius: 14px;
     padding: 10px 24px;
@@ -13,17 +13,17 @@
     }
   .button1:hover {
     color: #F8F9F9;
-    background-color: #D11149; // Glia red
-    border-color: #D11149; // Glia red
+    background-color: #D11149; /* Glia red */
+    border-color: #D11149; /* Glia red */
     }
   .button1:active {
-    color: #F8F9F9; // light gray
-    background-color: #FB5607; // Glia orange
-    border-color: #FB5607; // Glia orange
+    color: #F8F9F9; /* light gray */
+    background-color: #FB5607; /* Glia orange */
+    border-color: #FB5607; /* Glia orange */
     }
   .button1:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #FB5607; // Glia orange
+    box-shadow: 0 0 0 2px #FB5607; /* Glia orange */
     }
   .footer {
     padding-top: 20px;
