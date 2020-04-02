@@ -1,4 +1,30 @@
 <!doctype html>
+<style>
+  .button1 {
+    background-color: #F8F9F9;
+    color: #2C0735;
+    border: 2px solid #D11149;
+    font-size: 16px;
+    border-radius: 14px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+  button:hover {
+    color: #F8F9F9;
+    background-color: #2C0735;
+    border-color: #2C0735;
+    }
+  button:active {
+    color: #F8F9F9;
+    background-color: #FB5607;
+    border-color: #FB5607;
+    }
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+    }
+</style>
 
 <html lang="en-US">
   <head>
@@ -25,47 +51,36 @@
     <div class="wrapper">
 
       <section>
-        <div id="title">
-          <h1>Pealkiri on kõige peal</h1>
-          <p></p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/kadriiiii">kadriiiii</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        <div id="title" align="center">
+          <h1>Meltdown</h1>
         </div>
-
-        <h1 id="lorem-ipsum-dolor-sit-amet">Lorem ipsum dolor sit amet</h1>
-
-        <blockquote>
-         <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </blockquote>
-
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-
-        <h2 id="xkcd">Excepteur sint occaecat cupidatat non proident…</h2>
-
-        <p>…sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p><img src="https://imgs.xkcd.com/comics/chernobyl.png" alt="Example of NM" /></p>
-
-        <p>Source: <a href="https://xkcd.com/2163/" target="_blank">xkcd</a></p>
-
+        
+        <p>
+        <img src="https://imgs.xkcd.com/comics/chernobyl.png" alt="Example of NM" />
+        </p>
+        <p>Source: <a href="https://xkcd.com/2163/" target="_blank">xkcd</a>
+        </p>
+        
         <a data-sm-show-media-selection-on="click" href="javascript:void(0);" style="display: block;">
           <h3>
             Contact us!
           </h3>
         </a>
-
+        
+        <div align="center" id="call-visualizer">
         <button
           class="omnibrowse-code-button"
           onclick="document.body.appendChild(document.createElement('sm-visitor-code'))">
           Get CoBrowsing code
         </button>
-        
-        <button type="button" name="help-button">Help</button>
-
+        </div>
+        <br>
+        <br>
+        <div align="center">
+          <input type="button" class="button1" name="help-button" value="Help">
+        </div>
 
       </section>
-
     </div>
 
   </body>
