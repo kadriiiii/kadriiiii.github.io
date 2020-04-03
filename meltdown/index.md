@@ -1,18 +1,5 @@
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149774101-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-149774101-1');
-</script>
-
-
-
-
 <!-- Google Analytics -->
-<!-- <script>
+<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -20,11 +7,11 @@
 
   ga('create', 'UA-149774101-1', 'auto');
   ga('send', 'pageview');
-</script> -->
+</script>
 <!-- End Google Analytics -->
 
 
-
+<!-- Styles to override the general CSS -->
 <style>
   .button1 {
     background-color: #F8F9F9; /* light gray */
@@ -59,10 +46,13 @@
     background: transparent url(../images/hr.png) 0 0 no-repeat;
   }
 </style>
+<!-- End custom styles -->
 
-
+<!-- Glia script -->
 <script src="//api.glia.com/salemove_integration.js"></script>
-    
+<! End Glia script --> 
+
+
 <div id="title">
   <h1>Meltdown</h1>
 </div>         
@@ -72,8 +62,10 @@
   <br>
   Source: <a href="https://xkcd.com/2163/" target="_blank">xkcd</a>
 </div>
+<br>
 
-<br>        
+
+<!-- Show media selection. Hidden when no-one is here. -->
 <div id="contact-us" align="center">
   <a data-sm-show-media-selection-on="click" href="javascript:void(0);" style="display: block;">
     <h3>
@@ -81,7 +73,10 @@
     </h3>
   </a>
 </div>
-        
+<!-- End of media selection button. -->
+
+
+<!-- Call visualizer code button -->       
 <div align="center" id="call-visualizer">
   <button
       class="omnibrowse-code-button"
@@ -89,6 +84,8 @@
         Get CoBrowsing code
   </button>
 </div>
+<!-- End of Call visualizer button -->
+
 <br>
 <br>
 <div align="center" id="help-button">
