@@ -9,7 +9,13 @@
 
   gtag('config', 'UA-149774101-1');
 </script>
-
+<script>
+  gtag('event', 'Visitor_Code', {
+  'event_category': 'Glia_Message',
+  'event_label': 'Code Asked',
+  'value': 1
+});
+</script>
 
 
 <style>
