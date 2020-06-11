@@ -1,5 +1,10 @@
 <script src="//api.glia.com/salemove_integration.js"></script>
 
+<head>
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'self' wss://*.salemove.com https://*.salemove.com"/>
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'self'"/>
+</head>
+
 <style>
   .button1 {
     background-color: #F8F9F9; /* light gray */
