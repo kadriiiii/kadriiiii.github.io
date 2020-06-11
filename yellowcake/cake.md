@@ -1,9 +1,10 @@
 <script src="//api.glia.com/salemove_integration.js"></script>
-
+<html>
 <head>
   <meta http-equiv="Content-Security-Policy" content="connect-src 'self' wss://*.salemove.com https://*.salemove.com"/>
   <meta http-equiv="Content-Security-Policy" content="connect-src 'self'"/>
 </head>
+</html>
 
 <style>
   .button1 {
