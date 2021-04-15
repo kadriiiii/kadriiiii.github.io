@@ -17,6 +17,7 @@ sm.getApi({version: 'v1'}).then(function(salemove) {
   }
   
   // Get visitor's queues
+  // https://sdk-docs.glia.com/visitor-js-api/current/Salemove.html#getQueues
   salemove.getQueues().then(function(queues) {
     var queueIds = queues.map(function(queues) {
     return queueIds;
@@ -30,11 +31,6 @@ sm.getApi({version: 'v1'}).then(function(salemove) {
       queue_id: 'Miisu'
     }
   });
-
-  
-  // https://sdk-docs.glia.com/visitor-js-api/current/Salemove.html#getQueues
-
-
 });
 </script>
   
