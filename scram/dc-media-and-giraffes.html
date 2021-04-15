@@ -8,33 +8,33 @@
 <!-- Visitor attributes script for Amazon Lex bot (inspired by Ruslan) -->
 <script>
 sm.getApi({version: 'v1'}).then(function(salemove) {
-
+  
+  // By default visitor is on desktop
   var isMobile = false; //initiate as false
-
-  // This is where logic defined...
+  // Check if visitor is on mobile
   if(/Mobi/.test(navigator.userAgent)) {
     isMobile = true;
   }
-
+  
+  // Get visitor's queues
+  salemove.getQueues().then(function(queues) {
+    var queueIds = queues.map(function(queue) {
+    return queueIds;
+    });
+  });
+  
   // https://docs.glia.com/glia-dev/docs/visitor-js-sdk#setting-visitors-custom-attributes
   salemove.updateInformation({
     customAttributes: {
       device_type: isMobile ? 'mobile' : 'desktop',
-      queue_id: 'queue-id-from-salemove'
+      queue_id: queueIds
     }
   });
 
-  /**
-  https://sdk-docs.glia.com/visitor-js-api/current/Salemove.html#getQueues
+  
+  // https://sdk-docs.glia.com/visitor-js-api/current/Salemove.html#getQueues
 
-  salemove.getQueues().then(function(queues) {
-     var queueIds = queues.map(function(queue) {
-       return queue.id;
-     });
 
-     console.log(queueIds);
-  });
-  */
 });
 </script>
   
