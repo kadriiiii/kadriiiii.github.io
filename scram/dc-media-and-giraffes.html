@@ -28,7 +28,7 @@ sm.getApi({version: 'v1'}).then(function(salemove) {
   salemove.updateInformation({
     customAttributes: {
       device_type: isMobile ? 'mobile' : 'desktop',
-      queue_id: 'Q id'
+      queue_id: queueIds
     },
     email: 'Email attribute'
   });
