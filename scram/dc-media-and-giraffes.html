@@ -5,15 +5,38 @@
 <!-- Glia script -->
 <script src="https://api.beta.glia.com/salemove_integration.js"></script>
 
-<!-- Localize scripst (trial) -->
-<script src="https://global.localizecdn.com/localize.js"></script>
-<script>!function(a){if(!a.Localize){a.Localize={};for(var e=["translate","untranslate","phrase","initialize","translatePage","setLanguage","getLanguage","getSourceLanguage","detectLanguage","getAvailableLanguages","untranslatePage","bootstrap","prefetch","on","off","hideWidget","showWidget"],t=0;t<e.length;t++)a.Localize[e[t]]=function(){}}}(window);</script>
+<!-- Visitor attributes script for Amazon Lex bot (inspired by Ruslan) -->
 <script>
-  Localize.initialize({
-    key: 'dUFta3fUHUn3h',
-    rememberLanguage: true
+sm.getApi({version: 'v1'}).then(function(salemove) {
+
+  var isMobile = false; //initiate as false
+
+  // This is where logic defined...
+  if(/Mobi/.test(navigator.userAgent)) {
+    isMobile = true;
+  }
+
+  // https://docs.glia.com/glia-dev/docs/visitor-js-sdk#setting-visitors-custom-attributes
+  salemove.updateInformation({
+    customAttributes: {
+      device_type: isMobile ? 'mobile' : 'desktop',
+      queue_id: 'queue-id-from-salemove'
+    }
   });
-</script>        
+
+  /**
+  https://sdk-docs.glia.com/visitor-js-api/current/Salemove.html#getQueues
+
+  salemove.getQueues().then(function(queues) {
+     var queueIds = queues.map(function(queue) {
+       return queue.id;
+     });
+
+     console.log(queueIds);
+  });
+  */
+});
+</script>
   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
