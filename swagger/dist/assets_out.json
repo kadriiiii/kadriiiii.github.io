@@ -1,0 +1,942 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Assets",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/site_uploads": {
+      "post": {
+        "summary": "Upload file",
+        "tags": [
+          "Files"
+        ],
+        "description": "Uploads a file for the given site.\n\nThe user uploading the file must have at least super manager role on the given site.\n\nFiles with extension `.mp3`, `.wav` and `.js` will be uploaded to public URLs, which can be accessed without any\nauthentication.\n\nOnce file has been uploaded, it cannot be changed.\n\nIn some cases there is a need to store metadata like name and description along with the file. In order to store\nmetadata, assets can be created. Asset is an object that stores a reference to a file and includes metadata such\nas name, description and type. After file has been uploaded, asset can be created via [POST /site_assets](ref:assets#post_site-assets).\n",
+        "requestBody": {
+          "description": "File properties",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "allOf": [
+                  {
+                    "properties": {
+                      "content": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "File to be uploaded.",
+                        "example": "@example.png"
+                      },
+                      "site_id": {
+                        "type": "string",
+                        "description": "ID of the site to which the file is uploaded.",
+                        "example": "066441b7-0338-4a9c-89fd-30855d262582"
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "content",
+                      "site_id"
+                    ]
+                  }
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "properties": {
+                      "content": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "File to be uploaded.",
+                        "example": "@example.png"
+                      },
+                      "site_id": {
+                        "type": "string",
+                        "description": "ID of the site to which the file is uploaded.",
+                        "example": "066441b7-0338-4a9c-89fd-30855d262582"
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "content",
+                      "site_id"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "File successfully uploaded. Returns the properties of the uploaded file.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "example": {
+                  "content_type": "application/pdf",
+                  "created_at": "2019-09-02T15:10:36.000Z",
+                  "created_by": "be1c1dd4-398d-4a6c-b891-70ee2550350c",
+                  "id": "06390a95-4c90-4fb5-b4ec-490c4ef8587b",
+                  "url": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "422": {
+            "description": "Invalid input. Check if the request is correct."
+          }
+        }
+      }
+    },
+    "/site_files/{id}": {
+      "get": {
+        "summary": "Fetch content",
+        "tags": [
+          "Files"
+        ],
+        "description": "Fetches the content of a specific file.\n\nFiles with extension `.mp3`, `.wav` and `.js` are public and can be requested without any authentication. For\nother types of files, the user requesting the content must be an operator on the corresponding site and must use\n`Bearer`, `ApiToken`, `Token`, or `AuthToken` for authentication.\n",
+        "parameters": [
+          {
+            "description": "ID of the file.",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contents of the file have been successfully fetched."
+          },
+          "404": {
+            "description": "Occurs when file does not exist or user is not authorized to fetch given file.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "example": {
+                  "error": "Access forbbiden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid input. Check if the request is correct."
+          }
+        }
+      }
+    },
+    "/site_assets": {
+      "post": {
+        "summary": "Create asset",
+        "tags": [
+          "Assets"
+        ],
+        "description": "Creates an asset for the given site.\n\nYou need to have an uploaded file before creating the asset, see [`POST /site_upload`](ref:files#post_site-uploads).\n\nThe user creating the asset must have at least the super manager role on the given site.\n",
+        "requestBody": {
+          "description": "Asset properties",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "upload_id": {
+                    "type": "string",
+                    "description": "ID of the file to which the asset is going to be linked.\n",
+                    "example": "4eed5c54-0f95-4302-852e-92a84b8d1d47"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "site_id": {
+                    "type": "string",
+                    "description": "A site ID (in UUID v4 format) associated with the resource.",
+                    "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of the asset. Can be one of `illustration` or `audio`.",
+                    "example": "illustration"
+                  }
+                },
+                "required": [
+                  "upload_id",
+                  "name",
+                  "site_id",
+                  "type"
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "upload_id": {
+                    "type": "string",
+                    "description": "ID of the file to which the asset is going to be linked.\n",
+                    "example": "4eed5c54-0f95-4302-852e-92a84b8d1d47"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "site_id": {
+                    "type": "string",
+                    "description": "A site ID (in UUID v4 format) associated with the resource.",
+                    "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of the asset. Can be one of `illustration` or `audio`.",
+                    "example": "illustration"
+                  }
+                },
+                "required": [
+                  "upload_id",
+                  "name",
+                  "site_id",
+                  "type"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Asset successfully created. Returns asset's properties.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "Audio asset"
+                        },
+                        {
+                          "type": "object",
+                          "description": "Audio asset.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Audio asset's ID (in UUID v4 format).",
+                              "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Audio asset's name.",
+                              "example": "My audio asset"
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "Audio asset's type.",
+                              "example": "audio"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "URL from which the contents of the associated file can be retrieved.",
+                              "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "description": "MIME type of the asset's file.",
+                              "example": "audio/mpeg"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was created.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who created the resource.",
+                              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "Illustration asset"
+                        },
+                        {
+                          "type": "object",
+                          "description": "Illustration asset.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Illustration asset's ID (in UUID v4 format).",
+                              "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Illustration asset's name.",
+                              "example": "My illustration asset"
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "Illustration asset's type.",
+                              "example": "illustration"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "URL from which the contents of the associated file can be retrieved.",
+                              "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "description": "MIME type of the asset's file.",
+                              "example": "application/pdf"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was created.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who created the resource.",
+                              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "examples": {
+                  "audio": {
+                    "value": {
+                      "id": "6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "name": "My audio asset",
+                      "type": "audio",
+                      "url": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "content_type": "audio/mpeg",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    }
+                  },
+                  "illustration": {
+                    "value": {
+                      "id": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "name": "My illustration asset",
+                      "type": "illustration",
+                      "url": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "content_type": "application/pdf",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "422": {
+            "description": "Invalid input. Check if the request is correct."
+          }
+        }
+      },
+      "get": {
+        "summary": "List assets",
+        "tags": [
+          "Assets"
+        ],
+        "description": "Fetches the list of assets. By default, assets for all user's sites are returned.\n\nThe user creating the request must have at least the super manager role.\n",
+        "parameters": [
+          {
+            "name": "site_id",
+            "in": "query",
+            "required": false,
+            "description": "ID of a site. If set, user must have access to the site and only assets belonging to that site are fetched.\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Type of the asset. One of `illustration` or `audio`. If set, only assets of that type are fetched.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assets successfully fetched. Returns object which contains a list with name `assets` where each element is an\nasset.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "array",
+                  "description": "List of assets.",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "allOf": [
+                          {
+                            "title": "Audio asset"
+                          },
+                          {
+                            "type": "object",
+                            "description": "Audio asset.",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Audio asset's ID (in UUID v4 format).",
+                                "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Audio asset's name.",
+                                "example": "My audio asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Audio asset's type.",
+                                "example": "audio"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "audio/mpeg"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "title": "Illustration asset"
+                          },
+                          {
+                            "type": "object",
+                            "description": "Illustration asset.",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Illustration asset's ID (in UUID v4 format).",
+                                "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Illustration asset's name.",
+                                "example": "My illustration asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Illustration asset's type.",
+                                "example": "illustration"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "application/pdf"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "example": {
+                  "assets": [
+                    {
+                      "id": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "name": "My illustration asset",
+                      "type": "illustration",
+                      "url": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "content_type": "application/pdf",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    {
+                      "id": "6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "name": "My audio asset",
+                      "type": "audio",
+                      "url": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "content_type": "audio/mpeg",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Your bearer token has expired or you are not authorized to perform this request.\n"
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "422": {
+            "description": "Invalid input. Check if the request is correct."
+          },
+          "500": {
+            "description": "Internal server error has occurred. Please try again later."
+          }
+        }
+      }
+    },
+    "/site_assets/{id}": {
+      "get": {
+        "summary": "Fetch asset",
+        "tags": [
+          "Assets"
+        ],
+        "description": "Fetches a specific asset.\n\nThe user requesting an asset must have the super manager role on the given site.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID of the asset.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset successfully fetched. Returns asset properties.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "Audio asset"
+                        },
+                        {
+                          "type": "object",
+                          "description": "Audio asset.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Audio asset's ID (in UUID v4 format).",
+                              "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Audio asset's name.",
+                              "example": "My audio asset"
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "Audio asset's type.",
+                              "example": "audio"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "URL from which the contents of the associated file can be retrieved.",
+                              "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "description": "MIME type of the asset's file.",
+                              "example": "audio/mpeg"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was created.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who created the resource.",
+                              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "Illustration asset"
+                        },
+                        {
+                          "type": "object",
+                          "description": "Illustration asset.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Illustration asset's ID (in UUID v4 format).",
+                              "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Illustration asset's name.",
+                              "example": "My illustration asset"
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "Illustration asset's type.",
+                              "example": "illustration"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "URL from which the contents of the associated file can be retrieved.",
+                              "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "description": "MIME type of the asset's file.",
+                              "example": "application/pdf"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was created.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who created the resource.",
+                              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "examples": {
+                  "audio": {
+                    "value": {
+                      "id": "6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "name": "My audio asset",
+                      "type": "audio",
+                      "url": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "content_type": "audio/mpeg",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    }
+                  },
+                  "illustration": {
+                    "value": {
+                      "id": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "name": "My illustration asset",
+                      "type": "illustration",
+                      "url": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "content_type": "application/pdf",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "422": {
+            "description": "Invalid input. Check if the request is correct."
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update asset",
+        "tags": [
+          "Assets"
+        ],
+        "description": "Update an asset.\n\nThe user updating the asset must have at least super manager role on the site the asset belongs to.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID of the asset.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Asset properties",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "upload_id": {
+                    "type": "string",
+                    "description": "ID of the file to which the asset is linked.",
+                    "example": "4eed5c54-0f95-4302-852e-92a84b8d1d47"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of the asset. Can be one of `illustration` or `audio`.",
+                    "example": "illustration"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "upload_id": {
+                    "type": "string",
+                    "description": "ID of the file to which the asset is linked.",
+                    "example": "4eed5c54-0f95-4302-852e-92a84b8d1d47"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of the asset. Can be one of `illustration` or `audio`.",
+                    "example": "illustration"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Asset successfully updated. Returns asset properties.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "Audio asset"
+                        },
+                        {
+                          "type": "object",
+                          "description": "Audio asset.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Audio asset's ID (in UUID v4 format).",
+                              "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Audio asset's name.",
+                              "example": "My audio asset"
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "Audio asset's type.",
+                              "example": "audio"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "URL from which the contents of the associated file can be retrieved.",
+                              "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "description": "MIME type of the asset's file.",
+                              "example": "audio/mpeg"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was created.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who created the resource.",
+                              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "Illustration asset"
+                        },
+                        {
+                          "type": "object",
+                          "description": "Illustration asset.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Illustration asset's ID (in UUID v4 format).",
+                              "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Illustration asset's name.",
+                              "example": "My illustration asset"
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "Illustration asset's type.",
+                              "example": "illustration"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "URL from which the contents of the associated file can be retrieved.",
+                              "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "description": "MIME type of the asset's file.",
+                              "example": "application/pdf"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was created.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who created the resource.",
+                              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "examples": {
+                  "audio": {
+                    "value": {
+                      "id": "6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "name": "My audio asset",
+                      "type": "audio",
+                      "url": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a",
+                      "content_type": "audio/mpeg",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    }
+                  },
+                  "illustration": {
+                    "value": {
+                      "id": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "name": "My illustration asset",
+                      "type": "illustration",
+                      "url": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+                      "content_type": "application/pdf",
+                      "created_at": "2016-06-21T09:12:33.001Z",
+                      "created_by": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "422": {
+            "description": "Invalid input. Check if the request is correct."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete asset",
+        "tags": [
+          "Assets"
+        ],
+        "description": "Delete a specific asset.\n\nThe user deleting an asset must have at least super manager role on the site.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID of the asset.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Asset has been successfully deleted."
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "422": {
+            "description": "Invalid input. Check if the request is correct."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

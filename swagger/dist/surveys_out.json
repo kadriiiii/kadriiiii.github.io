@@ -1,0 +1,1789 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Surveys",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/sites/{site_id}/surveys": {
+      "post": {
+        "summary": "Create survey",
+        "tags": [
+          "Surveys"
+        ],
+        "description": "Creates a survey for a given site.\n\nThe user creating a survey must have at least manager role on the given site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Survey name.",
+                    "type": "string",
+                    "example": "Engagement survey"
+                  },
+                  "description": {
+                    "description": "Survey description.",
+                    "type": "string",
+                    "example": "Engagement survey description"
+                  },
+                  "title": {
+                    "description": "Survey title.",
+                    "type": "string",
+                    "example": "Please rate the experience."
+                  },
+                  "type": {
+                    "description": "The type of the survey.",
+                    "type": "string",
+                    "enum": [
+                      "operator",
+                      "visitor"
+                    ]
+                  },
+                  "is_default": {
+                    "description": "If true, the survey will be shown by default. Can only be set to true when `is_enabled` is true also.\n",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "is_enabled": {
+                    "description": "If true, the survey can be used if it is either default or there exists a matching `queue_id`.\n",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "queue_ids": {
+                    "type": "array",
+                    "description": "A list of queue IDs whose data is requested. Must not be empty.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "bf1072dc-6a65-4603-aebd-392dbb64ac43",
+                      "3d95320e-4e2c-43c8-bcad-ccdc33105e60"
+                    ]
+                  },
+                  "questions": {
+                    "type": "array",
+                    "description": "Questions attached to the given survey",
+                    "items": {
+                      "type": "object"
+                    },
+                    "example": [
+                      {
+                        "id": "329ee746-51ef-4bbd-8e1b-92599f736fba",
+                        "required": true,
+                        "position": 0
+                      },
+                      {
+                        "id": "43253444-d325-4308-9e6e-f73cabcca1c3",
+                        "required": true,
+                        "position": 1
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Survey was created successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "description": "Survey id.",
+                      "type": "string",
+                      "example": "43253444-d325-4308-9e6e-f73cabcca1c3"
+                    },
+                    "name": {
+                      "description": "Survey name.",
+                      "type": "string",
+                      "example": "Engagement survey"
+                    },
+                    "description": {
+                      "description": "Survey description.",
+                      "type": "string",
+                      "example": "Engagement survey description"
+                    },
+                    "title": {
+                      "description": "Survey title.",
+                      "type": "string",
+                      "example": "Please rate the experience."
+                    },
+                    "type": {
+                      "description": "The type of the survey.",
+                      "type": "string",
+                      "enum": [
+                        "operator",
+                        "visitor"
+                      ]
+                    },
+                    "is_default": {
+                      "description": "If true, the survey will be shown by default. Can only be set to true when `is_enabled` is true also.\n",
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "is_enabled": {
+                      "description": "If true, the survey can be used if it is either default or there exists a matching `queue_id`.\n",
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "queue_ids": {
+                      "type": "array",
+                      "description": "A list of queue IDs whose data is requested. Must not be empty.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "bf1072dc-6a65-4603-aebd-392dbb64ac43",
+                        "3d95320e-4e2c-43c8-bcad-ccdc33105e60"
+                      ]
+                    },
+                    "site_id": {
+                      "description": "The ID of the site the survey belongs to.",
+                      "type": "string",
+                      "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+                    },
+                    "questions": {
+                      "type": "array",
+                      "description": "Questions attached to the given survey",
+                      "items": {
+                        "type": "object"
+                      },
+                      "example": [
+                        {
+                          "id": "329ee746-51ef-4bbd-8e1b-92599f736fba",
+                          "required": true,
+                          "position": 0
+                        },
+                        {
+                          "id": "43253444-d325-4308-9e6e-f73cabcca1c3",
+                          "required": true,
+                          "position": 1
+                        }
+                      ]
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List surveys",
+        "tags": [
+          "Surveys"
+        ],
+        "description": "Fetches the list of surveys of a given site.\n\nThe user getting a survey list must have at least manager role on the given site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of surveys for a specific site was fetched successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "array",
+                  "description": "List of surveys.",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "description": "Survey id.",
+                        "type": "string",
+                        "example": "43253444-d325-4308-9e6e-f73cabcca1c3"
+                      },
+                      "name": {
+                        "description": "Survey name.",
+                        "type": "string",
+                        "example": "Engagement survey"
+                      },
+                      "description": {
+                        "description": "Survey description.",
+                        "type": "string",
+                        "example": "Engagement survey description"
+                      },
+                      "title": {
+                        "description": "Survey title.",
+                        "type": "string",
+                        "example": "Please rate the experience."
+                      },
+                      "type": {
+                        "description": "The type of the survey.",
+                        "type": "string",
+                        "enum": [
+                          "operator",
+                          "visitor"
+                        ]
+                      },
+                      "is_default": {
+                        "description": "If true, the survey will be shown by default. Can only be set to true when `is_enabled` is true also.\n",
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "is_enabled": {
+                        "description": "If true, the survey can be used if it is either default or there exists a matching `queue_id`.\n",
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "queue_ids": {
+                        "type": "array",
+                        "description": "A list of queue IDs whose data is requested. Must not be empty.",
+                        "items": {
+                          "type": "string"
+                        },
+                        "example": [
+                          "bf1072dc-6a65-4603-aebd-392dbb64ac43",
+                          "3d95320e-4e2c-43c8-bcad-ccdc33105e60"
+                        ]
+                      },
+                      "site_id": {
+                        "description": "The ID of the site the survey belongs to.",
+                        "type": "string",
+                        "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+                      },
+                      "questions": {
+                        "type": "array",
+                        "description": "List of questions attached to survey",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "ID of the question."
+                            },
+                            "name": {
+                              "description": "Descriptive name.",
+                              "type": "string",
+                              "example": "Question name"
+                            },
+                            "text": {
+                              "description": "Question text.",
+                              "type": "string",
+                              "example": "Which one do you prefer?"
+                            },
+                            "type": {
+                              "description": "Type of the question.",
+                              "type": "string",
+                              "enum": [
+                                "text",
+                                "scale",
+                                "single_choice",
+                                "boolean"
+                              ],
+                              "example": "single_choice"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was created.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who created the resource.",
+                              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "description": "An ISO-8601 timestamp of when the resource was updated.",
+                              "example": "2016-06-21T09:12:33.001Z"
+                            },
+                            "updated_by": {
+                              "type": "string",
+                              "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                              "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                            },
+                            "required": {
+                              "type": "boolean",
+                              "description": "If true, the survey question is required to be answered."
+                            },
+                            "position": {
+                              "type": "integer",
+                              "description": "Position of the question for the survey."
+                            },
+                            "options": {
+                              "type": "array",
+                              "description": "single_choice options.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "description": "ID of the option."
+                                  },
+                                  "label": {
+                                    "type": "string",
+                                    "description": "Text displayed to user as an option label."
+                                  },
+                                  "is_default": {
+                                    "type": "string",
+                                    "description": "If true the Single_choice answer is selected."
+                                  },
+                                  "position": {
+                                    "type": "string",
+                                    "description": "Position of the option in the list."
+                                  }
+                                }
+                              },
+                              "example": [
+                                {
+                                  "id": "5260d5dc-cfc2-4e69-be04-d5a2ae9c20dd",
+                                  "label": "Option one",
+                                  "is_default": true,
+                                  "position": 0
+                                },
+                                {
+                                  "id": "263b5ecd-6184-4c09-8b53-6f78906a2b29",
+                                  "label": "Option two",
+                                  "is_default": false,
+                                  "position": 1
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "example": [
+                          {
+                            "id": "5f6bd3c4-5a6f-4d9f-ae17-a3bab34837ba",
+                            "name": "Question One name.",
+                            "text": "Question One is boolean.",
+                            "type": "boolean",
+                            "site_id": "9433e936-2e61-436a-9d42-7decc9184686",
+                            "created_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                            "created_at": "2020-02-12T12:44:17.916Z",
+                            "updated_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                            "updated_at": "2020-02-12T12:44:17.916Z",
+                            "required": true,
+                            "position": 0
+                          },
+                          {
+                            "id": "0e55cad8-2bb0-4cdf-820a-5722bb61b611",
+                            "name": "Question Two name.",
+                            "text": "Question Two is just text?",
+                            "type": "text",
+                            "site_id": "9433e936-2e61-436a-9d42-7decc9184686",
+                            "created_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                            "created_at": "2020-02-12T12:44:17.918Z",
+                            "updated_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                            "updated_at": "2020-02-12T12:44:17.918Z",
+                            "required": true,
+                            "position": 1
+                          },
+                          {
+                            "id": "7e513cd7-f0a9-400e-b2ce-4ba574494864",
+                            "name": "Question Three name.",
+                            "text": "Question Three has options.",
+                            "type": "single_choice",
+                            "site_id": "01c2556f-5a02-4d62-a492-7328568f0217",
+                            "created_by": "307e5e98-633a-478d-a02f-f8460d3dcc17",
+                            "created_at": "2020-02-12T12:44:17.918Z",
+                            "updated_by": "307e5e98-633a-478d-a02f-f8460d3dcc17",
+                            "updated_at": "2020-02-12T12:44:17.918Z",
+                            "required": true,
+                            "position": 2,
+                            "options": [
+                              {
+                                "id": "5260d5dc-cfc2-4e69-be04-d5a2ae9c20dd",
+                                "label": "Option one",
+                                "is_default": true,
+                                "position": 0
+                              },
+                              {
+                                "id": "263b5ecd-6184-4c09-8b53-6f78906a2b29",
+                                "label": "Option two",
+                                "is_default": false,
+                                "position": 1
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "description": "An ISO-8601 timestamp of when the resource was created.",
+                        "example": "2016-06-21T09:12:33.001Z"
+                      },
+                      "created_by": {
+                        "type": "string",
+                        "description": "A user ID (in UUID v4 format) of who created the resource.",
+                        "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "description": "An ISO-8601 timestamp of when the resource was updated.",
+                        "example": "2016-06-21T09:12:33.001Z"
+                      },
+                      "updated_by": {
+                        "type": "string",
+                        "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                        "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/surveys/{survey_id}": {
+      "patch": {
+        "summary": "Update survey",
+        "tags": [
+          "Surveys"
+        ],
+        "description": "Updates a specific survey.\n\nThe user who wants to update the survey must have at least manager role on the site the survey belongs to.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "survey_id",
+            "description": "ID of the survey.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "43253444-d325-4308-9e6e-f73cabcca1c3",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Survey name.",
+                    "type": "string",
+                    "example": "Engagement survey"
+                  },
+                  "description": {
+                    "description": "Survey description.",
+                    "type": "string",
+                    "example": "Engagement survey description"
+                  },
+                  "title": {
+                    "description": "Survey title.",
+                    "type": "string",
+                    "example": "Please rate the experience."
+                  },
+                  "type": {
+                    "description": "The type of the survey.",
+                    "type": "string",
+                    "enum": [
+                      "operator",
+                      "visitor"
+                    ]
+                  },
+                  "is_default": {
+                    "description": "If true, the survey will be shown by default. Can only be set to true when `is_enabled` is true also.\n",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "is_enabled": {
+                    "description": "If true, the survey can be used if it is either default or there exists a matching `queue_id`.\n",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "queue_ids": {
+                    "type": "array",
+                    "description": "A list of queue IDs whose data is requested. Must not be empty.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "bf1072dc-6a65-4603-aebd-392dbb64ac43",
+                      "3d95320e-4e2c-43c8-bcad-ccdc33105e60"
+                    ]
+                  },
+                  "questions": {
+                    "type": "array",
+                    "description": "Questions attached to the given survey",
+                    "items": {
+                      "type": "object"
+                    },
+                    "example": [
+                      {
+                        "id": "329ee746-51ef-4bbd-8e1b-92599f736fba",
+                        "required": true,
+                        "position": 0
+                      },
+                      {
+                        "id": "43253444-d325-4308-9e6e-f73cabcca1c3",
+                        "required": true,
+                        "position": 1
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Survey was updated successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "description": "Survey id.",
+                      "type": "string",
+                      "example": "43253444-d325-4308-9e6e-f73cabcca1c3"
+                    },
+                    "name": {
+                      "description": "Survey name.",
+                      "type": "string",
+                      "example": "Engagement survey"
+                    },
+                    "description": {
+                      "description": "Survey description.",
+                      "type": "string",
+                      "example": "Engagement survey description"
+                    },
+                    "title": {
+                      "description": "Survey title.",
+                      "type": "string",
+                      "example": "Please rate the experience."
+                    },
+                    "type": {
+                      "description": "The type of the survey.",
+                      "type": "string",
+                      "enum": [
+                        "operator",
+                        "visitor"
+                      ]
+                    },
+                    "is_default": {
+                      "description": "If true, the survey will be shown by default. Can only be set to true when `is_enabled` is true also.\n",
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "is_enabled": {
+                      "description": "If true, the survey can be used if it is either default or there exists a matching `queue_id`.\n",
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "queue_ids": {
+                      "type": "array",
+                      "description": "A list of queue IDs whose data is requested. Must not be empty.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "bf1072dc-6a65-4603-aebd-392dbb64ac43",
+                        "3d95320e-4e2c-43c8-bcad-ccdc33105e60"
+                      ]
+                    },
+                    "site_id": {
+                      "description": "The ID of the site the survey belongs to.",
+                      "type": "string",
+                      "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+                    },
+                    "questions": {
+                      "type": "array",
+                      "description": "Questions attached to the given survey",
+                      "items": {
+                        "type": "object"
+                      },
+                      "example": [
+                        {
+                          "id": "329ee746-51ef-4bbd-8e1b-92599f736fba",
+                          "required": true,
+                          "position": 0
+                        },
+                        {
+                          "id": "43253444-d325-4308-9e6e-f73cabcca1c3",
+                          "required": true,
+                          "position": 1
+                        }
+                      ]
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete survey",
+        "tags": [
+          "Surveys"
+        ],
+        "description": "Deletes a specific survey for a given site.\n\nThe user deleting a survey must have at least `manager` role on the given site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "survey_id",
+            "description": "ID of the survey.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "43253444-d325-4308-9e6e-f73cabcca1c3",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Survey was deleted successfully."
+          }
+        }
+      }
+    },
+    "/engagements/{engagement_id}/survey": {
+      "get": {
+        "summary": "Fetch engagement's survey",
+        "tags": [
+          "Surveys"
+        ],
+        "description": "Fetches a survey for given engagement for the requester's user type.\n\nIf requesting user's role is operator, the surveys with type operator is returned. If requesting user's role is\nvisitor, the survey with type visitor is returned.\n",
+        "parameters": [
+          {
+            "name": "engagement_id",
+            "description": "ID of the engagement for which the survey is requested.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "f47be834-6627-4723-b4df-9c727b711b0e",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A survey for specific enagement was fetched successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "survey": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "description": "Survey id.",
+                          "type": "string",
+                          "example": "43253444-d325-4308-9e6e-f73cabcca1c3"
+                        },
+                        "name": {
+                          "description": "Survey name.",
+                          "type": "string",
+                          "example": "Engagement survey"
+                        },
+                        "description": {
+                          "description": "Survey description.",
+                          "type": "string",
+                          "example": "Engagement survey description"
+                        },
+                        "title": {
+                          "description": "Survey title.",
+                          "type": "string",
+                          "example": "Please rate the experience."
+                        },
+                        "type": {
+                          "description": "The type of the survey.",
+                          "type": "string",
+                          "enum": [
+                            "operator",
+                            "visitor"
+                          ]
+                        },
+                        "is_default": {
+                          "description": "If true, the survey will be shown by default. Can only be set to true when `is_enabled` is true also.\n",
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "is_enabled": {
+                          "description": "If true, the survey can be used if it is either default or there exists a matching `queue_id`.\n",
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "queue_ids": {
+                          "type": "array",
+                          "description": "A list of queue IDs whose data is requested. Must not be empty.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "bf1072dc-6a65-4603-aebd-392dbb64ac43",
+                            "3d95320e-4e2c-43c8-bcad-ccdc33105e60"
+                          ]
+                        },
+                        "site_id": {
+                          "description": "The ID of the site the survey belongs to.",
+                          "type": "string",
+                          "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+                        },
+                        "questions": {
+                          "type": "array",
+                          "description": "List of questions attached to survey",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID of the question."
+                              },
+                              "name": {
+                                "description": "Descriptive name.",
+                                "type": "string",
+                                "example": "Question name"
+                              },
+                              "text": {
+                                "description": "Question text.",
+                                "type": "string",
+                                "example": "Which one do you prefer?"
+                              },
+                              "type": {
+                                "description": "Type of the question.",
+                                "type": "string",
+                                "enum": [
+                                  "text",
+                                  "scale",
+                                  "single_choice",
+                                  "boolean"
+                                ],
+                                "example": "single_choice"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was updated.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "updated_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                                "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "description": "If true, the survey question is required to be answered."
+                              },
+                              "position": {
+                                "type": "integer",
+                                "description": "Position of the question for the survey."
+                              },
+                              "options": {
+                                "type": "array",
+                                "description": "single_choice options.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "description": "ID of the option."
+                                    },
+                                    "label": {
+                                      "type": "string",
+                                      "description": "Text displayed to user as an option label."
+                                    },
+                                    "is_default": {
+                                      "type": "string",
+                                      "description": "If true the Single_choice answer is selected."
+                                    },
+                                    "position": {
+                                      "type": "string",
+                                      "description": "Position of the option in the list."
+                                    }
+                                  }
+                                },
+                                "example": [
+                                  {
+                                    "id": "5260d5dc-cfc2-4e69-be04-d5a2ae9c20dd",
+                                    "label": "Option one",
+                                    "is_default": true,
+                                    "position": 0
+                                  },
+                                  {
+                                    "id": "263b5ecd-6184-4c09-8b53-6f78906a2b29",
+                                    "label": "Option two",
+                                    "is_default": false,
+                                    "position": 1
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "example": [
+                            {
+                              "id": "5f6bd3c4-5a6f-4d9f-ae17-a3bab34837ba",
+                              "name": "Question One name.",
+                              "text": "Question One is boolean.",
+                              "type": "boolean",
+                              "site_id": "9433e936-2e61-436a-9d42-7decc9184686",
+                              "created_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                              "created_at": "2020-02-12T12:44:17.916Z",
+                              "updated_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                              "updated_at": "2020-02-12T12:44:17.916Z",
+                              "required": true,
+                              "position": 0
+                            },
+                            {
+                              "id": "0e55cad8-2bb0-4cdf-820a-5722bb61b611",
+                              "name": "Question Two name.",
+                              "text": "Question Two is just text?",
+                              "type": "text",
+                              "site_id": "9433e936-2e61-436a-9d42-7decc9184686",
+                              "created_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                              "created_at": "2020-02-12T12:44:17.918Z",
+                              "updated_by": "5e0c3871-f35e-4d4c-aa86-7bb05597f675",
+                              "updated_at": "2020-02-12T12:44:17.918Z",
+                              "required": true,
+                              "position": 1
+                            },
+                            {
+                              "id": "7e513cd7-f0a9-400e-b2ce-4ba574494864",
+                              "name": "Question Three name.",
+                              "text": "Question Three has options.",
+                              "type": "single_choice",
+                              "site_id": "01c2556f-5a02-4d62-a492-7328568f0217",
+                              "created_by": "307e5e98-633a-478d-a02f-f8460d3dcc17",
+                              "created_at": "2020-02-12T12:44:17.918Z",
+                              "updated_by": "307e5e98-633a-478d-a02f-f8460d3dcc17",
+                              "updated_at": "2020-02-12T12:44:17.918Z",
+                              "required": true,
+                              "position": 2,
+                              "options": [
+                                {
+                                  "id": "5260d5dc-cfc2-4e69-be04-d5a2ae9c20dd",
+                                  "label": "Option one",
+                                  "is_default": true,
+                                  "position": 0
+                                },
+                                {
+                                  "id": "263b5ecd-6184-4c09-8b53-6f78906a2b29",
+                                  "label": "Option two",
+                                  "is_default": false,
+                                  "position": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was updated.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "updated_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                          "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/survey_questions": {
+      "post": {
+        "summary": "Create question",
+        "tags": [
+          "Questions"
+        ],
+        "description": "Creates a survey question for a given site.\n\nThe user creating a survey question must have at least manager role on the given site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Descriptive name.",
+                    "type": "string",
+                    "example": "Question name"
+                  },
+                  "text": {
+                    "description": "Question text.",
+                    "type": "string",
+                    "example": "Which one do you prefer?"
+                  },
+                  "type": {
+                    "description": "Type of the question.",
+                    "type": "string",
+                    "enum": [
+                      "text",
+                      "scale",
+                      "single_choice",
+                      "boolean"
+                    ],
+                    "example": "single_choice"
+                  },
+                  "options": {
+                    "type": "array",
+                    "description": "Single choice options.\n\nIn case the question type is `single_choice` then the options attribute is required.\n",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "description": "Text displayed to user as an option label."
+                        },
+                        "is_default": {
+                          "type": "string",
+                          "description": "If true the Single_choice answer is selected."
+                        },
+                        "position": {
+                          "type": "string",
+                          "description": "Position of the option in the list."
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "label": "Option one",
+                        "is_default": true,
+                        "position": 0
+                      },
+                      {
+                        "label": "Option two",
+                        "is_default": false,
+                        "position": 1
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "name",
+                  "text",
+                  "type"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Question was created successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "name": {
+                      "description": "Descriptive name.",
+                      "type": "string",
+                      "example": "Question name"
+                    },
+                    "text": {
+                      "description": "Question text.",
+                      "type": "string",
+                      "example": "Which one do you prefer?"
+                    },
+                    "type": {
+                      "description": "Type of the question.",
+                      "type": "string",
+                      "enum": [
+                        "text",
+                        "scale",
+                        "single_choice",
+                        "boolean"
+                      ],
+                      "example": "single_choice"
+                    },
+                    "options": {
+                      "type": "array",
+                      "description": "Single choice options.\n\nIn case the question type is `single_choice` then the options attribute is required.\n",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "description": "Text displayed to user as an option label."
+                          },
+                          "is_default": {
+                            "type": "string",
+                            "description": "If true the Single_choice answer is selected."
+                          },
+                          "position": {
+                            "type": "string",
+                            "description": "Position of the option in the list."
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "label": "Option one",
+                          "is_default": true,
+                          "position": 0
+                        },
+                        {
+                          "label": "Option two",
+                          "is_default": false,
+                          "position": 1
+                        }
+                      ]
+                    },
+                    "site_id": {
+                      "description": "The ID of the site the question belongs to.",
+                      "type": "string",
+                      "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List questions",
+        "tags": [
+          "Questions"
+        ],
+        "description": "Fetches the list of survey questions for a given site.\n\nThe user requesting the list of survey questions must have at least manager role on the given site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of survey questions was fetched successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "name": {
+                      "description": "Descriptive name.",
+                      "type": "string",
+                      "example": "Question name"
+                    },
+                    "text": {
+                      "description": "Question text.",
+                      "type": "string",
+                      "example": "Which one do you prefer?"
+                    },
+                    "type": {
+                      "description": "Type of the question.",
+                      "type": "string",
+                      "enum": [
+                        "text",
+                        "scale",
+                        "single_choice",
+                        "boolean"
+                      ],
+                      "example": "single_choice"
+                    },
+                    "options": {
+                      "type": "array",
+                      "description": "Single choice options.\n\nIn case the question type is `single_choice` then the options attribute is required.\n",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "description": "Text displayed to user as an option label."
+                          },
+                          "is_default": {
+                            "type": "string",
+                            "description": "If true the Single_choice answer is selected."
+                          },
+                          "position": {
+                            "type": "string",
+                            "description": "Position of the option in the list."
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "label": "Option one",
+                          "is_default": true,
+                          "position": 0
+                        },
+                        {
+                          "label": "Option two",
+                          "is_default": false,
+                          "position": 1
+                        }
+                      ]
+                    },
+                    "site_id": {
+                      "description": "The ID of the site the question belongs to.",
+                      "type": "string",
+                      "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/survey_questions/{question_id}": {
+      "patch": {
+        "summary": "Update question",
+        "tags": [
+          "Questions"
+        ],
+        "description": "Updates a survey question for a given site.\n\nThe user updating a survey question must have at least manager role on the given site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "question_id",
+            "description": "ID of the question to update.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "f47be834-6627-4723-b4df-9c727b711b0e",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Descriptive name.",
+                    "type": "string",
+                    "example": "Question name"
+                  },
+                  "text": {
+                    "description": "Question text.",
+                    "type": "string",
+                    "example": "Which one do you prefer?"
+                  },
+                  "type": {
+                    "description": "Type of the question.",
+                    "type": "string",
+                    "enum": [
+                      "text",
+                      "scale",
+                      "single_choice",
+                      "boolean"
+                    ],
+                    "example": "single_choice"
+                  },
+                  "options": {
+                    "type": "array",
+                    "description": "Single choice options.\n\nIn case the question type is `single_choice` then the options attribute is required.\n",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "description": "Text displayed to user as an option label."
+                        },
+                        "is_default": {
+                          "type": "string",
+                          "description": "If true the Single_choice answer is selected."
+                        },
+                        "position": {
+                          "type": "string",
+                          "description": "Position of the option in the list."
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "label": "Option one",
+                        "is_default": true,
+                        "position": 0
+                      },
+                      {
+                        "label": "Option two",
+                        "is_default": false,
+                        "position": 1
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Question was updated successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "name": {
+                      "description": "Descriptive name.",
+                      "type": "string",
+                      "example": "Question name"
+                    },
+                    "text": {
+                      "description": "Question text.",
+                      "type": "string",
+                      "example": "Which one do you prefer?"
+                    },
+                    "type": {
+                      "description": "Type of the question.",
+                      "type": "string",
+                      "enum": [
+                        "text",
+                        "scale",
+                        "single_choice",
+                        "boolean"
+                      ],
+                      "example": "single_choice"
+                    },
+                    "options": {
+                      "type": "array",
+                      "description": "Single choice options.\n\nIn case the question type is `single_choice` then the options attribute is required.\n",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "description": "Text displayed to user as an option label."
+                          },
+                          "is_default": {
+                            "type": "string",
+                            "description": "If true the Single_choice answer is selected."
+                          },
+                          "position": {
+                            "type": "string",
+                            "description": "Position of the option in the list."
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "label": "Option one",
+                          "is_default": true,
+                          "position": 0
+                        },
+                        {
+                          "label": "Option two",
+                          "is_default": false,
+                          "position": 1
+                        }
+                      ]
+                    },
+                    "site_id": {
+                      "description": "The ID of the site the question belongs to.",
+                      "type": "string",
+                      "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete question",
+        "tags": [
+          "Questions"
+        ],
+        "description": "Deletes a specific survey question for a given site.\n\nThe user deleting a survey question must have at least manager role on the given site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "question_id",
+            "description": "ID of the question to update.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "f47be834-6627-4723-b4df-9c727b711b0e",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Question was deleted successfully."
+          }
+        }
+      }
+    },
+    "/surveys/{survey_id}/answers": {
+      "post": {
+        "summary": "Create answers",
+        "tags": [
+          "Answers"
+        ],
+        "description": "Creates answers for a survey in the context of a given engagement.\n\nThe user submitting answers to the survey must be participant (visitor or operator) of the given engagement.\n",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "description": "ID of the survey.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "43253444-d325-4308-9e6e-f73cabcca1c3",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "engagement_id": {
+                    "description": "ID of the engagement for which the answers are created.",
+                    "type": "string",
+                    "example": "7a5c1f8b-2562-4a94-ada8-cf1d019ec7a2"
+                  },
+                  "answers": {
+                    "type": "array",
+                    "description": "List of answers to create. Each answer must consist of question_id and response.\n",
+                    "items": {
+                      "type": "object"
+                    },
+                    "example": [
+                      {
+                        "question_id": "cffd17b6-ec5c-459b-909b-73bc31f05804",
+                        "response": "free-text response"
+                      },
+                      {
+                        "question_id": "f999fb61-32f5-42cf-8619-c2e2b72fbcec",
+                        "response": 5
+                      },
+                      {
+                        "question_id": "04d399ad-eb48-4261-8c14-28ce9f3022ed",
+                        "response": false
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Answers were created successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/engagements/{engagement_id}/survey_answers/visitor": {
+      "get": {
+        "summary": "Fetch visitor answers",
+        "tags": [
+          "Answers"
+        ],
+        "description": "Fetches the visitor's survey answers.\n\nThe user fetching the answers must be either an operator who participated in the engagement or a user who has at\nleast manager role on the given site.\n",
+        "parameters": [
+          {
+            "name": "engagement_id",
+            "description": "ID of the engagement for which the survey is requested.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "f47be834-6627-4723-b4df-9c727b711b0e",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Visitor answers were fetched successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "answers": {
+                      "type": "array",
+                      "description": "Survey answers.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "ID of the answer."
+                          },
+                          "question_id": {
+                            "type": "string",
+                            "description": "ID of the question which was answered."
+                          },
+                          "position": {
+                            "type": "string",
+                            "description": "Position of the question in the list."
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Type of the question which was answered"
+                          },
+                          "answer": {
+                            "type": "string",
+                            "description": "Answer for the question."
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "id": "c0955f77-d451-4c33-a393-df916124c74b",
+                          "question_id": "c1732287-9d63-4173-9213-bd3de3d336c8",
+                          "title": "How satisfied are you with the customer service?",
+                          "position": 0,
+                          "type": "scale",
+                          "answer": 5
+                        },
+                        {
+                          "id": "6811db44-d356-402a-b40d-1a734eec5450",
+                          "question_id": "740cf9ff-01bc-435e-819d-c153df1d4b1b",
+                          "title": "Do you have any extra feedback?",
+                          "position": 1,
+                          "type": "text",
+                          "answer": "I got answers to all my questions."
+                        },
+                        {
+                          "id": "2a2e995e-930c-4bf5-b722-aa51163ae93e",
+                          "question_id": "5723d10d-f868-465d-a92d-0c49b7a3f4d8",
+                          "title": "What was the chat topic?",
+                          "position": 2,
+                          "type": "single_choice",
+                          "answer": "Payment"
+                        },
+                        {
+                          "id": "35985944-c708-44c9-9afe-910a9b361208",
+                          "question_id": "5d533134-05e2-4db3-afc4-a518bb5c36e7",
+                          "title": "Would you use the customer service again?",
+                          "position": 3,
+                          "type": "boolean",
+                          "answer": true
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/engagements/{engagement_id}/survey_answers/operator": {
+      "get": {
+        "summary": "Fetch operator answers",
+        "tags": [
+          "Answers"
+        ],
+        "description": "Fetches the operator's survey answers.\n\nThe user getting the answers must be either an operator who participated in the engagement or a user who has at\nleast manager role on the given site.\n",
+        "parameters": [
+          {
+            "name": "engagement_id",
+            "description": "ID of the engagement for which the survey is requested.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "f47be834-6627-4723-b4df-9c727b711b0e",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operator answers were fetched successfully.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "answers": {
+                      "type": "array",
+                      "description": "Survey answers.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "ID of the answer."
+                          },
+                          "question_id": {
+                            "type": "string",
+                            "description": "ID of the question which was answered."
+                          },
+                          "position": {
+                            "type": "string",
+                            "description": "Position of the question in the list."
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Type of the question which was answered"
+                          },
+                          "answer": {
+                            "type": "string",
+                            "description": "Answer for the question."
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "id": "c0955f77-d451-4c33-a393-df916124c74b",
+                          "question_id": "c1732287-9d63-4173-9213-bd3de3d336c8",
+                          "title": "How satisfied are you with the customer service?",
+                          "position": 0,
+                          "type": "scale",
+                          "answer": 5
+                        },
+                        {
+                          "id": "6811db44-d356-402a-b40d-1a734eec5450",
+                          "question_id": "740cf9ff-01bc-435e-819d-c153df1d4b1b",
+                          "title": "Do you have any extra feedback?",
+                          "position": 1,
+                          "type": "text",
+                          "answer": "I got answers to all my questions."
+                        },
+                        {
+                          "id": "2a2e995e-930c-4bf5-b722-aa51163ae93e",
+                          "question_id": "5723d10d-f868-465d-a92d-0c49b7a3f4d8",
+                          "title": "What was the chat topic?",
+                          "position": 2,
+                          "type": "single_choice",
+                          "answer": "Payment"
+                        },
+                        {
+                          "id": "35985944-c708-44c9-9afe-910a9b361208",
+                          "question_id": "5d533134-05e2-4db3-afc4-a518bb5c36e7",
+                          "title": "Would you use the customer service again?",
+                          "position": 3,
+                          "type": "boolean",
+                          "answer": true
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

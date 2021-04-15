@@ -1,0 +1,1735 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Operators",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/operators": {
+      "post": {
+        "summary": "Create user",
+        "tags": [
+          "Operators"
+        ],
+        "description": "Creates a new operator.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the user."
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "E-mail of the user. It must be unique."
+                  },
+                  "audio_source": {
+                    "type": "string",
+                    "default": "computer",
+                    "description": "The audio device used for audio calls. Additional audio sources may be added in the future.\n",
+                    "enum": [
+                      "computer",
+                      "phone",
+                      "sip_phone"
+                    ]
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number of the user. The supported format is [E.164](doc:glossary#phone-number).\nMust be set if `audio_source` is `phone`.\n"
+                  },
+                  "phone_extension": {
+                    "type": "string",
+                    "description": "The phone number extension of the user.\n\nA valid extension contains 1-7 digits and any number of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nValid only if `phone` is also set or was set beforehand.\n"
+                  },
+                  "sip_domain_id": {
+                    "type": "string",
+                    "description": "The ID of the [SIP domain](ref:sip-domains) used for SIP calls. Must be set if `audio_source` is `sip_phone`.\n"
+                  },
+                  "sip_extension": {
+                    "type": "string",
+                    "description": "The SIP extension of the user. Maximum length is 30 characters.\nAn [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant format is supported. Valid only if\n`sip_domain_id` is also set or was set beforehand. Must be set if `audio_source` is `sip_phone`.\n"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user."
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "description": "Password of the user. Values of the fields `password` and `password_confirmation` must be identical.\n"
+                  },
+                  "picture_data": {
+                    "type": "string",
+                    "description": "User's picture in Base64 format."
+                  },
+                  "assignments": {
+                    "type": "array",
+                    "description": "An array of user's assignments. Specifying an empty array returns a validation error as at least one site needs\nto be assigned to the created user or remain assigned to the user being updated.\n",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "site_id": {
+                          "type": "string",
+                          "description": "Id of the Site that is assigned to the Operator. The admin adding or updating the Operator must have access to\nthe site.\n"
+                        },
+                        "team_ids": {
+                          "type": "array",
+                          "description": "An array of team IDs that are assigned to the user. The assigned teams must belong to the site, otherwise a\nvalidation error is returned. If `team_ids` is not specified, then user will be assigned to the `General` team.\nThe provided team IDs will replace the existing team assignments.\n",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "site_id"
+                      ]
+                    }
+                  },
+                  "max_engagement_count": {
+                    "type": "integer",
+                    "description": "Maximum number of concurrent engagements allowed for this user. If omitted, minimum allowed engagement count from\nassigned Sites configuration will be used.\n"
+                  },
+                  "multi_engagement_default_availability": {
+                    "type": "string",
+                    "description": "Availability behaviour when user engages and multi-engagement is allowed.\n\n* `unavailable` - operator is unavailable.\n* `chat` - operator availability is chat media.\n* `retain` - previous availability is retained.\n\nIf omitted, value from the assigned site configuration will be used.\n",
+                    "enum": [
+                      "unavailable",
+                      "chat",
+                      "retain"
+                    ]
+                  },
+                  "reactive_enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "`true`, if user is able to receive calls from visitors.\n"
+                  },
+                  "proactive_enabled": {
+                    "type": "boolean",
+                    "description": "* `true`, if user is able to initiate engagements with visitors.\n* If `false`, the user is still able to place outbound phone calls if the site configuration allows.\n"
+                  },
+                  "observation_enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If `true`, the user is able to observe visitors before engagements.\n"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "password_confirmation",
+                  "assignments"
+                ],
+                "example": {
+                  "name": "Jordan Green",
+                  "email": "jordan.green@institution.com",
+                  "password": "4hh3jh63h43j6r.e",
+                  "password_confirmation": "4hh3jh63h43j6r.e",
+                  "assignments": [
+                    {
+                      "site_id": "da460378-0b0e-435b-9d78-0227ac579b35"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "URI for the user."
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "User ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the user."
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "E-mail of the user. It must be unique."
+                    },
+                    "audio_source": {
+                      "type": "string",
+                      "default": "computer",
+                      "description": "The audio device used for audio calls. Additional audio sources may be added in the future.\n",
+                      "enum": [
+                        "computer",
+                        "phone",
+                        "sip_phone"
+                      ]
+                    },
+                    "phone_extension": {
+                      "type": "string",
+                      "description": "The phone number extension of the user.\n\nA valid extension contains 1-7 digits and any number of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nValid only if `phone` is also set or was set beforehand.\n"
+                    },
+                    "sip_domain_id": {
+                      "type": "string",
+                      "description": "The ID of the [SIP domain](ref:sip-domains) used for SIP calls. Must be set if `audio_source` is `sip_phone`.\n"
+                    },
+                    "sip_extension": {
+                      "type": "string",
+                      "description": "The SIP extension of the user. Maximum length is 30 characters.\nAn [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant format is supported. Valid only if\n`sip_domain_id` is also set or was set beforehand. Must be set if `audio_source` is `sip_phone`.\n"
+                    },
+                    "role": {
+                      "type": "string",
+                      "description": "User's role.",
+                      "enum": [
+                        "operator",
+                        "manager",
+                        "super_manager"
+                      ]
+                    },
+                    "available": {
+                      "type": "boolean",
+                      "description": "Engagement availability.\n\n* `true` - user is available for a new engagement.\n* `false` - user is unavailable for a new engagement.\n"
+                    },
+                    "enabled": {
+                      "type": "boolean",
+                      "description": "* `true` - user can use the platform.\n* `false` - user can not use the platform.\n"
+                    },
+                    "available_media_types": {
+                      "type": "array",
+                      "description": "A list of media types the user is available for.",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "video",
+                          "audio",
+                          "chat"
+                        ]
+                      }
+                    },
+                    "max_engagement_count": {
+                      "type": "integer",
+                      "description": "Maximum number of concurrent engagements allowed for this user. If omitted, minimum allowed engagement count from\nassigned Sites configuration will be used.\n"
+                    },
+                    "multi_engagement_default_availability": {
+                      "type": "string",
+                      "description": "Availability behaviour when user engages and multi-engagement is allowed.\n\n* `unavailable` - operator is unavailable.\n* `chat` - operator availability is chat media.\n* `retain` - previous availability is retained.\n\nIf omitted, value from the assigned site configuration will be used.\n",
+                      "enum": [
+                        "unavailable",
+                        "chat",
+                        "retain"
+                      ]
+                    },
+                    "reactive_enabled": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "`true`, if user is able to receive calls from visitors.\n"
+                    },
+                    "proactive_enabled": {
+                      "type": "boolean",
+                      "description": "* `true`, if user is able to initiate engagements with visitors.\n* If `false`, the user is still able to place outbound phone calls if the site configuration allows.\n"
+                    },
+                    "observation_enabled": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "If `true`, the user is able to observe visitors before engagements.\n"
+                    },
+                    "engagements": {
+                      "type": "array",
+                      "description": "A list of user's ongoing engagements.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Engagement ID."
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of a site where engagement occurs."
+                          },
+                          "visitor_id": {
+                            "type": "string",
+                            "description": "ID of an engaged visitor."
+                          },
+                          "operator_id": {
+                            "type": "string",
+                            "description": "ID of an engaged operator."
+                          },
+                          "started_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the Engagement started."
+                          },
+                          "audio_used": {
+                            "type": "boolean",
+                            "description": "`true`, if audio is used in the Engagement."
+                          },
+                          "video_used": {
+                            "type": "boolean",
+                            "description": "`true`, if video is used in the Engagement."
+                          }
+                        }
+                      }
+                    },
+                    "engaged_since": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the user first started an engagement. In case of multiple engagements, this is the\nstart time of the first engagement even if the first engagement has ended. When the user is not engaged, this field\nwill not be present.\n"
+                    },
+                    "engagement_requests": {
+                      "type": "array",
+                      "description": "A list of user's ongoing engagement requests.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of the Engagement Request Site."
+                          },
+                          "visitor_id": {
+                            "type": "string",
+                            "description": "ID of the Visitor."
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the Engagement Request was created."
+                          }
+                        }
+                      }
+                    },
+                    "picture": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "URL of the user's picture. `null` if no picture is currently set.\n"
+                        }
+                      }
+                    },
+                    "phone": {
+                      "type": "string",
+                      "description": "Phone number of the user. The supported format is [E.164](doc:glossary#phone-number).\nMust be set if `audio_source` is `phone`.\n"
+                    },
+                    "unavailability_reason": {
+                      "type": "string",
+                      "description": "User's unavailability reason."
+                    },
+                    "teams": {
+                      "type": "array",
+                      "description": "Array of teams the user belongs to.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Team ID."
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of a site to which the team belongs to."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Team name."
+                          }
+                        }
+                      }
+                    },
+                    "assignments": {
+                      "type": "array",
+                      "description": "An array of user's assignments. Specifying an empty array returns a validation error as at least one site needs\nto be assigned to the created user or remain assigned to the user being updated.\n",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "site_id": {
+                            "type": "string",
+                            "description": "Id of the Site that is assigned to the Operator. The admin adding or updating the Operator must have access to\nthe site.\n"
+                          },
+                          "team_ids": {
+                            "type": "array",
+                            "description": "An array of team IDs that are assigned to the user. The assigned teams must belong to the site, otherwise a\nvalidation error is returned. If `team_ids` is not specified, then user will be assigned to the `General` team.\nThe provided team IDs will replace the existing team assignments.\n",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "site_id"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "href": "https://api.salemove.com/operators/4918e73f-c92e-45cb-bc69-67cc541849ea",
+                  "id": "4918e73f-c92e-45cb-bc69-67cc541849ea",
+                  "name": "Jordan Green",
+                  "email": "jordan.green@institution.com",
+                  "audio_source": "computer",
+                  "phone_extension": null,
+                  "sip_domain_id": null,
+                  "sip_extension": null,
+                  "role": "operator",
+                  "available": false,
+                  "enabled": true,
+                  "available_media_types": [],
+                  "max_engagement_count": null,
+                  "multi_engagement_default_availability": null,
+                  "reactive_enabled": true,
+                  "proactive_enabled": true,
+                  "observation_enabled": true,
+                  "engagements": [],
+                  "engagement_requests": [],
+                  "picture": {
+                    "url": null
+                  },
+                  "phone": null,
+                  "unavailability_reason": "unknown",
+                  "teams": [
+                    {
+                      "id": "f16f4b97-f8a8-4ac3-affa-3fb831441318",
+                      "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                      "name": "General"
+                    }
+                  ],
+                  "assignments": [
+                    {
+                      "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                      "team_ids": [
+                        "f16f4b97-f8a8-4ac3-affa-3fb831441318"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List users",
+        "tags": [
+          "Operators"
+        ],
+        "description": "Lists all users (operators, managers, super_managers) visible to the caller given associated sites and permissions.\n\nThis endpoint returns a paginated response, see [pagination](ref:pagination)\n",
+        "parameters": [
+          {
+            "name": "contains",
+            "in": "query",
+            "description": "Only users whose name contains the specified value will be included in the\nresponse.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "alice"
+          },
+          {
+            "name": "include_engagements",
+            "in": "query",
+            "description": "If `true`, fetches data for `engagements`, `engagement_requests` and `engaged_since`.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "include_disabled",
+            "in": "query",
+            "description": "If `true`, includes users that have been disabled.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "include_offline",
+            "in": "query",
+            "description": "If `true`, includes users that are offline.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "include_support",
+            "in": "query",
+            "description": "If `true`, includes users from Glia support staff.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "site_ids",
+            "in": "query",
+            "description": "Only users from the specified sites will be included in the response. Users from all sites available to the\ncaller will be included if this option is not specified.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "team_ids",
+            "in": "query",
+            "description": "Only users from the specified teams will be included in the response. Users from all teams will be included if\nthis option is not specified.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "last_page": {
+                      "type": "string"
+                    },
+                    "operators": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "href": {
+                            "type": "string",
+                            "description": "URI for the user."
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "User ID."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the user."
+                          },
+                          "email": {
+                            "type": "string",
+                            "description": "E-mail of the user. It must be unique."
+                          },
+                          "audio_source": {
+                            "type": "string",
+                            "default": "computer",
+                            "description": "The audio device used for audio calls. Additional audio sources may be added in the future.\n",
+                            "enum": [
+                              "computer",
+                              "phone",
+                              "sip_phone"
+                            ]
+                          },
+                          "phone_extension": {
+                            "type": "string",
+                            "description": "The phone number extension of the user.\n\nA valid extension contains 1-7 digits and any number of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nValid only if `phone` is also set or was set beforehand.\n"
+                          },
+                          "sip_domain_id": {
+                            "type": "string",
+                            "description": "The ID of the [SIP domain](ref:sip-domains) used for SIP calls. Must be set if `audio_source` is `sip_phone`.\n"
+                          },
+                          "sip_extension": {
+                            "type": "string",
+                            "description": "The SIP extension of the user. Maximum length is 30 characters.\nAn [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant format is supported. Valid only if\n`sip_domain_id` is also set or was set beforehand. Must be set if `audio_source` is `sip_phone`.\n"
+                          },
+                          "role": {
+                            "type": "string",
+                            "description": "User's role.",
+                            "enum": [
+                              "operator",
+                              "manager",
+                              "super_manager"
+                            ]
+                          },
+                          "available": {
+                            "type": "boolean",
+                            "description": "Engagement availability.\n\n* `true` - user is available for a new engagement.\n* `false` - user is unavailable for a new engagement.\n"
+                          },
+                          "enabled": {
+                            "type": "boolean",
+                            "description": "* `true` - user can use the platform.\n* `false` - user can not use the platform.\n"
+                          },
+                          "available_media_types": {
+                            "type": "array",
+                            "description": "A list of media types the user is available for.",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "video",
+                                "audio",
+                                "chat"
+                              ]
+                            }
+                          },
+                          "max_engagement_count": {
+                            "type": "integer",
+                            "description": "Maximum number of concurrent engagements allowed for this user. If omitted, minimum allowed engagement count from\nassigned Sites configuration will be used.\n"
+                          },
+                          "multi_engagement_default_availability": {
+                            "type": "string",
+                            "description": "Availability behaviour when user engages and multi-engagement is allowed.\n\n* `unavailable` - operator is unavailable.\n* `chat` - operator availability is chat media.\n* `retain` - previous availability is retained.\n\nIf omitted, value from the assigned site configuration will be used.\n",
+                            "enum": [
+                              "unavailable",
+                              "chat",
+                              "retain"
+                            ]
+                          },
+                          "reactive_enabled": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "`true`, if user is able to receive calls from visitors.\n"
+                          },
+                          "proactive_enabled": {
+                            "type": "boolean",
+                            "description": "* `true`, if user is able to initiate engagements with visitors.\n* If `false`, the user is still able to place outbound phone calls if the site configuration allows.\n"
+                          },
+                          "observation_enabled": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "If `true`, the user is able to observe visitors before engagements.\n"
+                          },
+                          "engagements": {
+                            "type": "array",
+                            "description": "A list of user's ongoing engagements.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "description": "Engagement ID."
+                                },
+                                "site_id": {
+                                  "type": "string",
+                                  "description": "ID of a site where engagement occurs."
+                                },
+                                "visitor_id": {
+                                  "type": "string",
+                                  "description": "ID of an engaged visitor."
+                                },
+                                "operator_id": {
+                                  "type": "string",
+                                  "description": "ID of an engaged operator."
+                                },
+                                "started_at": {
+                                  "type": "string",
+                                  "description": "An ISO-8601 timestamp of when the Engagement started."
+                                },
+                                "audio_used": {
+                                  "type": "boolean",
+                                  "description": "`true`, if audio is used in the Engagement."
+                                },
+                                "video_used": {
+                                  "type": "boolean",
+                                  "description": "`true`, if video is used in the Engagement."
+                                }
+                              }
+                            }
+                          },
+                          "engaged_since": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the user first started an engagement. In case of multiple engagements, this is the\nstart time of the first engagement even if the first engagement has ended. When the user is not engaged, this field\nwill not be present.\n"
+                          },
+                          "engagement_requests": {
+                            "type": "array",
+                            "description": "A list of user's ongoing engagement requests.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "site_id": {
+                                  "type": "string",
+                                  "description": "ID of the Engagement Request Site."
+                                },
+                                "visitor_id": {
+                                  "type": "string",
+                                  "description": "ID of the Visitor."
+                                },
+                                "created_at": {
+                                  "type": "string",
+                                  "description": "An ISO-8601 timestamp of when the Engagement Request was created."
+                                }
+                              }
+                            }
+                          },
+                          "picture": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "description": "URL of the user's picture. `null` if no picture is currently set.\n"
+                              }
+                            }
+                          },
+                          "phone": {
+                            "type": "string",
+                            "description": "Phone number of the user. The supported format is [E.164](doc:glossary#phone-number).\nMust be set if `audio_source` is `phone`.\n"
+                          },
+                          "unavailability_reason": {
+                            "type": "string",
+                            "description": "User's unavailability reason."
+                          },
+                          "teams": {
+                            "type": "array",
+                            "description": "Array of teams the user belongs to.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "description": "Team ID."
+                                },
+                                "site_id": {
+                                  "type": "string",
+                                  "description": "ID of a site to which the team belongs to."
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "Team name."
+                                }
+                              }
+                            }
+                          },
+                          "assignments": {
+                            "type": "array",
+                            "description": "An array of user's assignments. Specifying an empty array returns a validation error as at least one site needs\nto be assigned to the created user or remain assigned to the user being updated.\n",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "site_id": {
+                                  "type": "string",
+                                  "description": "Id of the Site that is assigned to the Operator. The admin adding or updating the Operator must have access to\nthe site.\n"
+                                },
+                                "team_ids": {
+                                  "type": "array",
+                                  "description": "An array of team IDs that are assigned to the user. The assigned teams must belong to the site, otherwise a\nvalidation error is returned. If `team_ids` is not specified, then user will be assigned to the `General` team.\nThe provided team IDs will replace the existing team assignments.\n",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "site_id"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "last_page": "https://api.salemove.com/operators?page=1",
+                    "operators": [
+                      {
+                        "href": "https://api.salemove.com/operators/f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                        "id": "f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                        "name": "Jared Grey",
+                        "email": "jared.grey@institution.com",
+                        "audio_source": "phone",
+                        "phone_extension": ",,1,23",
+                        "sip_domain_id": null,
+                        "sip_extension": null,
+                        "role": "operator",
+                        "available": true,
+                        "enabled": true,
+                        "available_media_types": [
+                          "video",
+                          "audio",
+                          "chat"
+                        ],
+                        "max_engagement_count": 3,
+                        "multi_engagement_default_availability": "chat",
+                        "reactive_enabled": true,
+                        "proactive_enabled": true,
+                        "observation_enabled": true,
+                        "engagements": [
+                          {
+                            "id": "eea868ad-9d58-4db9-a663-5fd766728980",
+                            "site_id": "7d5635b0-88ed-4109-8398-dcd151754640",
+                            "visitor_id": "1e1315aa-630e-4a13-a64b-1cdb034d3e0e",
+                            "operator_id": "f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                            "started_at": "2017-02-20T00:00:00Z",
+                            "audio_used": true,
+                            "video_used": false
+                          }
+                        ],
+                        "engagement_requests": [
+                          {
+                            "visitor_id": "02cebb3a-7f7d-4be8-9445-911daa26ac1f",
+                            "site_id": "7d5635b0-88ed-4109-8398-dcd151754640",
+                            "created_at": "2017-02-20T00:00:00"
+                          },
+                          {
+                            "visitor_id": "45b595ae-48c3-401d-ae16-89ea1ab80119",
+                            "site_id": "7d5635b0-88ed-4109-8398-dcd151754640",
+                            "created_at": "2017-02-20T00:01:00"
+                          }
+                        ],
+                        "picture": {
+                          "url": "https://uploads.salemove.com/user_assets/salemove_com-salemove_models_operator-6036d2ae-6c97-4555-83a2-bc8006b9ac c8-jared_grey-f42811bc-8519-4d33-bbb1-36d4555ecb0a.png"
+                        },
+                        "phone": "+19174743334",
+                        "engaged_since": "2017-02-20T00:00:00Z",
+                        "teams": [
+                          {
+                            "id": "f16f4b97-f8a8-4ac3-affa-3fb831441318",
+                            "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                            "name": "General"
+                          }
+                        ],
+                        "assignments": [
+                          {
+                            "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                            "team_ids": [
+                              "f16f4b97-f8a8-4ac3-affa-3fb831441318"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "href": "https://api.salemove.com/operators/4918e73f-c92e-45cb-bc69-67cc541849ea",
+                        "id": "4918e73f-c92e-45cb-bc69-67cc541849ea",
+                        "name": "Jordan Green",
+                        "email": "jordan.green@institution.com",
+                        "audio_source": "sip_phone",
+                        "phone_extension": null,
+                        "sip_domain_id": "48e8b1bb-6ccb-431e-b15e-685500a5a45e",
+                        "sip_extension": "alice",
+                        "role": "operator",
+                        "available": false,
+                        "enabled": true,
+                        "available_media_types": [],
+                        "max_engagement_count": null,
+                        "multi_engagement_default_availability": null,
+                        "reactive_enabled": true,
+                        "proactive_enabled": true,
+                        "observation_enabled": true,
+                        "engagements": [],
+                        "engagement_requests": [],
+                        "picture": {
+                          "url": "https://uploads.salemove.com/user_assets/salemove_com-salemove_models_operator-c4ef4812-91e3-42cf-88d2-1f5bbb f144fd-jordan_green-c8b52f0b-ad05-4c71-8c98-5056f07c4d1a.jpg"
+                        },
+                        "phone": "+13236654111",
+                        "unavailability_reason": "offline",
+                        "unavailable_since": "2017-02-20T00:00:00Z",
+                        "teams": [
+                          {
+                            "id": "f16f4b97-f8a8-4ac3-affa-3fb831441318",
+                            "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                            "name": "General"
+                          }
+                        ],
+                        "assignments": [
+                          {
+                            "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                            "team_ids": [
+                              "f16f4b97-f8a8-4ac3-affa-3fb831441318"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operators/{operator_id}": {
+      "get": {
+        "summary": "Fetch user",
+        "tags": [
+          "Operators"
+        ],
+        "description": "Fetches a specific user, who may have either the role of the operator, manager, or super manager.\n\nThe caller must have access to the site the fetched user belongs to.\n",
+        "parameters": [
+          {
+            "name": "operator_id",
+            "in": "path",
+            "required": true,
+            "description": "Operator ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_engagements",
+            "in": "query",
+            "description": "If `true`, fetches data for `engagements`, `engagement_requests` and `engaged_since`.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "href": {
+                          "type": "string",
+                          "description": "URI for the user."
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "User ID."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the user."
+                        },
+                        "picture": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "description": "URL of the user's picture. `null` if no picture is currently set.\n"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "href": {
+                          "type": "string",
+                          "description": "URI for the user."
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "User ID."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the user."
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "E-mail of the user. It must be unique."
+                        },
+                        "audio_source": {
+                          "type": "string",
+                          "default": "computer",
+                          "description": "The audio device used for audio calls. Additional audio sources may be added in the future.\n",
+                          "enum": [
+                            "computer",
+                            "phone",
+                            "sip_phone"
+                          ]
+                        },
+                        "phone_extension": {
+                          "type": "string",
+                          "description": "The phone number extension of the user.\n\nA valid extension contains 1-7 digits and any number of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nValid only if `phone` is also set or was set beforehand.\n"
+                        },
+                        "sip_domain_id": {
+                          "type": "string",
+                          "description": "The ID of the [SIP domain](ref:sip-domains) used for SIP calls. Must be set if `audio_source` is `sip_phone`.\n"
+                        },
+                        "sip_extension": {
+                          "type": "string",
+                          "description": "The SIP extension of the user. Maximum length is 30 characters.\nAn [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant format is supported. Valid only if\n`sip_domain_id` is also set or was set beforehand. Must be set if `audio_source` is `sip_phone`.\n"
+                        },
+                        "role": {
+                          "type": "string",
+                          "description": "User's role.",
+                          "enum": [
+                            "operator",
+                            "manager",
+                            "super_manager"
+                          ]
+                        },
+                        "available": {
+                          "type": "boolean",
+                          "description": "Engagement availability.\n\n* `true` - user is available for a new engagement.\n* `false` - user is unavailable for a new engagement.\n"
+                        },
+                        "enabled": {
+                          "type": "boolean",
+                          "description": "* `true` - user can use the platform.\n* `false` - user can not use the platform.\n"
+                        },
+                        "available_media_types": {
+                          "type": "array",
+                          "description": "A list of media types the user is available for.",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "video",
+                              "audio",
+                              "chat"
+                            ]
+                          }
+                        },
+                        "max_engagement_count": {
+                          "type": "integer",
+                          "description": "Maximum number of concurrent engagements allowed for this user. If omitted, minimum allowed engagement count from\nassigned Sites configuration will be used.\n"
+                        },
+                        "multi_engagement_default_availability": {
+                          "type": "string",
+                          "description": "Availability behaviour when user engages and multi-engagement is allowed.\n\n* `unavailable` - operator is unavailable.\n* `chat` - operator availability is chat media.\n* `retain` - previous availability is retained.\n\nIf omitted, value from the assigned site configuration will be used.\n",
+                          "enum": [
+                            "unavailable",
+                            "chat",
+                            "retain"
+                          ]
+                        },
+                        "reactive_enabled": {
+                          "type": "boolean",
+                          "default": true,
+                          "description": "`true`, if user is able to receive calls from visitors.\n"
+                        },
+                        "proactive_enabled": {
+                          "type": "boolean",
+                          "description": "* `true`, if user is able to initiate engagements with visitors.\n* If `false`, the user is still able to place outbound phone calls if the site configuration allows.\n"
+                        },
+                        "observation_enabled": {
+                          "type": "boolean",
+                          "default": true,
+                          "description": "If `true`, the user is able to observe visitors before engagements.\n"
+                        },
+                        "engagements": {
+                          "type": "array",
+                          "description": "A list of user's ongoing engagements.",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Engagement ID."
+                              },
+                              "site_id": {
+                                "type": "string",
+                                "description": "ID of a site where engagement occurs."
+                              },
+                              "visitor_id": {
+                                "type": "string",
+                                "description": "ID of an engaged visitor."
+                              },
+                              "operator_id": {
+                                "type": "string",
+                                "description": "ID of an engaged operator."
+                              },
+                              "started_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the Engagement started."
+                              },
+                              "audio_used": {
+                                "type": "boolean",
+                                "description": "`true`, if audio is used in the Engagement."
+                              },
+                              "video_used": {
+                                "type": "boolean",
+                                "description": "`true`, if video is used in the Engagement."
+                              }
+                            }
+                          }
+                        },
+                        "engaged_since": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the user first started an engagement. In case of multiple engagements, this is the\nstart time of the first engagement even if the first engagement has ended. When the user is not engaged, this field\nwill not be present.\n"
+                        },
+                        "engagement_requests": {
+                          "type": "array",
+                          "description": "A list of user's ongoing engagement requests.",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "site_id": {
+                                "type": "string",
+                                "description": "ID of the Engagement Request Site."
+                              },
+                              "visitor_id": {
+                                "type": "string",
+                                "description": "ID of the Visitor."
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the Engagement Request was created."
+                              }
+                            }
+                          }
+                        },
+                        "picture": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "description": "URL of the user's picture. `null` if no picture is currently set.\n"
+                            }
+                          }
+                        },
+                        "phone": {
+                          "type": "string",
+                          "description": "Phone number of the user. The supported format is [E.164](doc:glossary#phone-number).\nMust be set if `audio_source` is `phone`.\n"
+                        },
+                        "unavailability_reason": {
+                          "type": "string",
+                          "description": "User's unavailability reason."
+                        },
+                        "teams": {
+                          "type": "array",
+                          "description": "Array of teams the user belongs to.",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Team ID."
+                              },
+                              "site_id": {
+                                "type": "string",
+                                "description": "ID of a site to which the team belongs to."
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Team name."
+                              }
+                            }
+                          }
+                        },
+                        "assignments": {
+                          "type": "array",
+                          "description": "An array of user's assignments. Specifying an empty array returns a validation error as at least one site needs\nto be assigned to the created user or remain assigned to the user being updated.\n",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "site_id": {
+                                "type": "string",
+                                "description": "Id of the Site that is assigned to the Operator. The admin adding or updating the Operator must have access to\nthe site.\n"
+                              },
+                              "team_ids": {
+                                "type": "array",
+                                "description": "An array of team IDs that are assigned to the user. The assigned teams must belong to the site, otherwise a\nvalidation error is returned. If `team_ids` is not specified, then user will be assigned to the `General` team.\nThe provided team IDs will replace the existing team assignments.\n",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "required": [
+                              "site_id"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "examples": {
+                  "Engaged operator": {
+                    "value": {
+                      "href": "https://api.salemove.com/operators/f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                      "id": "f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                      "name": "Jared Grey",
+                      "email": "jared.grey@institution.com",
+                      "audio_source": "phone",
+                      "phone_extension": ",,1,23",
+                      "sip_domain_id": null,
+                      "sip_extension": null,
+                      "role": "operator",
+                      "available": true,
+                      "enabled": true,
+                      "available_media_types": [
+                        "video",
+                        "audio",
+                        "chat"
+                      ],
+                      "max_engagement_count": 3,
+                      "multi_engagement_default_availability": "chat",
+                      "reactive_enabled": true,
+                      "proactive_enabled": true,
+                      "observation_enabled": true,
+                      "engagements": [
+                        {
+                          "id": "eea868ad-9d58-4db9-a663-5fd766728980",
+                          "site_id": "7d5635b0-88ed-4109-8398-dcd151754640",
+                          "visitor_id": "1e1315aa-630e-4a13-a64b-1cdb034d3e0e",
+                          "operator_id": "f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                          "started_at": "2017-02-20T00:00:00Z",
+                          "audio_used": true,
+                          "video_used": false
+                        }
+                      ],
+                      "engagement_requests": [
+                        {
+                          "visitor_id": "02cebb3a-7f7d-4be8-9445-911daa26ac1f",
+                          "site_id": "7d5635b0-88ed-4109-8398-dcd151754640",
+                          "created_at": "2017-02-20T00:00:00"
+                        },
+                        {
+                          "visitor_id": "45b595ae-48c3-401d-ae16-89ea1ab80119",
+                          "site_id": "7d5635b0-88ed-4109-8398-dcd151754640",
+                          "created_at": "2017-02-20T00:01:00"
+                        }
+                      ],
+                      "picture": {
+                        "url": "https://uploads.salemove.com/user_assets/salemove_com-salemove_models_operator-6036d2ae-6c97-4555-83a2-bc8006b9ac c8-jared_grey-f42811bc-8519-4d33-bbb1-36d4555ecb0a.png"
+                      },
+                      "phone": "+19174743334",
+                      "engaged_since": "2017-02-20T00:00:00Z",
+                      "teams": [
+                        {
+                          "id": "f16f4b97-f8a8-4ac3-affa-3fb831441318",
+                          "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                          "name": "General"
+                        }
+                      ],
+                      "assignments": [
+                        {
+                          "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                          "team_ids": [
+                            "f16f4b97-f8a8-4ac3-affa-3fb831441318"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "Offline operator": {
+                    "value": {
+                      "href": "https://api.salemove.com/operators/4918e73f-c92e-45cb-bc69-67cc541849ea",
+                      "id": "4918e73f-c92e-45cb-bc69-67cc541849ea",
+                      "name": "Jordan Green",
+                      "email": "jordan.green@institution.com",
+                      "audio_source": "sip_phone",
+                      "phone_extension": null,
+                      "sip_domain_id": "48e8b1bb-6ccb-431e-b15e-685500a5a45e",
+                      "sip_extension": "alice",
+                      "role": "operator",
+                      "available": false,
+                      "enabled": true,
+                      "available_media_types": [],
+                      "max_engagement_count": null,
+                      "multi_engagement_default_availability": null,
+                      "reactive_enabled": true,
+                      "proactive_enabled": true,
+                      "observation_enabled": true,
+                      "engagements": [],
+                      "engagement_requests": [],
+                      "picture": {
+                        "url": "https://uploads.salemove.com/user_assets/salemove_com-salemove_models_operator-c4ef4812-91e3-42cf-88d2-1f5bbb f144fd-jordan_green-c8b52f0b-ad05-4c71-8c98-5056f07c4d1a.jpg"
+                      },
+                      "phone": "+13236654111",
+                      "unavailability_reason": "offline",
+                      "unavailable_since": "2017-02-20T00:00:00Z",
+                      "teams": [
+                        {
+                          "id": "f16f4b97-f8a8-4ac3-affa-3fb831441318",
+                          "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                          "name": "General"
+                        }
+                      ],
+                      "assignments": [
+                        {
+                          "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                          "team_ids": [
+                            "f16f4b97-f8a8-4ac3-affa-3fb831441318"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "Operator when requested by visitor": {
+                    "value": {
+                      "href": "https://api.salemove.com/operators/4918e73f-c92e-45cb-bc69-67cc541849ea",
+                      "id": "4918e73f-c92e-45cb-bc69-67cc541849ea",
+                      "name": "Jordan Green",
+                      "picture": {
+                        "url": "https://uploads.salemove.com/user_assets/salemove_com-salemove_models_operator-c4ef4812-91e3-42cf-88d2-1f5bbb f144fd-jordan_green-c8b52f0b-ad05-4c71-8c98-5056f07c4d1a.jpg"
+                      }
+                    }
+                  },
+                  "Operator when requested by operator on a transferrable site": {
+                    "value": {
+                      "href": "https://api.salemove.com/operators/4918e73f-c92e-45cb-bc69-67cc541849ea",
+                      "id": "4918e73f-c92e-45cb-bc69-67cc541849ea",
+                      "name": "Jordan Green",
+                      "picture": {
+                        "url": "https://uploads.salemove.com/user_assets/salemove_com-salemove_models_operator-c4ef4812-91e3-42cf-88d2-1f5bbb f144fd-jordan_green-c8b52f0b-ad05-4c71-8c98-5056f07c4d1a.jpg"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Update user",
+        "tags": [
+          "Operators"
+        ],
+        "description": "Updates the a specific user.\n\nThe caller must have at least the role manager.\n",
+        "parameters": [
+          {
+            "name": "operator_id",
+            "in": "path",
+            "required": true,
+            "description": "Operator ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the user."
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "E-mail of the user. It must be unique."
+                  },
+                  "audio_source": {
+                    "type": "string",
+                    "default": "computer",
+                    "description": "The audio device used for audio calls. Additional audio sources may be added in the future.\n",
+                    "enum": [
+                      "computer",
+                      "phone",
+                      "sip_phone"
+                    ]
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number of the user. The supported format is [E.164](doc:glossary#phone-number).\nMust be set if `audio_source` is `phone`.\n"
+                  },
+                  "phone_extension": {
+                    "type": "string",
+                    "description": "The phone number extension of the user.\n\nA valid extension contains 1-7 digits and any number of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nValid only if `phone` is also set or was set beforehand.\n"
+                  },
+                  "sip_domain_id": {
+                    "type": "string",
+                    "description": "The ID of the [SIP domain](ref:sip-domains) used for SIP calls. Must be set if `audio_source` is `sip_phone`.\n"
+                  },
+                  "sip_extension": {
+                    "type": "string",
+                    "description": "The SIP extension of the user. Maximum length is 30 characters.\nAn [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant format is supported. Valid only if\n`sip_domain_id` is also set or was set beforehand. Must be set if `audio_source` is `sip_phone`.\n"
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "* `true` - user can use the platform.\n* `false` - user can not use the platform.\n"
+                  },
+                  "available": {
+                    "type": "boolean",
+                    "description": "Engagement availability.\n\n* `true` - user is available for a new engagement.\n* `false` - user is unavailable for a new engagement.\n"
+                  },
+                  "assignments": {
+                    "type": "array",
+                    "description": "An array of user's assignments. Specifying an empty array returns a validation error as at least one site needs\nto be assigned to the created user or remain assigned to the user being updated.\n",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "site_id": {
+                          "type": "string",
+                          "description": "Id of the Site that is assigned to the Operator. The admin adding or updating the Operator must have access to\nthe site.\n"
+                        },
+                        "team_ids": {
+                          "type": "array",
+                          "description": "An array of team IDs that are assigned to the user. The assigned teams must belong to the site, otherwise a\nvalidation error is returned. If `team_ids` is not specified, then user will be assigned to the `General` team.\nThe provided team IDs will replace the existing team assignments.\n",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "site_id"
+                      ]
+                    }
+                  },
+                  "max_engagement_count": {
+                    "type": "integer",
+                    "description": "Maximum number of concurrent engagements allowed for this user. If omitted, minimum allowed engagement count from\nassigned Sites configuration will be used.\n"
+                  },
+                  "multi_engagement_default_availability": {
+                    "type": "string",
+                    "description": "Availability behaviour when user engages and multi-engagement is allowed.\n\n* `unavailable` - operator is unavailable.\n* `chat` - operator availability is chat media.\n* `retain` - previous availability is retained.\n\nIf omitted, value from the assigned site configuration will be used.\n",
+                    "enum": [
+                      "unavailable",
+                      "chat",
+                      "retain"
+                    ]
+                  },
+                  "reactive_enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "`true`, if user is able to receive calls from visitors.\n"
+                  },
+                  "proactive_enabled": {
+                    "type": "boolean",
+                    "description": "* `true`, if user is able to initiate engagements with visitors.\n* If `false`, the user is still able to place outbound phone calls if the site configuration allows.\n"
+                  },
+                  "observation_enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If `true`, the user is able to observe visitors before engagements.\n"
+                  }
+                },
+                "example": {
+                  "name": "Jordan Green",
+                  "role": "manager",
+                  "max_engagement_count": 5,
+                  "multi_engagement_default_availability": "retain"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "URI for the user."
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "User ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the user."
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "E-mail of the user. It must be unique."
+                    },
+                    "audio_source": {
+                      "type": "string",
+                      "default": "computer",
+                      "description": "The audio device used for audio calls. Additional audio sources may be added in the future.\n",
+                      "enum": [
+                        "computer",
+                        "phone",
+                        "sip_phone"
+                      ]
+                    },
+                    "phone_extension": {
+                      "type": "string",
+                      "description": "The phone number extension of the user.\n\nA valid extension contains 1-7 digits and any number of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nValid only if `phone` is also set or was set beforehand.\n"
+                    },
+                    "sip_domain_id": {
+                      "type": "string",
+                      "description": "The ID of the [SIP domain](ref:sip-domains) used for SIP calls. Must be set if `audio_source` is `sip_phone`.\n"
+                    },
+                    "sip_extension": {
+                      "type": "string",
+                      "description": "The SIP extension of the user. Maximum length is 30 characters.\nAn [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant format is supported. Valid only if\n`sip_domain_id` is also set or was set beforehand. Must be set if `audio_source` is `sip_phone`.\n"
+                    },
+                    "role": {
+                      "type": "string",
+                      "description": "User's role.",
+                      "enum": [
+                        "operator",
+                        "manager",
+                        "super_manager"
+                      ]
+                    },
+                    "available": {
+                      "type": "boolean",
+                      "description": "Engagement availability.\n\n* `true` - user is available for a new engagement.\n* `false` - user is unavailable for a new engagement.\n"
+                    },
+                    "enabled": {
+                      "type": "boolean",
+                      "description": "* `true` - user can use the platform.\n* `false` - user can not use the platform.\n"
+                    },
+                    "available_media_types": {
+                      "type": "array",
+                      "description": "A list of media types the user is available for.",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "video",
+                          "audio",
+                          "chat"
+                        ]
+                      }
+                    },
+                    "max_engagement_count": {
+                      "type": "integer",
+                      "description": "Maximum number of concurrent engagements allowed for this user. If omitted, minimum allowed engagement count from\nassigned Sites configuration will be used.\n"
+                    },
+                    "multi_engagement_default_availability": {
+                      "type": "string",
+                      "description": "Availability behaviour when user engages and multi-engagement is allowed.\n\n* `unavailable` - operator is unavailable.\n* `chat` - operator availability is chat media.\n* `retain` - previous availability is retained.\n\nIf omitted, value from the assigned site configuration will be used.\n",
+                      "enum": [
+                        "unavailable",
+                        "chat",
+                        "retain"
+                      ]
+                    },
+                    "reactive_enabled": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "`true`, if user is able to receive calls from visitors.\n"
+                    },
+                    "proactive_enabled": {
+                      "type": "boolean",
+                      "description": "* `true`, if user is able to initiate engagements with visitors.\n* If `false`, the user is still able to place outbound phone calls if the site configuration allows.\n"
+                    },
+                    "observation_enabled": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "If `true`, the user is able to observe visitors before engagements.\n"
+                    },
+                    "engagements": {
+                      "type": "array",
+                      "description": "A list of user's ongoing engagements.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Engagement ID."
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of a site where engagement occurs."
+                          },
+                          "visitor_id": {
+                            "type": "string",
+                            "description": "ID of an engaged visitor."
+                          },
+                          "operator_id": {
+                            "type": "string",
+                            "description": "ID of an engaged operator."
+                          },
+                          "started_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the Engagement started."
+                          },
+                          "audio_used": {
+                            "type": "boolean",
+                            "description": "`true`, if audio is used in the Engagement."
+                          },
+                          "video_used": {
+                            "type": "boolean",
+                            "description": "`true`, if video is used in the Engagement."
+                          }
+                        }
+                      }
+                    },
+                    "engaged_since": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the user first started an engagement. In case of multiple engagements, this is the\nstart time of the first engagement even if the first engagement has ended. When the user is not engaged, this field\nwill not be present.\n"
+                    },
+                    "engagement_requests": {
+                      "type": "array",
+                      "description": "A list of user's ongoing engagement requests.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of the Engagement Request Site."
+                          },
+                          "visitor_id": {
+                            "type": "string",
+                            "description": "ID of the Visitor."
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the Engagement Request was created."
+                          }
+                        }
+                      }
+                    },
+                    "picture": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "URL of the user's picture. `null` if no picture is currently set.\n"
+                        }
+                      }
+                    },
+                    "phone": {
+                      "type": "string",
+                      "description": "Phone number of the user. The supported format is [E.164](doc:glossary#phone-number).\nMust be set if `audio_source` is `phone`.\n"
+                    },
+                    "unavailability_reason": {
+                      "type": "string",
+                      "description": "User's unavailability reason."
+                    },
+                    "teams": {
+                      "type": "array",
+                      "description": "Array of teams the user belongs to.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Team ID."
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of a site to which the team belongs to."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Team name."
+                          }
+                        }
+                      }
+                    },
+                    "assignments": {
+                      "type": "array",
+                      "description": "An array of user's assignments. Specifying an empty array returns a validation error as at least one site needs\nto be assigned to the created user or remain assigned to the user being updated.\n",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "site_id": {
+                            "type": "string",
+                            "description": "Id of the Site that is assigned to the Operator. The admin adding or updating the Operator must have access to\nthe site.\n"
+                          },
+                          "team_ids": {
+                            "type": "array",
+                            "description": "An array of team IDs that are assigned to the user. The assigned teams must belong to the site, otherwise a\nvalidation error is returned. If `team_ids` is not specified, then user will be assigned to the `General` team.\nThe provided team IDs will replace the existing team assignments.\n",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "site_id"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "name": "Jordan Green",
+                  "role": "manager",
+                  "max_engagement_count": 5,
+                  "multi_engagement_default_availability": "retain",
+                  "href": "https://api.salemove.com/operators/4918e73f-c92e-45cb-bc69-67cc541849ea",
+                  "id": "4918e73f-c92e-45cb-bc69-67cc541849ea",
+                  "email": "jordan.green@institution.com",
+                  "audio_source": "computer",
+                  "phone_extension": null,
+                  "sip_domain_id": null,
+                  "sip_extension": null,
+                  "available": false,
+                  "enabled": true,
+                  "available_media_types": [],
+                  "reactive_enabled": true,
+                  "proactive_enabled": true,
+                  "observation_enabled": true,
+                  "engagements": [],
+                  "engagement_requests": [],
+                  "picture": {
+                    "url": null
+                  },
+                  "phone": null,
+                  "unavailability_reason": "unknown",
+                  "teams": [
+                    {
+                      "id": "f16f4b97-f8a8-4ac3-affa-3fb831441318",
+                      "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                      "name": "General"
+                    }
+                  ],
+                  "assignments": [
+                    {
+                      "site_id": "da460378-0b0e-435b-9d78-0227ac579b35",
+                      "team_ids": [
+                        "f16f4b97-f8a8-4ac3-affa-3fb831441318"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Disable user",
+        "tags": [
+          "Operators"
+        ],
+        "description": "Disables a specific user.\n\nAt least the role manager is needed to disable a user.\n",
+        "parameters": [
+          {
+            "name": "operator_id",
+            "in": "path",
+            "required": true,
+            "description": "Operator ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/operators/{operator_id}/logout": {
+      "post": {
+        "summary": "Log out user",
+        "tags": [
+          "Operators"
+        ],
+        "description": "Logs a specific user out of the Glia Hub.\n\nAt least the role manager is needed to log out a user.\nThis endpoint can be used, for example, to log out the user that has already left but\nis accidentally still logged in and is staffing queues.\n",
+        "parameters": [
+          {
+            "name": "operator_id",
+            "in": "path",
+            "required": true,
+            "description": "Operator ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

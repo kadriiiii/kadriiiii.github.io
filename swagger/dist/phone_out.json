@@ -1,0 +1,3734 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Phone",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "paths": {
+    "/omnicall/contacts": {
+      "post": {
+        "summary": "Create contact",
+        "tags": [
+          "Contacts"
+        ],
+        "description": "Creates a contact with the provided values.\n\nThe values do not have to be unique so it is possible to have multiple contacts with the same name and phone\nnumber. The contacts can be used to transfer an engagement from Glia to any phone number.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "site_id": {
+                    "type": "string",
+                    "description": "A site ID (in UUID v4 format) associated with the resource.",
+                    "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description of the resource.",
+                    "example": "Short resource description"
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                    "example": "+14156433423"
+                  },
+                  "phone_extension": {
+                    "type": "string",
+                    "description": "Phone number extension that is used when calling `phone_number`. A valid extension contains 1-7 digits and any\nnumber of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nFor operators, this parameter is retrieved from their settings.\n",
+                    "example": ",,1,23"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email of the contact.",
+                    "example": "alice@example.com"
+                  }
+                },
+                "required": [
+                  "site_id",
+                  "name",
+                  "phone_number"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Contact information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "phone_number": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "phone_extension": {
+                      "type": "string",
+                      "description": "Phone number extension that is used when calling `phone_number`. A valid extension contains 1-7 digits and any\nnumber of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nFor operators, this parameter is retrieved from their settings.\n",
+                      "example": ",,1,23"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email of the contact.",
+                      "example": "alice@example.com"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List contacts",
+        "tags": [
+          "Contacts"
+        ],
+        "description": "Returns a list of quick contacts.\n\nUnless specified, contacts are returned for all sites that the requesting user has access to.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "site_ids[]",
+            "description": "Only resources for the specified site IDs will be included in the response. Returns all resources if not specified.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": [
+              "fdbdd61a-36d2-48e3-9eeb-009b18a6aa78",
+              "84e2b66c-0289-419c-bd0a-a57fedf77ec7"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "contains",
+            "description": "Only contacts where name, description or phone number contain the specified value, will be included in the\nresponse. All contacts will be returned, when this option is not specified.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "alice"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Specifies which page is requested. Default value is `1`.\n",
+            "schema": {
+              "type": "number"
+            },
+            "example": 2
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "description": "Specifies the number of contacts per page. Minimum value is `1`. Maximum value is `100`. Default value is `30`.\n",
+            "schema": {
+              "type": "number"
+            },
+            "example": 50
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "description": "Specifies how the contacts are ordered. Possible values are `asc` or `desc`.\nDefault value is `asc`.\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            },
+            "example": "asc"
+          },
+          {
+            "in": "query",
+            "name": "order_by",
+            "description": "Specifies the field by which the contacts are ordered by. Possible values are `name` or `description`. Default\nvalue is `name`.\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "description"
+              ]
+            },
+            "example": "description"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "previous_page": {
+                      "type": "string",
+                      "description": "URL to the previous page. The value is null when the current page is the first page.\n",
+                      "example": "https://api.salmeove.com/omnicall/contacts?page=1&per_page=3"
+                    },
+                    "next_page": {
+                      "type": "string",
+                      "description": "URL to the next page. The value is null when the current page is the last page.\n",
+                      "example": "https://api.salmeove.com/omnicall/contacts?page=3&per_page=3"
+                    },
+                    "first_page": {
+                      "type": "string",
+                      "description": "URL to the first page.",
+                      "example": "https://api.salmeove.com/omnicall/contacts?page=1&per_page=3"
+                    },
+                    "last_page": {
+                      "type": "string",
+                      "description": "URL to the previous page.",
+                      "example": "https://api.salmeove.com/omnicall/contacts?page=3&per_page=3"
+                    },
+                    "contacts": {
+                      "type": "array",
+                      "description": "List of incoming phone numbers.",
+                      "items": {
+                        "type": "object",
+                        "description": "Contact information.",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of the resource.",
+                            "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "A site ID (in UUID v4 format) associated with the resource.",
+                            "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the resource.",
+                            "example": "Resource name"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Short description of the resource.",
+                            "example": "Short resource description"
+                          },
+                          "phone_number": {
+                            "type": "string",
+                            "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                            "example": "+14156433423"
+                          },
+                          "phone_extension": {
+                            "type": "string",
+                            "description": "Phone number extension that is used when calling `phone_number`. A valid extension contains 1-7 digits and any\nnumber of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nFor operators, this parameter is retrieved from their settings.\n",
+                            "example": ",,1,23"
+                          },
+                          "email": {
+                            "type": "string",
+                            "description": "Email of the contact.",
+                            "example": "alice@example.com"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was created.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "created_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who created the resource.",
+                            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was updated.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "updated_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                            "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/omnicall/contacts/{contact_id}": {
+      "get": {
+        "summary": "Fetch contact",
+        "tags": [
+          "Contacts"
+        ],
+        "description": "Fetches a specified contact.",
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "contact_id",
+            "description": "ID of the contact.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Contact information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "phone_number": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "phone_extension": {
+                      "type": "string",
+                      "description": "Phone number extension that is used when calling `phone_number`. A valid extension contains 1-7 digits and any\nnumber of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nFor operators, this parameter is retrieved from their settings.\n",
+                      "example": ",,1,23"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email of the contact.",
+                      "example": "alice@example.com"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update contact",
+        "tags": [
+          "Contacts"
+        ],
+        "description": "Updates a contact.",
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "contact_id",
+            "description": "ID of the contact.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description of the resource.",
+                    "example": "Short resource description"
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                    "example": "+14156433423"
+                  },
+                  "phone_extension": {
+                    "type": "string",
+                    "description": "Phone number extension that is used when calling `phone_number`. A valid extension contains 1-7 digits and any\nnumber of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nFor operators, this parameter is retrieved from their settings.\n",
+                    "example": ",,1,23"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email of the contact.",
+                    "example": "alice@example.com"
+                  }
+                },
+                "required": [
+                  "name",
+                  "phone_number"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete contact",
+        "tags": [
+          "Contacts"
+        ],
+        "description": "Deletes a contact.",
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "contact_id",
+            "description": "ID of the contact.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/omnicall/available_phone_numbers": {
+      "get": {
+        "summary": "List available numbers",
+        "tags": [
+          "Phone channels"
+        ],
+        "description": "Lists the phone numbers available for purchase. Query string parameters allow you to limit the list of returned\nnumbers.\n\nOnly users with the super manager role can perform this request.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "required": true,
+            "name": "iso_country",
+            "description": "Filters available phone numbers by country. The ISO country code format.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "US"
+          },
+          {
+            "in": "query",
+            "name": "region",
+            "description": "Filters available phone numbers by region. The two-letter state or province abbreviation. Only valid when ISO\ncountry is \"US\" or \"CA\".\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "NY"
+          },
+          {
+            "in": "query",
+            "name": "contains",
+            "description": "A pattern on which to match phone numbers. Valid characters are `*` and `[0-9a-zA-Z]`. The `*` character will\nmatch any single digit.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "1332*******"
+          },
+          {
+            "in": "query",
+            "name": "toll_free",
+            "description": "If `true`, lists available toll-free phone numbers. If `false`, lists available local phone numbers. Default\nvalue is `false`.\n",
+            "schema": {
+              "type": "boolean"
+            },
+            "example": false
+          },
+          {
+            "in": "query",
+            "name": "mms_enabled",
+            "description": "Whether the phone numbers can send and receive MMS messages.\n",
+            "schema": {
+              "type": "boolean"
+            },
+            "example": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "available_phone_numbers": {
+                      "type": "array",
+                      "description": "List of available phone numbers.",
+                      "items": {
+                        "type": "object",
+                        "description": "Available phone number.",
+                        "properties": {
+                          "capabilities": {
+                            "type": "object",
+                            "description": "A list of capabilities that the phone number has.\n",
+                            "properties": {
+                              "mms": {
+                                "type": "boolean",
+                                "description": "Whether the phone number can send and receive MMS messages.\n",
+                                "example": false
+                              }
+                            }
+                          },
+                          "phone_number": {
+                            "type": "string",
+                            "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                            "example": "+14156433423"
+                          },
+                          "postal_code": {
+                            "type": "string",
+                            "description": "The postal (zip) code of the phone number. Only defined when the phone number is local.\n",
+                            "example": "415"
+                          },
+                          "region": {
+                            "type": "string",
+                            "description": "The two-letter state or province abbreviation, e.g. \"NY\". Only defined when the phone number is local.\n",
+                            "example": "NY"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/omnicall/incoming_phone_numbers": {
+      "post": {
+        "summary": "Buy number",
+        "tags": [
+          "Phone channels"
+        ],
+        "description": "Buys an incoming phone number if the number is available.\n\nOnly users with the super manager role can add incoming phone numbers.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "required": true,
+            "name": "phone_number",
+            "description": "The incoming phone number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "+14156433423"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "name": "name",
+            "description": "Name of the incoming phone number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Phone number name"
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "description": "Short description of the incoming phone number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Phone number description"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "name": "site_id",
+            "description": "Site ID (in UUID v4 format) of the site the number will belong to.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "6cd6c309-7d5c-42a0-8750-e8996a15c387"
+          },
+          {
+            "in": "query",
+            "name": "queue_id",
+            "description": "ID of the queue (in UUID v4 format) to associate with the incoming phone\nnumber.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Incoming phone number.",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "queue_id": {
+                      "type": "string",
+                      "description": "A queue ID (in UUID v4 format) associated with the resource.",
+                      "example": "4fb75608-06ec-4c08-8866-447faf4b198e"
+                    },
+                    "phone_number": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "capabilities": {
+                      "type": "object",
+                      "description": "A list of capabilities that the phone number has.\n",
+                      "properties": {
+                        "mms": {
+                          "type": "boolean",
+                          "description": "Whether the phone number can send and receive MMS messages.\n",
+                          "example": false
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    },
+                    "last_used_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was last used.\n",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "forwarding_option": {
+                      "type": "object",
+                      "description": "Forwarding options for when a call cannot be routed to any operator.\n",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "One of `phone_number`, `voice_mailbox`, `none`. When `none` then the call is ended when it cannot be routed\nto any operator.\n",
+                          "enum": [
+                            "phone_number",
+                            "voice_mailbox",
+                            "none"
+                          ]
+                        },
+                        "phone_number": {
+                          "type": "string",
+                          "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                          "example": "+14156433423"
+                        },
+                        "voice_mailbox_id": {
+                          "type": "string",
+                          "description": "Voice mailbox ID (in UUID v4 format).",
+                          "example": "42c2e76e-4a60-49cd-9ef9-bdbf850ab9d7"
+                        }
+                      }
+                    },
+                    "visitor_context": {
+                      "description": "The illustration file which is shown to the Operator during the engagement.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Illustration asset's ID (in UUID v4 format).",
+                          "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Illustration asset's name.",
+                          "example": "My illustration asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Illustration asset's type.",
+                          "example": "illustration"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "application/pdf"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "pre_queue_audio": {
+                      "description": "The audio file which is played prior to entering the queue.",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "post_queue_audio": {
+                      "description": "The audio file which is played right before the call is connected to the operator.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "in_queue_audio": {
+                      "description": "The audio file which is played while the visitor is waiting in the queue.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "full_queue_audio": {
+                      "description": "The audio file which is played when the queue is full.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "bounced_queue_audio": {
+                      "description": "The audio file which is played when a visitor is bounced from the queue due to normal or abnormal system's\nbehavior.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List numbers",
+        "tags": [
+          "Phone channels"
+        ],
+        "description": "Returns a list of bought incoming phone numbers which can be managed by the requester.\n\nThe user whose bearer access token is used in `Authorization` must have the role super manager.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "site_id",
+            "description": "Site ID (in UUID v4 format) of the site the number will belong to.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "6cd6c309-7d5c-42a0-8750-e8996a15c387"
+          },
+          {
+            "in": "query",
+            "name": "queue_id",
+            "description": "ID of the queue (in UUID v4 format) to associate with the incoming phone\nnumber.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "incoming_phone_numbers": {
+                      "type": "array",
+                      "description": "List of incoming phone numbers.",
+                      "items": {
+                        "type": "object",
+                        "description": "Incoming phone number.",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the resource.",
+                            "example": "Resource name"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Short description of the resource.",
+                            "example": "Short resource description"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "A site ID (in UUID v4 format) associated with the resource.",
+                            "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                          },
+                          "queue_id": {
+                            "type": "string",
+                            "description": "A queue ID (in UUID v4 format) associated with the resource.",
+                            "example": "4fb75608-06ec-4c08-8866-447faf4b198e"
+                          },
+                          "phone_number": {
+                            "type": "string",
+                            "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                            "example": "+14156433423"
+                          },
+                          "capabilities": {
+                            "type": "object",
+                            "description": "A list of capabilities that the phone number has.\n",
+                            "properties": {
+                              "mms": {
+                                "type": "boolean",
+                                "description": "Whether the phone number can send and receive MMS messages.\n",
+                                "example": false
+                              }
+                            }
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was created.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "created_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who created the resource.",
+                            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was updated.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "updated_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                            "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                          },
+                          "last_used_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was last used.\n",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "forwarding_option": {
+                            "type": "object",
+                            "description": "Forwarding options for when a call cannot be routed to any operator.\n",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "description": "One of `phone_number`, `voice_mailbox`, `none`. When `none` then the call is ended when it cannot be routed\nto any operator.\n",
+                                "enum": [
+                                  "phone_number",
+                                  "voice_mailbox",
+                                  "none"
+                                ]
+                              },
+                              "phone_number": {
+                                "type": "string",
+                                "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                                "example": "+14156433423"
+                              },
+                              "voice_mailbox_id": {
+                                "type": "string",
+                                "description": "Voice mailbox ID (in UUID v4 format).",
+                                "example": "42c2e76e-4a60-49cd-9ef9-bdbf850ab9d7"
+                              }
+                            }
+                          },
+                          "visitor_context": {
+                            "description": "The illustration file which is shown to the Operator during the engagement.\n",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Illustration asset's ID (in UUID v4 format).",
+                                "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Illustration asset's name.",
+                                "example": "My illustration asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Illustration asset's type.",
+                                "example": "illustration"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "application/pdf"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          },
+                          "pre_queue_audio": {
+                            "description": "The audio file which is played prior to entering the queue.",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Audio asset's ID (in UUID v4 format).",
+                                "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Audio asset's name.",
+                                "example": "My audio asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Audio asset's type.",
+                                "example": "audio"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "audio/mpeg"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          },
+                          "post_queue_audio": {
+                            "description": "The audio file which is played right before the call is connected to the operator.\n",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Audio asset's ID (in UUID v4 format).",
+                                "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Audio asset's name.",
+                                "example": "My audio asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Audio asset's type.",
+                                "example": "audio"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "audio/mpeg"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          },
+                          "in_queue_audio": {
+                            "description": "The audio file which is played while the visitor is waiting in the queue.\n",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Audio asset's ID (in UUID v4 format).",
+                                "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Audio asset's name.",
+                                "example": "My audio asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Audio asset's type.",
+                                "example": "audio"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "audio/mpeg"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          },
+                          "full_queue_audio": {
+                            "description": "The audio file which is played when the queue is full.\n",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Audio asset's ID (in UUID v4 format).",
+                                "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Audio asset's name.",
+                                "example": "My audio asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Audio asset's type.",
+                                "example": "audio"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "audio/mpeg"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          },
+                          "bounced_queue_audio": {
+                            "description": "The audio file which is played when a visitor is bounced from the queue due to normal or abnormal system's\nbehavior.\n",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Audio asset's ID (in UUID v4 format).",
+                                "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Audio asset's name.",
+                                "example": "My audio asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Audio asset's type.",
+                                "example": "audio"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "audio/mpeg"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/omnicall/incoming_phone_numbers/{phone_number}": {
+      "get": {
+        "summary": "Fetch number",
+        "tags": [
+          "Phone channels"
+        ],
+        "description": "Fetches information of a specified (already bought) incoming phone number.\n\nThe user requesting this information must have the role super manager.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "phone_number",
+            "description": "The incoming phone number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "+14156433423"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Incoming phone number.",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "queue_id": {
+                      "type": "string",
+                      "description": "A queue ID (in UUID v4 format) associated with the resource.",
+                      "example": "4fb75608-06ec-4c08-8866-447faf4b198e"
+                    },
+                    "phone_number": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "capabilities": {
+                      "type": "object",
+                      "description": "A list of capabilities that the phone number has.\n",
+                      "properties": {
+                        "mms": {
+                          "type": "boolean",
+                          "description": "Whether the phone number can send and receive MMS messages.\n",
+                          "example": false
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    },
+                    "last_used_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was last used.\n",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "forwarding_option": {
+                      "type": "object",
+                      "description": "Forwarding options for when a call cannot be routed to any operator.\n",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "One of `phone_number`, `voice_mailbox`, `none`. When `none` then the call is ended when it cannot be routed\nto any operator.\n",
+                          "enum": [
+                            "phone_number",
+                            "voice_mailbox",
+                            "none"
+                          ]
+                        },
+                        "phone_number": {
+                          "type": "string",
+                          "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                          "example": "+14156433423"
+                        },
+                        "voice_mailbox_id": {
+                          "type": "string",
+                          "description": "Voice mailbox ID (in UUID v4 format).",
+                          "example": "42c2e76e-4a60-49cd-9ef9-bdbf850ab9d7"
+                        }
+                      }
+                    },
+                    "visitor_context": {
+                      "description": "The illustration file which is shown to the Operator during the engagement.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Illustration asset's ID (in UUID v4 format).",
+                          "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Illustration asset's name.",
+                          "example": "My illustration asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Illustration asset's type.",
+                          "example": "illustration"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "application/pdf"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "pre_queue_audio": {
+                      "description": "The audio file which is played prior to entering the queue.",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "post_queue_audio": {
+                      "description": "The audio file which is played right before the call is connected to the operator.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "in_queue_audio": {
+                      "description": "The audio file which is played while the visitor is waiting in the queue.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "full_queue_audio": {
+                      "description": "The audio file which is played when the queue is full.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "bounced_queue_audio": {
+                      "description": "The audio file which is played when a visitor is bounced from the queue due to normal or abnormal system's\nbehavior.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update number",
+        "tags": [
+          "Phone channels"
+        ],
+        "description": "Updates the bought incoming phone number's information.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "phone_number",
+            "description": "The incoming phone number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "+14156433423"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "queue_id": {
+                    "type": "string",
+                    "description": "A queue ID (in UUID v4 format) associated with the resource.",
+                    "example": "4fb75608-06ec-4c08-8866-447faf4b198e"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description of the resource.",
+                    "example": "Short resource description"
+                  },
+                  "forwarding_option": {
+                    "type": "object",
+                    "description": "Forwarding options for when a call cannot be routed to any operator.\n",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "One of `phone_number`, `voice_mailbox`, `none`. When `none` then the call is ended when it cannot be routed\nto any operator.\n",
+                        "enum": [
+                          "phone_number",
+                          "voice_mailbox",
+                          "none"
+                        ]
+                      },
+                      "phone_number": {
+                        "type": "string",
+                        "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                        "example": "+14156433423"
+                      },
+                      "voice_mailbox_id": {
+                        "type": "string",
+                        "description": "Voice mailbox ID (in UUID v4 format).",
+                        "example": "42c2e76e-4a60-49cd-9ef9-bdbf850ab9d7"
+                      }
+                    }
+                  },
+                  "visitor_context_id": {
+                    "type": "string",
+                    "description": "ID of the illustration asset which is shown to the operator during the\nengagement.\n",
+                    "example": "2cad0378-16ab-4752-9f10-03e664d7c9e7"
+                  },
+                  "pre_queue_audio_id": {
+                    "type": "string",
+                    "description": "ID of the audio asset which is played prior to entering the queue.\n",
+                    "example": "d01b3392-e4d7-47ce-a87d-1ea05e18ddcf"
+                  },
+                  "post_queue_audio_id": {
+                    "type": "string",
+                    "description": "ID of the audio asset which is played right before the call is connected to the operator.\n",
+                    "example": "4fabcb7b-b1ca-4f48-b4f7-fee3abbcf3bf"
+                  },
+                  "in_queue_audio_id": {
+                    "type": "string",
+                    "description": "ID of the audio asset which is played while the visitor is waiting in the queue.\n",
+                    "example": "7e97c24e-0ddc-4c51-ae81-4e325710710b"
+                  },
+                  "full_queue_audio_id": {
+                    "type": "string",
+                    "description": "ID of the audio asset which is played when the queue is full.\n",
+                    "example": "3805ec13-04dd-4362-82c8-f46447c9e2ad"
+                  },
+                  "bounced_queue_audio_id": {
+                    "type": "string",
+                    "description": "ID of the audio asset which is played when a visitor is bounced from the queue due to normal or abnormal system's\nbehavior.\n",
+                    "example": "15c41b00-e184-4bc1-aff1-6ab8cd3a73f7"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Incoming phone number.",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "queue_id": {
+                      "type": "string",
+                      "description": "A queue ID (in UUID v4 format) associated with the resource.",
+                      "example": "4fb75608-06ec-4c08-8866-447faf4b198e"
+                    },
+                    "phone_number": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "capabilities": {
+                      "type": "object",
+                      "description": "A list of capabilities that the phone number has.\n",
+                      "properties": {
+                        "mms": {
+                          "type": "boolean",
+                          "description": "Whether the phone number can send and receive MMS messages.\n",
+                          "example": false
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    },
+                    "last_used_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was last used.\n",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "forwarding_option": {
+                      "type": "object",
+                      "description": "Forwarding options for when a call cannot be routed to any operator.\n",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "One of `phone_number`, `voice_mailbox`, `none`. When `none` then the call is ended when it cannot be routed\nto any operator.\n",
+                          "enum": [
+                            "phone_number",
+                            "voice_mailbox",
+                            "none"
+                          ]
+                        },
+                        "phone_number": {
+                          "type": "string",
+                          "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                          "example": "+14156433423"
+                        },
+                        "voice_mailbox_id": {
+                          "type": "string",
+                          "description": "Voice mailbox ID (in UUID v4 format).",
+                          "example": "42c2e76e-4a60-49cd-9ef9-bdbf850ab9d7"
+                        }
+                      }
+                    },
+                    "visitor_context": {
+                      "description": "The illustration file which is shown to the Operator during the engagement.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Illustration asset's ID (in UUID v4 format).",
+                          "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Illustration asset's name.",
+                          "example": "My illustration asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Illustration asset's type.",
+                          "example": "illustration"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/c3753f72-fcfe-4b4d-b91e-b48f46d149f9"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "application/pdf"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "pre_queue_audio": {
+                      "description": "The audio file which is played prior to entering the queue.",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "post_queue_audio": {
+                      "description": "The audio file which is played right before the call is connected to the operator.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "in_queue_audio": {
+                      "description": "The audio file which is played while the visitor is waiting in the queue.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "full_queue_audio": {
+                      "description": "The audio file which is played when the queue is full.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "bounced_queue_audio": {
+                      "description": "The audio file which is played when a visitor is bounced from the queue due to normal or abnormal system's\nbehavior.\n",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove number",
+        "tags": [
+          "Phone channels"
+        ],
+        "description": "Removes the given incoming phone number from the bought numbers list.\n\nThe incoming phone numbers are recycled. Make sure the number is not used before removing it.\n\nOnly users with the role super manager can delete incoming phone numbers.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "phone_number",
+            "description": "The incoming phone number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "+14156433423"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/omnicall/sip_domains": {
+      "post": {
+        "summary": "Create SIP domain",
+        "tags": [
+          "SIP domains"
+        ],
+        "description": "Creates a SIP domain with the provided values.\n\nSIP domains can be used to receive audio via the SIP protocol.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "site_id": {
+                    "type": "string",
+                    "description": "A site ID (in UUID v4 format) associated with the resource.",
+                    "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description of the resource.",
+                    "example": "Short resource description"
+                  },
+                  "domain": {
+                    "type": "string",
+                    "description": "The domain part of the SIP URI. For example, in case of a SIP URI `sip:123@example.com`, we consider everything\nafter `@` as part of the domain. This can either be a domain name (`example.com`) or an IP address\nwith port (`172.16.254.1:8080`).\nMaximum length is 220 characters and an [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant\nformat is supported.\n",
+                    "example": "example.com"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Username used for authentication.",
+                    "example": "alice"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password used for authentication.",
+                    "example": "alice123"
+                  },
+                  "webhooks": {
+                    "type": "array",
+                    "description": "A list of webhooks that will subscribe to SIP domain events. A maximum of 10 webhooks are allowed. Currently,\nonly `sip_domain.delete` event is available.\n",
+                    "example": [
+                      "sip_domain.delete"
+                    ]
+                  }
+                },
+                "required": [
+                  "site_id",
+                  "name",
+                  "domain"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "SIP domain information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "domain": {
+                      "type": "string",
+                      "description": "The domain part of the SIP URI. For example, in case of a SIP URI `sip:123@example.com`, we consider everything\nafter `@` as part of the domain. This can either be a domain name (`example.com`) or an IP address\nwith port (`172.16.254.1:8080`).\nMaximum length is 220 characters and an [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant\nformat is supported.\n",
+                      "example": "example.com"
+                    },
+                    "username": {
+                      "type": "string",
+                      "description": "Username used for authentication.",
+                      "example": "alice"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List SIP domains",
+        "tags": [
+          "SIP domains"
+        ],
+        "description": "Returns a list of SIP domains.\n\nIf the site IDs are not specified, returns the SIP domains for all the user's sites.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "site_ids[]",
+            "description": "Only resources for the specified site IDs will be included in the response. Returns all resources if not specified.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": [
+              "fdbdd61a-36d2-48e3-9eeb-009b18a6aa78",
+              "84e2b66c-0289-419c-bd0a-a57fedf77ec7"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "sip_domains": {
+                      "type": "array",
+                      "description": "List of SIP domains.",
+                      "items": {
+                        "type": "object",
+                        "description": "SIP domain information.",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of the resource.",
+                            "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "A site ID (in UUID v4 format) associated with the resource.",
+                            "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the resource.",
+                            "example": "Resource name"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Short description of the resource.",
+                            "example": "Short resource description"
+                          },
+                          "domain": {
+                            "type": "string",
+                            "description": "The domain part of the SIP URI. For example, in case of a SIP URI `sip:123@example.com`, we consider everything\nafter `@` as part of the domain. This can either be a domain name (`example.com`) or an IP address\nwith port (`172.16.254.1:8080`).\nMaximum length is 220 characters and an [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant\nformat is supported.\n",
+                            "example": "example.com"
+                          },
+                          "username": {
+                            "type": "string",
+                            "description": "Username used for authentication.",
+                            "example": "alice"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was created.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "created_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who created the resource.",
+                            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was updated.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "updated_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                            "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/omnicall/sip_domains/{sip_domain_id}": {
+      "get": {
+        "summary": "Fetch SIP domain",
+        "tags": [
+          "SIP domains"
+        ],
+        "description": "Fetches a specified SIP domain.",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "sip_domain_id",
+            "description": "ID of the SIP domain.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "81ea8433-d067-45a6-a9b2-f20bc76ea6b8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "SIP domain information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "domain": {
+                      "type": "string",
+                      "description": "The domain part of the SIP URI. For example, in case of a SIP URI `sip:123@example.com`, we consider everything\nafter `@` as part of the domain. This can either be a domain name (`example.com`) or an IP address\nwith port (`172.16.254.1:8080`).\nMaximum length is 220 characters and an [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant\nformat is supported.\n",
+                      "example": "example.com"
+                    },
+                    "username": {
+                      "type": "string",
+                      "description": "Username used for authentication.",
+                      "example": "alice"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update SIP domain",
+        "tags": [
+          "SIP domains"
+        ],
+        "description": "Updates a SIP domain.",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "sip_domain_id",
+            "description": "ID of the SIP domain.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "81ea8433-d067-45a6-a9b2-f20bc76ea6b8"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description of the resource.",
+                    "example": "Short resource description"
+                  },
+                  "domain": {
+                    "type": "string",
+                    "description": "The domain part of the SIP URI. For example, in case of a SIP URI `sip:123@example.com`, we consider everything\nafter `@` as part of the domain. This can either be a domain name (`example.com`) or an IP address\nwith port (`172.16.254.1:8080`).\nMaximum length is 220 characters and an [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant\nformat is supported.\n",
+                    "example": "example.com"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Username used for authentication.",
+                    "example": "alice"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password used for authentication.",
+                    "example": "alice123"
+                  }
+                },
+                "required": [
+                  "name",
+                  "domain"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "SIP domain information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "domain": {
+                      "type": "string",
+                      "description": "The domain part of the SIP URI. For example, in case of a SIP URI `sip:123@example.com`, we consider everything\nafter `@` as part of the domain. This can either be a domain name (`example.com`) or an IP address\nwith port (`172.16.254.1:8080`).\nMaximum length is 220 characters and an [RFC3261](https://tools.ietf.org/html/rfc3261#section-25.1) compliant\nformat is supported.\n",
+                      "example": "example.com"
+                    },
+                    "username": {
+                      "type": "string",
+                      "description": "Username used for authentication.",
+                      "example": "alice"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete SIP domain",
+        "tags": [
+          "SIP domains"
+        ],
+        "description": "Deletes a SIP domain.",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "sip_domain_id",
+            "description": "ID of the SIP domain.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "81ea8433-d067-45a6-a9b2-f20bc76ea6b8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/omnicall/voice_mailboxes": {
+      "post": {
+        "summary": "Create mailbox",
+        "tags": [
+          "Voice mailboxes"
+        ],
+        "description": "Creates a voice mailbox that can record voicemails.\n\nThe user whose bearer access token is used in `Authorization` must have the role super manager on the site where\nthe voice mailbox is created.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "site_id": {
+                    "type": "string",
+                    "description": "A site ID (in UUID v4 format) associated with the resource.",
+                    "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description of the resource.",
+                    "example": "Short resource description"
+                  },
+                  "pre_recording_audio_id": {
+                    "type": "string",
+                    "description": "The ID of the audio asset which is played prior to recording the voicemail. The asset type can only be `audio`.\n",
+                    "example": "c7f0ccb7-694c-45eb-810b-70b5e9b50d84"
+                  }
+                },
+                "required": [
+                  "site_id",
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Voice mailbox information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "pre_recording_audio": {
+                      "description": "The audio asset which is played prior to entering the queue.",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List mailboxes",
+        "tags": [
+          "Voice mailboxes"
+        ],
+        "description": "Fetches all the site's voice mailboxes.\n\nThe user whose bearer access token is used in `Authorization` must have the role super manager on the requested\nsite. By default, voice mailboxes for all user's sites are returned.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "site_id",
+            "description": "Site ID, If set, only voice mailboxes belonging to that site are fetched.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "7ae6a4cc-d48e-4fb8-8360-dbab8da13356"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "voice_mailboxes": {
+                      "type": "array",
+                      "description": "List of voice mailboxes.",
+                      "items": {
+                        "type": "object",
+                        "description": "Voice mailbox information.",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of the resource.",
+                            "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "A site ID (in UUID v4 format) associated with the resource.",
+                            "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the resource.",
+                            "example": "Resource name"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Short description of the resource.",
+                            "example": "Short resource description"
+                          },
+                          "pre_recording_audio": {
+                            "description": "The audio asset which is played prior to entering the queue.",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Audio asset's ID (in UUID v4 format).",
+                                "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Audio asset's name.",
+                                "example": "My audio asset"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Audio asset's type.",
+                                "example": "audio"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL from which the contents of the associated file can be retrieved.",
+                                "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                              },
+                              "content_type": {
+                                "type": "string",
+                                "description": "MIME type of the asset's file.",
+                                "example": "audio/mpeg"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "description": "An ISO-8601 timestamp of when the resource was created.",
+                                "example": "2016-06-21T09:12:33.001Z"
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "A user ID (in UUID v4 format) of who created the resource.",
+                                "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                              }
+                            }
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was created.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "created_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who created the resource.",
+                            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was updated.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "updated_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                            "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/omnicall/voice_mailboxes/{voice_mailbox_id}": {
+      "get": {
+        "summary": "Fetch mailbox",
+        "tags": [
+          "Voice mailboxes"
+        ],
+        "description": "Fetches a specified voice mailbox's information.\n\nResponse includes `pre_recording_audio` asset information.\n\nThe user requesting the voice mailbox must have the role super manager on the site where the mailbox belongs to.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "voice_mailbox_id",
+            "description": "ID of the voice mailbox.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "c8137ced-f7b5-442f-bba0-e54d37484361"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Voice mailbox information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "pre_recording_audio": {
+                      "description": "The audio asset which is played prior to entering the queue.",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update mailbox",
+        "tags": [
+          "Voice mailboxes"
+        ],
+        "description": "Updates an existing voice mailbox.\n\nThe user must have the role super manager to be able to update a voice mailbox.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "voice_mailbox_id",
+            "description": "ID of the voice mailbox.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "c8137ced-f7b5-442f-bba0-e54d37484361"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the resource.",
+                    "example": "Resource name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description of the resource.",
+                    "example": "Short resource description"
+                  },
+                  "pre_recording_audio_id": {
+                    "type": "string",
+                    "description": "The ID of the audio asset which is played prior to recording the voicemail. The asset type can only be `audio`.\n",
+                    "example": "c7f0ccb7-694c-45eb-810b-70b5e9b50d84"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Voice mailbox information.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Short description of the resource.",
+                      "example": "Short resource description"
+                    },
+                    "pre_recording_audio": {
+                      "description": "The audio asset which is played prior to entering the queue.",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Audio asset's ID (in UUID v4 format).",
+                          "example": "6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Audio asset's name.",
+                          "example": "My audio asset"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Audio asset's type.",
+                          "example": "audio"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "URL from which the contents of the associated file can be retrieved.",
+                          "example": "https://api.salemove.com/omnicall/assets/6e42cf68-b802-11e7-abc4-cec278b6b50a"
+                        },
+                        "content_type": {
+                          "type": "string",
+                          "description": "MIME type of the asset's file.",
+                          "example": "audio/mpeg"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "An ISO-8601 timestamp of when the resource was created.",
+                          "example": "2016-06-21T09:12:33.001Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "A user ID (in UUID v4 format) of who created the resource.",
+                          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete mailbox",
+        "tags": [
+          "Voice mailboxes"
+        ],
+        "description": "Deletes a certain voice mailbox.\n\nThe voice mailbox cannot be deleted if an incoming phone number has set it as a forwarding option. The error with\nstatus code `409 - Conflict` is returned in this case.\n\nOnly the user with the role super manager can delete a voice mailbox.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "voice_mailbox_id",
+            "description": "ID of the voice mailbox.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "c8137ced-f7b5-442f-bba0-e54d37484361"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/omnicall/voice_mailboxes/{voice_mailbox_id}/voicemails/{voicemail_id}": {
+      "get": {
+        "summary": "Fetch voicemail",
+        "tags": [
+          "Voice mailboxes"
+        ],
+        "description": "Downloads a voicemail.\n\nWhen used with `Accept: audio/mpeg` header, the endpoint will perform an HTTP redirect to the voicemail audio\nrecording file.\n\nEnsure that your HTTP client strips the `Authorization` header when following a redirect, i.e when using\n_cURL_, ensure that your version is not affected by a [bug in its redirect implementation](https://curl.haxx.se/docs/CVE-2018-1000007.html).\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "voice_mailbox_id",
+            "description": "ID of the voice mailbox.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "c8137ced-f7b5-442f-bba0-e54d37484361"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "name": "voicemail_id",
+            "description": "ID of the voicemail.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "8ba2b577-1033-4a39-b87b-0a5b8664f45c"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A voicemail file.",
+            "content": {
+              "audio/mpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/router/outbound_sms": {
+      "post": {
+        "summary": "Send SMS",
+        "tags": [
+          "Outbound SMS"
+        ],
+        "description": "Sends an SMS.\n\nThe user making the request must have super manager role.\n\n* When a message has been sent out, a proactive engagement request is created.\n* Outbound SMS has a rate limit of 1 request per second per site.\n* Make sure you are familiar with the forbidden topics before using Outbound SMS service, see our knowledge base for [Forbidden Topics in Outbound SMS](https://support.glia.com/en_US/security-compliance/forbidden-topics-in-outbound-sms).\n\n### Configuring Twilio Messaging Service\nWhen sending the outbound SMS from the Twilio Messaging Service, the Messaging Service should have the incoming message webhook configured beforehand. The webhook is needed for Glia to receive the responses to the outbound SMS messages and enqueue the responses in the appropriate Glia queues. The webhook URL should point to `https://api.glia.com/omnicall/twilio/sms` and contain the following query parameters:\n\n* `queue_id` - The ID of the Glia queue, where the responses will be enqueued.\n* `context_id` - (Optional) The ID of the context shown to the operator when an engagement is created from the queued response.\n\nExample URL: `https://api.glia.com/omnicall/twilio/sms?queue_id=f58d4671-e888-4e87-96dc-1d41027bebc5&context_id=abc34343-e888-5fe4-98a1-55a786e9f234`\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "title": "Send SMS from phone number",
+                    "type": "object",
+                    "properties": {
+                      "from_number": {
+                        "type": "string",
+                        "description": "Phone number that the SMS is sent from. Note that this number must be assigned to a site first.\n\nThe user making the request must have access to the site that the phone number is assigned to.\n",
+                        "example": "+14156433423"
+                      },
+                      "to_number": {
+                        "type": "string",
+                        "description": "Phone number that the SMS is sent to.",
+                        "example": "+15316993461"
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Content of the SMS. An empty message is treated as if no message was given.",
+                        "example": "A message that will be sent to the recipient"
+                      },
+                      "webhooks": {
+                        "description": "See [Webhooks](https://docs.glia.com/glia-dev/reference/webhooks) section for more information.\nAn empty array of webhooks is treated as if no webhooks were specified.\n\n* When SMS delivery fails: `engagement.request.failure` event is fired.\n* When SMS has been delivered: `engagement.request.deliver` is fired.\n",
+                        "example": [
+                          {
+                            "url": "https://example.com",
+                            "method": "POST",
+                            "events": [
+                              "engagement.request.deliver",
+                              "engagement.request.failure"
+                            ]
+                          }
+                        ],
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "HTTP Webhook",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "description": "The URL (including protocol) to which the HTTP request will be sent to.\n",
+                              "example": "https://example.com"
+                            },
+                            "method": {
+                              "type": "string",
+                              "description": "The HTTP method that will be used for the HTTP request.",
+                              "example": "POST"
+                            },
+                            "headers": {
+                              "type": "object",
+                              "description": "An arbitrary object which will be used to set request headers for the HTTP request. The keys of the object\nwill be used as header names and values as header values. This can be used to authenticate incoming HTTP\nrequests in your server.\n",
+                              "example": {
+                                "Authorization": "value"
+                              }
+                            },
+                            "events": {
+                              "type": "array",
+                              "description": "An array of events (at least one) upon which a HTTP request will be made.\n",
+                              "items": {
+                                "type": "string",
+                                "example": "engagement.start"
+                              }
+                            }
+                          },
+                          "required": [
+                            "url",
+                            "method",
+                            "events"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "from_number",
+                      "to_number",
+                      "message"
+                    ]
+                  },
+                  {
+                    "title": "Send SMS with Twilio Messaging Service",
+                    "type": "object",
+                    "properties": {
+                      "from_twilio_messaging_service": {
+                        "type": "object",
+                        "properties": {
+                          "service_id": {
+                            "type": "string",
+                            "description": "ID of the Twilio Messaging Service that the SMS is sent with.",
+                            "example": "MG0123456789abcdef0123456789abcdef"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of a site that is associated with the Twilio account where the Messaging Service is defined.\n\nThe user making the request must have access to the specified site.\n",
+                            "example": "def34343-e888-43ae-99e0-07a676e9a111"
+                          }
+                        },
+                        "required": [
+                          "service_id",
+                          "site_id"
+                        ]
+                      },
+                      "to_number": {
+                        "type": "string",
+                        "description": "Phone number that the SMS is sent to.",
+                        "example": "+15316993461"
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Content of the SMS. An empty message is treated as if no message was given.",
+                        "example": "A message that will be sent to the recipient"
+                      },
+                      "webhooks": {
+                        "description": "See [Webhooks](https://docs.glia.com/glia-dev/reference/webhooks) section for more information.\nAn empty array of webhooks is treated as if no webhooks were specified.\n\n* When SMS delivery fails: `engagement.request.failure` event is fired.\n* When SMS has been delivered: `engagement.request.deliver` is fired.\n",
+                        "example": [
+                          {
+                            "url": "https://example.com",
+                            "method": "POST",
+                            "events": [
+                              "engagement.request.deliver",
+                              "engagement.request.failure"
+                            ]
+                          }
+                        ],
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "HTTP Webhook",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "description": "The URL (including protocol) to which the HTTP request will be sent to.\n",
+                              "example": "https://example.com"
+                            },
+                            "method": {
+                              "type": "string",
+                              "description": "The HTTP method that will be used for the HTTP request.",
+                              "example": "POST"
+                            },
+                            "headers": {
+                              "type": "object",
+                              "description": "An arbitrary object which will be used to set request headers for the HTTP request. The keys of the object\nwill be used as header names and values as header values. This can be used to authenticate incoming HTTP\nrequests in your server.\n",
+                              "example": {
+                                "Authorization": "value"
+                              }
+                            },
+                            "events": {
+                              "type": "array",
+                              "description": "An array of events (at least one) upon which a HTTP request will be made.\n",
+                              "items": {
+                                "type": "string",
+                                "example": "engagement.start"
+                              }
+                            }
+                          },
+                          "required": [
+                            "url",
+                            "method",
+                            "events"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "from_twilio_messaging_service",
+                      "to_number",
+                      "message"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SMS is being sent. Returns the engagement request ID for this message.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "engagement_request_id": {
+                      "type": "string",
+                      "description": "ID of the engagement request for this message.",
+                      "example": "aeb06746-5ebd-441a-89cc-9a5840e6fa2c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Your bearer token has expired or you are not authorized to perform this request.\n"
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "409": {
+            "description": "The request could not be completed due to a conflict with the current state of the requested resource.\n"
+          },
+          "422": {
+            "description": "Request is invalid. This occurs when some of the required fields are missing or invalid.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "example": {
+                  "error": "Invalid request",
+                  "details": {
+                    "from_number": [
+                      "is invalid"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/router/bulk_outbound_sms": {
+      "post": {
+        "summary": "Send SMS in bulk",
+        "tags": [
+          "Outbound SMS"
+        ],
+        "description": "Sends multiple SMS messages in bulk.\n\nThe user making the request must have super manager role.\n\n* On Glia's side the messages will be temporarily cached and a proactive engagement request is created for each one.\n* On the Glia's telephony provider's side, the actual SMS sending rate will depend on the type of number you are using and your Twilio Messaging Service configuration. For default rates, see our knowledge base: [SMS Rate Limits and Message Queues](https://support.glia.com/en_US/technical-requirements/sms-rate-limits-and-message-queues).\n* Make sure you are familiar with the forbidden topics before using Outbound SMS service, see our knowledge base for [Forbidden Topics in Outbound SMS](https://support.glia.com/en_US/security-compliance/forbidden-topics-in-outbound-sms).\n\n### Usage\n* A personal `message` can be used for every `to` recipient. If the personal `message` is not specified, the default `message` is used instead. An error is returned if neither is found.\n* The `webhooks` are specified in a similar way to `message` for every `to` recipient. If no personal or default `webhooks` is specified, then no webhooks will be triggered for the message. Use a unique webhook URL for each message to distinguish the result of one message from another.\n\n### Configuring Twilio Messaging Service\nWhen sending the outbound SMS from the Twilio Messaging Service, the Messaging Service should have the incoming message webhook configured beforehand. The webhook is needed for Glia to receive the responses to the outbound SMS messages and enqueue the responses in the appropriate Glia queues. The webhook URL should point to `https://api.glia.com/omnicall/twilio/sms` and contain the following query parameters:\n\n* `queue_id` - The ID of the Glia queue, where the responses will be enqueued.\n* `context_id` - (Optional) The ID of the context shown to the operator when an engagement is created from the queued response.\n\nExample URL: `https://api.glia.com/omnicall/twilio/sms?queue_id=f58d4671-e888-4e87-96dc-1d41027bebc5&context_id=abc34343-e888-5fe4-98a1-55a786e9f234`\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from_twilio_messaging_service": {
+                    "type": "object",
+                    "properties": {
+                      "service_id": {
+                        "type": "string",
+                        "description": "ID of the Twilio Messaging Service that the SMS is sent with.",
+                        "example": "MG0123456789abcdef0123456789abcdef"
+                      },
+                      "site_id": {
+                        "type": "string",
+                        "description": "ID of a site that is associated with the Twilio account where the Messaging Service is defined.\n\nThe user making the request must have access to the specified site.\n",
+                        "example": "def34343-e888-43ae-99e0-07a676e9a111"
+                      }
+                    },
+                    "required": [
+                      "service_id",
+                      "site_id"
+                    ]
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "Content of the default SMS message.",
+                    "example": "A default message that will be sent to the recipients"
+                  },
+                  "webhooks": {
+                    "description": "See [Webhooks](https://docs.glia.com/glia-dev/reference/webhooks) section for more information.\nAn empty array of webhooks is treated as if no webhooks were specified.\n\n* When SMS delivery fails: `engagement.request.failure` event is fired.\n* When SMS has been delivered: `engagement.request.deliver` is fired.\n",
+                    "example": [
+                      {
+                        "url": "https://example.com",
+                        "method": "POST",
+                        "events": [
+                          "engagement.request.deliver",
+                          "engagement.request.failure"
+                        ]
+                      }
+                    ],
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "HTTP Webhook",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "The URL (including protocol) to which the HTTP request will be sent to.\n",
+                          "example": "https://example.com"
+                        },
+                        "method": {
+                          "type": "string",
+                          "description": "The HTTP method that will be used for the HTTP request.",
+                          "example": "POST"
+                        },
+                        "headers": {
+                          "type": "object",
+                          "description": "An arbitrary object which will be used to set request headers for the HTTP request. The keys of the object\nwill be used as header names and values as header values. This can be used to authenticate incoming HTTP\nrequests in your server.\n",
+                          "example": {
+                            "Authorization": "value"
+                          }
+                        },
+                        "events": {
+                          "type": "array",
+                          "description": "An array of events (at least one) upon which a HTTP request will be made.\n",
+                          "items": {
+                            "type": "string",
+                            "example": "engagement.start"
+                          }
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "method",
+                        "events"
+                      ]
+                    }
+                  },
+                  "to": {
+                    "type": "array",
+                    "description": "An array of message recipients.\n\nAt least one recipient has to be specified. The maximum number of recipients is `1000`.\n",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "to_number": {
+                          "type": "string",
+                          "description": "Phone number that the SMS is sent to.",
+                          "example": "+15316993461"
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Content of the SMS. An empty message is treated as if no message was given.",
+                          "example": "A message that will be sent to the recipient"
+                        },
+                        "webhooks": {
+                          "description": "See [Webhooks](https://docs.glia.com/glia-dev/reference/webhooks) section for more information.\nAn empty array of webhooks is treated as if no webhooks were specified.\n\n* When SMS delivery fails: `engagement.request.failure` event is fired.\n* When SMS has been delivered: `engagement.request.deliver` is fired.\n",
+                          "example": [
+                            {
+                              "url": "https://example.com",
+                              "method": "POST",
+                              "events": [
+                                "engagement.request.deliver",
+                                "engagement.request.failure"
+                              ]
+                            }
+                          ],
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "description": "HTTP Webhook",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "description": "The URL (including protocol) to which the HTTP request will be sent to.\n",
+                                "example": "https://example.com"
+                              },
+                              "method": {
+                                "type": "string",
+                                "description": "The HTTP method that will be used for the HTTP request.",
+                                "example": "POST"
+                              },
+                              "headers": {
+                                "type": "object",
+                                "description": "An arbitrary object which will be used to set request headers for the HTTP request. The keys of the object\nwill be used as header names and values as header values. This can be used to authenticate incoming HTTP\nrequests in your server.\n",
+                                "example": {
+                                  "Authorization": "value"
+                                }
+                              },
+                              "events": {
+                                "type": "array",
+                                "description": "An array of events (at least one) upon which a HTTP request will be made.\n",
+                                "items": {
+                                  "type": "string",
+                                  "example": "engagement.start"
+                                }
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "method",
+                              "events"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "to_number": "+12569020165"
+                      },
+                      {
+                        "to_number": "+15316993461",
+                        "message": "Personal message overrides the default message."
+                      },
+                      {
+                        "to_number": "+15316993461",
+                        "message": "Personal webhooks override the default webhooks.",
+                        "webhooks": [
+                          {
+                            "url": "https://example.com",
+                            "method": "POST",
+                            "events": [
+                              "engagement.request.deliver",
+                              "engagement.request.failure"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "from_twilio_messaging_service",
+                  "to"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "SMS messages have been temporarily cached in Glia and will be sent at the first opportunity.\n"
+          },
+          "401": {
+            "description": "Your bearer token has expired or you are not authorized to perform this request.\n"
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          },
+          "409": {
+            "description": "The request could not be completed due to a conflict with the current state of the requested resource.\n"
+          },
+          "422": {
+            "description": "Request is invalid. This occurs when some of the required fields are missing or invalid.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "example": {
+                  "error": "Invalid request",
+                  "details": {
+                    "to": [
+                      "is invalid"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

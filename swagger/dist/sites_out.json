@@ -1,0 +1,1544 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sites",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/sites": {
+      "post": {
+        "summary": "Create site",
+        "tags": [
+          "Sites"
+        ],
+        "description": "New sites can be created as clones of existing ones, meaning that the new site will have the same settings\nas the existing one, e.g. visuals, teams, business rules.\n\nTo change these settings, see [Update site](ref:sites#put_sites-site-id).\n\nOnly users with super manager role can create new sites.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "name",
+                  "addresses",
+                  "clone_from_id"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Site name.",
+                    "example": "Example"
+                  },
+                  "addresses": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "A list of site’s allowed addresses. Addresses must be without protocol prefixes and ports. Can be a domain name\n(`www.example.com`) to let Glia run on all sites, or include path to restrict the access (`www.example.com/home`).\n",
+                    "example": [
+                      "example.com",
+                      "eu.example.com",
+                      "us.example.com"
+                    ]
+                  },
+                  "clone_from_id": {
+                    "type": "string",
+                    "description": "The new site will be configured using this `site_id` as a template. The new site will copy the visuals, teams\nand business rules from the `site_id` passed in this parameter.\n",
+                    "example": "354f7f5f-0e7a-4511-a780-a4e94883e780"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "Site URL.",
+                      "example": "https://api.salemove.com/sites/3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "Site ID (in UUID v4 format).",
+                      "example": "3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                    },
+                    "hostnames": {
+                      "type": "array",
+                      "deprecated": true,
+                      "description": "An array of client's allowed sites. Used as the same purpose for `addresses` but kept for backward compatibility.\n",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "example.com",
+                        "login.example.com"
+                      ]
+                    },
+                    "salemove_enabled": {
+                      "type": "boolean",
+                      "description": "If `true` then it enables Glia for the site, if `false` it disables Glia for the site. When Glia is enabled the\nGlia integration is delivered, otherwise a `204 No-Content` is delivered.\n",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List sites",
+        "tags": [
+          "Sites"
+        ],
+        "description": "Fetches an array of sites that have the given `hostname` assigned to them.\n\nA site can have one or more `addresses`, where an `address` is a combination of `hostname` + `path`. For example,\na valid address could be `example.com/auto` where `hostname=example.com` and `path=/auto`.\n",
+        "parameters": [
+          {
+            "name": "hostname",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "company.com"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "sites": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "href": {
+                            "type": "string",
+                            "description": "Site URL.",
+                            "example": "https://api.salemove.com/sites/3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Site ID (in UUID v4 format).",
+                            "example": "3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                          },
+                          "addresses": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "A list of site’s allowed addresses. Addresses must be without protocol prefixes and ports. Can be a domain name\n(`www.example.com`) to let Glia run on all sites, or include path to restrict the access (`www.example.com/home`).\n",
+                            "example": [
+                              "example.com",
+                              "eu.example.com",
+                              "us.example.com"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}": {
+      "get": {
+        "summary": "Fetch site",
+        "tags": [
+          "Sites"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "Site URL.",
+                      "example": "https://api.salemove.com/sites/3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "Site ID (in UUID v4 format).",
+                      "example": "3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Site name.",
+                      "example": "Example"
+                    },
+                    "hostname": {
+                      "type": "array",
+                      "deprecated": true,
+                      "description": "An array of client's allowed sites. Used as the same purpose for `addresses` but kept for backward compatibility.\n",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "example.com",
+                        "login.example.com"
+                      ]
+                    },
+                    "logo": {
+                      "type": "string",
+                      "description": "The site's logo in base64 format. If `null` then the picture is deleted.\n",
+                      "example": null
+                    },
+                    "default_operator_picture": {
+                      "type": "string",
+                      "description": "The site's default operator picture in base64 format. If `null` then the picture is deleted.\n",
+                      "example": null
+                    },
+                    "always_use_default_operator_picture": {
+                      "type": "boolean",
+                      "description": "Always use default operator picture instead of user's profile picture.\n",
+                      "example": false
+                    },
+                    "widget_mode": {
+                      "type": "boolean",
+                      "description": "If `true`, the visitor's engagement panel detaches and is movable. If `false`, the visitor's engagement panel\nremains intact to the edge of the window.\n",
+                      "example": true
+                    },
+                    "reactive_enabled": {
+                      "type": "boolean",
+                      "description": "If `true` then the reactive tab is shown to the visitor. If `false` then the reactive tab is hidden from the\nvisitor.\n",
+                      "example": true
+                    },
+                    "reactive_call_timeout": {
+                      "type": "integer",
+                      "description": "The time (in seconds) that operators have to answer an incoming engagement request before the request is re-tried\nor marked as declined.\n",
+                      "example": 30
+                    },
+                    "proactive_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator is able to call the visitor. If `false`, the operator can only wait for the visitor to call.\n",
+                      "example": true
+                    },
+                    "proactive_call_timeout": {
+                      "type": "integer",
+                      "description": "The time (in seconds) that visitors have to answer an incoming engagement before the engagement is re-tried or\nmarked as declined.\n",
+                      "example": 15
+                    },
+                    "multi_engagement_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator is able to conduct multiple engagements simultaneously. If `false`, the operator is only\nable to be engaged in 1 engagement at a time.\n",
+                      "example": true
+                    },
+                    "multi_engagement_default_availability": {
+                      "type": "string",
+                      "description": "Controls how the operator's availability status is updated during an engagement - namely `retain`, `chat` or\n`unavailable`.\n",
+                      "example": "unavailable"
+                    },
+                    "multi_engagement_max_count": {
+                      "type": "integer",
+                      "description": "The amount of engagements that an operator can participate in at any given time.\n",
+                      "example": 2
+                    },
+                    "multi_engagement_idle_time": {
+                      "type": "integer",
+                      "description": "The time (in seconds) before the operator is reminded to re-engage with the visitor on hold.\n",
+                      "example": 15
+                    },
+                    "time_zone": {
+                      "type": "string",
+                      "description": "The time zone that is used for statistics and general usage. The syntax is just city to time zone mapping, e.g\n`Eastern Time (US & Canada)`.\n",
+                      "example": "Eastern Time (US & Canada)"
+                    },
+                    "missed_call_unavailability_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, then in case operator misses or rejects an engagement or transfer request, the operator's status\nautomatically changes to either unavailable (Idle), in case they have no ongoing engagements; or temporarily\nunavailable, in case they have ongoing engagement(s).\n",
+                      "example": true
+                    },
+                    "welcome_message": {
+                      "type": "string",
+                      "description": "The message that is automatically sent at the start of each engagement. It fits an unlimited number of characters.\n",
+                      "example": null
+                    },
+                    "visitor_user_agent_whitelist": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of browsers that are not officially supported by Visitor App, but could be used by the visitor. Must be\nspecified as the User-Agent HTTP header that the browser is sending, e.g. `MSIE 10.6`.\n",
+                      "example": [
+                        "MSIE 10.0",
+                        "MSIE 10.6"
+                      ]
+                    },
+                    "visitor_user_agent_blacklist": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of browsers that are officially supported by Visitor App, but could not be used by the visitor. Must be\nspecified as the User-Agent HTTP header that the browser is sending, e.g. `Trident`.\n",
+                      "example": []
+                    },
+                    "observation_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, operators are able to observe visitors' browsing before an engagement. If `false`, operators are not\nable to observe visitor before an engagement.\n",
+                      "example": true
+                    },
+                    "store_recording": {
+                      "type": "boolean",
+                      "description": "If `true`, audio recordings of the site are stored. If `false`, audio recordings of the site are not stored.\n",
+                      "example": true
+                    },
+                    "cobrowse_permission_required": {
+                      "type": "boolean",
+                      "description": "If `true`, the visitor's permission to co-browse will be requested before the session in an engagement. If\n`false`, the operator can start co-browsing with a visitor anytime.\n",
+                      "example": false
+                    },
+                    "public_visitor_custom_attribute_changes_allowed": {
+                      "type": "boolean",
+                      "description": "If `true`, it is possible for a visitor to update their custom attributes using JavaScript in the browser.\n",
+                      "example": true
+                    },
+                    "interactive_cobrowsing_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator will be able to click on the visitor's website elements, fill in forms, and more during\nco-browsing. If `false`, the operator will not be able to interact with the visitor's website during\nco-browsing.\n",
+                      "example": true
+                    },
+                    "allowed_login_ips": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Allows login to Glia only from the IP addresses defined. Supports only IPv4 and range in CIDR notation.\n",
+                      "example": []
+                    },
+                    "allowed_file_content_types": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Array of file MIME types that are allowed to be sent.\n",
+                      "example": [
+                        "image/png",
+                        "image/jpeg",
+                        "application/pdf"
+                      ]
+                    },
+                    "video_in_call_visualizer": {
+                      "type": "string",
+                      "description": "Controls if and how video can be used in call visualizer - namely `two-way`, `one-way` or `off`.\n",
+                      "example": "two-way"
+                    },
+                    "store_file_attachments": {
+                      "type": "boolean",
+                      "description": "If `true`, chat file attachments would be stored. If `false`, the file attachments will be deleted 24 hours after\nthe engagement ends and the files' metadata will remain in the chat transcript.\n",
+                      "example": true
+                    },
+                    "custom_code": {
+                      "type": "string",
+                      "description": "Custom JavaScript that will be executed on the site’s web pages along with Glia integration script.\n",
+                      "example": ""
+                    },
+                    "interpret_document_mode_as_ie_version": {
+                      "type": "boolean",
+                      "description": "If `true`, detects visitor’s Internet Explorer version using the `document.documentMode` property. If `false`, it\ndoes not detect visitor's Internet Explorer version.\n",
+                      "example": true
+                    },
+                    "operator_console_omnibrowse": {
+                      "type": "boolean",
+                      "description": "If `true` then it enables Call Visualizer in the Glia Hub. If `false` then it disables Call Visualizer in the\nGlia Hub.\n",
+                      "example": true
+                    },
+                    "visitor_page_adaption": {
+                      "type": "string",
+                      "description": "Define the visitor's engagement mode, namely - `iframe`, `div`, `style`.\n",
+                      "example": "div"
+                    },
+                    "available_locale_names": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of all the Visitor App's language schemas available for this site.\nSee more in:\n* [Base Locales](ref:base-locales)\n* [Custom Locales](ref:custom-locales)\n",
+                      "example": [
+                        "de-DE",
+                        "en-US",
+                        "es-MX",
+                        "et-EE",
+                        "fi-FI",
+                        "fr-CA",
+                        "zh-CN",
+                        "zh-TW",
+                        "en-us-cobrowse"
+                      ]
+                    },
+                    "visitor_app_default_locale": {
+                      "type": "string",
+                      "description": "The default language in which the Visitor App is shown for this site.\n",
+                      "example": "en-US"
+                    },
+                    "queue_metric_window_sec": {
+                      "type": "integer",
+                      "description": "The time-frame used to calculate live metrics that need a finite time to have a meaningful value, e.g. average\nwait time. Defined in seconds, default being 600 s.\n",
+                      "example": 600
+                    },
+                    "service_level_duration_sec": {
+                      "type": "integer",
+                      "description": "Target time within the incoming engagement requests should be answered, in seconds.\n",
+                      "example": 600
+                    },
+                    "visitor_app_phone_extension_enabled": {
+                      "type": "boolean",
+                      "description": "If `true` then phone extension input is shown alongside phone number input in Visitor App.\n",
+                      "example": true
+                    },
+                    "boot_delay_ms": {
+                      "type": "integer",
+                      "description": "Delays the bootstrapping of Glia Visitor App by the given milliseconds. Delay may be useful on very heavy sites.\n",
+                      "example": 0
+                    },
+                    "shortcuts_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, keyboard shortcuts are enabled in the Glia Hub.",
+                      "example": true
+                    },
+                    "phone_number_default_country": {
+                      "type": "string",
+                      "description": "The country code that will be displayed by default when visitors enter their phone number.\n",
+                      "example": "us"
+                    },
+                    "hide_visitor_info_in_visitor_app": {
+                      "type": "boolean",
+                      "description": "If `true` then the visitor name and email fields are hidden in the Visitor App.\n",
+                      "example": false
+                    },
+                    "operator_screenshare_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator's screen can be shared with the visitor.",
+                      "example": true
+                    },
+                    "visitor_screenshare_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the visitor's screen can be shared with the operator.",
+                      "example": true
+                    },
+                    "reactive_tab": {
+                      "type": "object",
+                      "description": "Customize the reactive bubble's aesthetics.",
+                      "example": {
+                        "back_color": "#6bc56f",
+                        "contact_when_unstaffed": true,
+                        "font_size": 20,
+                        "format": "mix",
+                        "front_color": "#eeeeee",
+                        "hover_color": "#05a94d",
+                        "icon_class": "ico-text",
+                        "placement": "left",
+                        "position": "right",
+                        "show_unavailable": true,
+                        "size": 100,
+                        "text": "Let's talk!",
+                        "vertical_offset": 50,
+                        "visible_operator_count": 3
+                      }
+                    },
+                    "salemove_enabled": {
+                      "type": "boolean",
+                      "description": "If `true` then it enables Glia for the site, if `false` it disables Glia for the site. When Glia is enabled the\nGlia integration is delivered, otherwise a `204 No-Content` is delivered.\n",
+                      "example": true
+                    },
+                    "map": {
+                      "type": "object",
+                      "description": "An object with three possible attributes `latitude`, `longitude`, `zoom`. Defines the Glia Hub map center\ncoordinates and the zoom level.\n",
+                      "example": {
+                        "latitude": 25,
+                        "longitude": 5,
+                        "zoom": 2
+                      }
+                    },
+                    "store_data": {
+                      "type": "boolean",
+                      "description": "If `true` the following is stored:\n* chat transcripts,\n* visitor's information,\n* the metadata of possible file attachments,\n* the history of audio and video engagements ever happening.\n\nThis setting must be `true` to enable `store_file_attachments`.\n",
+                      "example": true
+                    },
+                    "allowed_file_senders": {
+                      "type": "object",
+                      "description": "Allows sending file attachments in the chat from visitor to operator and/or operator to visitor.\n\nE.g. `{operator: true, visitor: true}`.'\n",
+                      "example": {
+                        "operator": true,
+                        "visitor": false
+                      }
+                    },
+                    "addresses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "A list of site’s allowed addresses. Addresses must be without protocol prefixes and ports. Can be a domain name\n(`www.example.com`) to let Glia run on all sites, or include path to restrict the access (`www.example.com/home`).\n",
+                      "example": [
+                        "example.com",
+                        "eu.example.com",
+                        "us.example.com"
+                      ]
+                    },
+                    "enable_visitor_transcript_download": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Allow visitor to download the chat transcript after the engagement.\n",
+                      "example": true
+                    },
+                    "visitor_time_to_inactive_sec": {
+                      "type": "integer",
+                      "minimum": 15,
+                      "maximum": 3600,
+                      "default": 30,
+                      "description": "The number of seconds to wait since the last activity of visitor before marking the visitor as inactive.\n",
+                      "example": 30
+                    },
+                    "visitor_reconnect_timeout_sec": {
+                      "type": "integer",
+                      "minimum": 5,
+                      "maximum": 1000,
+                      "default": 30,
+                      "description": "The number of seconds to wait for a disconnected visitor to return.\n\nIf the visitor does not return in time, the visitor will be removed from visitor list, any queues or engagement\nwill be ended if in progress.\n",
+                      "example": 15
+                    },
+                    "visitor_visibility": {
+                      "type": "string",
+                      "description": "Policy that determines whether a visitor is visible to an operator.\n\n- `all`: All site’s visitors are visible for all the site’s operators.\n- `staffing`: Visitor’s visibility is determined by the queue assignments.\n",
+                      "enum": [
+                        "all",
+                        "staffing"
+                      ],
+                      "example": "staffing",
+                      "default": "all"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "id",
+                    "hostname",
+                    "addresses"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update site",
+        "tags": [
+          "Sites"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "id",
+                  "hostname"
+                ],
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "Site URL.",
+                    "example": "https://api.salemove.com/sites/3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Site ID (in UUID v4 format).",
+                    "example": "3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Site name.",
+                    "example": "Example"
+                  },
+                  "hostname": {
+                    "type": "array",
+                    "deprecated": true,
+                    "description": "An array of client's allowed sites. Used as the same purpose for `addresses` but kept for backward compatibility.\n",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "example.com",
+                      "login.example.com"
+                    ]
+                  },
+                  "logo": {
+                    "type": "string",
+                    "description": "The site's logo in base64 format. If `null` then the picture is deleted.\n",
+                    "example": null
+                  },
+                  "default_operator_picture": {
+                    "type": "string",
+                    "description": "The site's default operator picture in base64 format. If `null` then the picture is deleted.\n",
+                    "example": null
+                  },
+                  "always_use_default_operator_picture": {
+                    "type": "boolean",
+                    "description": "Always use default operator picture instead of user's profile picture.\n",
+                    "example": false
+                  },
+                  "widget_mode": {
+                    "type": "boolean",
+                    "description": "If `true`, the visitor's engagement panel detaches and is movable. If `false`, the visitor's engagement panel\nremains intact to the edge of the window.\n",
+                    "example": true
+                  },
+                  "reactive_enabled": {
+                    "type": "boolean",
+                    "description": "If `true` then the reactive tab is shown to the visitor. If `false` then the reactive tab is hidden from the\nvisitor.\n",
+                    "example": true
+                  },
+                  "reactive_call_timeout": {
+                    "type": "integer",
+                    "description": "The time (in seconds) that operators have to answer an incoming engagement request before the request is re-tried\nor marked as declined.\n",
+                    "example": 30
+                  },
+                  "proactive_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, the operator is able to call the visitor. If `false`, the operator can only wait for the visitor to call.\n",
+                    "example": true
+                  },
+                  "proactive_call_timeout": {
+                    "type": "integer",
+                    "description": "The time (in seconds) that visitors have to answer an incoming engagement before the engagement is re-tried or\nmarked as declined.\n",
+                    "example": 15
+                  },
+                  "multi_engagement_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, the operator is able to conduct multiple engagements simultaneously. If `false`, the operator is only\nable to be engaged in 1 engagement at a time.\n",
+                    "example": true
+                  },
+                  "multi_engagement_default_availability": {
+                    "type": "string",
+                    "description": "Controls how the operator's availability status is updated during an engagement - namely `retain`, `chat` or\n`unavailable`.\n",
+                    "example": "unavailable"
+                  },
+                  "multi_engagement_max_count": {
+                    "type": "integer",
+                    "description": "The amount of engagements that an operator can participate in at any given time.\n",
+                    "example": 2
+                  },
+                  "multi_engagement_idle_time": {
+                    "type": "integer",
+                    "description": "The time (in seconds) before the operator is reminded to re-engage with the visitor on hold.\n",
+                    "example": 15
+                  },
+                  "time_zone": {
+                    "type": "string",
+                    "description": "The time zone that is used for statistics and general usage. The syntax is just city to time zone mapping, e.g\n`Eastern Time (US & Canada)`.\n",
+                    "example": "Eastern Time (US & Canada)"
+                  },
+                  "missed_call_unavailability_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, then in case operator misses or rejects an engagement or transfer request, the operator's status\nautomatically changes to either unavailable (Idle), in case they have no ongoing engagements; or temporarily\nunavailable, in case they have ongoing engagement(s).\n",
+                    "example": true
+                  },
+                  "welcome_message": {
+                    "type": "string",
+                    "description": "The message that is automatically sent at the start of each engagement. It fits an unlimited number of characters.\n",
+                    "example": null
+                  },
+                  "visitor_user_agent_whitelist": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of browsers that are not officially supported by Visitor App, but could be used by the visitor. Must be\nspecified as the User-Agent HTTP header that the browser is sending, e.g. `MSIE 10.6`.\n",
+                    "example": [
+                      "MSIE 10.0",
+                      "MSIE 10.6"
+                    ]
+                  },
+                  "visitor_user_agent_blacklist": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of browsers that are officially supported by Visitor App, but could not be used by the visitor. Must be\nspecified as the User-Agent HTTP header that the browser is sending, e.g. `Trident`.\n",
+                    "example": []
+                  },
+                  "observation_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, operators are able to observe visitors' browsing before an engagement. If `false`, operators are not\nable to observe visitor before an engagement.\n",
+                    "example": true
+                  },
+                  "store_recording": {
+                    "type": "boolean",
+                    "description": "If `true`, audio recordings of the site are stored. If `false`, audio recordings of the site are not stored.\n",
+                    "example": true
+                  },
+                  "cobrowse_permission_required": {
+                    "type": "boolean",
+                    "description": "If `true`, the visitor's permission to co-browse will be requested before the session in an engagement. If\n`false`, the operator can start co-browsing with a visitor anytime.\n",
+                    "example": false
+                  },
+                  "public_visitor_custom_attribute_changes_allowed": {
+                    "type": "boolean",
+                    "description": "If `true`, it is possible for a visitor to update their custom attributes using JavaScript in the browser.\n",
+                    "example": true
+                  },
+                  "interactive_cobrowsing_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, the operator will be able to click on the visitor's website elements, fill in forms, and more during\nco-browsing. If `false`, the operator will not be able to interact with the visitor's website during\nco-browsing.\n",
+                    "example": true
+                  },
+                  "allowed_login_ips": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Allows login to Glia only from the IP addresses defined. Supports only IPv4 and range in CIDR notation.\n",
+                    "example": []
+                  },
+                  "allowed_file_content_types": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Array of file MIME types that are allowed to be sent.\n",
+                    "example": [
+                      "image/png",
+                      "image/jpeg",
+                      "application/pdf"
+                    ]
+                  },
+                  "video_in_call_visualizer": {
+                    "type": "string",
+                    "description": "Controls if and how video can be used in call visualizer - namely `two-way`, `one-way` or `off`.\n",
+                    "example": "two-way"
+                  },
+                  "store_file_attachments": {
+                    "type": "boolean",
+                    "description": "If `true`, chat file attachments would be stored. If `false`, the file attachments will be deleted 24 hours after\nthe engagement ends and the files' metadata will remain in the chat transcript.\n",
+                    "example": true
+                  },
+                  "custom_code": {
+                    "type": "string",
+                    "description": "Custom JavaScript that will be executed on the site’s web pages along with Glia integration script.\n",
+                    "example": ""
+                  },
+                  "interpret_document_mode_as_ie_version": {
+                    "type": "boolean",
+                    "description": "If `true`, detects visitor’s Internet Explorer version using the `document.documentMode` property. If `false`, it\ndoes not detect visitor's Internet Explorer version.\n",
+                    "example": true
+                  },
+                  "operator_console_omnibrowse": {
+                    "type": "boolean",
+                    "description": "If `true` then it enables Call Visualizer in the Glia Hub. If `false` then it disables Call Visualizer in the\nGlia Hub.\n",
+                    "example": true
+                  },
+                  "visitor_page_adaption": {
+                    "type": "string",
+                    "description": "Define the visitor's engagement mode, namely - `iframe`, `div`, `style`.\n",
+                    "example": "div"
+                  },
+                  "available_locale_names": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of all the Visitor App's language schemas available for this site.\nSee more in:\n* [Base Locales](ref:base-locales)\n* [Custom Locales](ref:custom-locales)\n",
+                    "example": [
+                      "de-DE",
+                      "en-US",
+                      "es-MX",
+                      "et-EE",
+                      "fi-FI",
+                      "fr-CA",
+                      "zh-CN",
+                      "zh-TW",
+                      "en-us-cobrowse"
+                    ]
+                  },
+                  "visitor_app_default_locale": {
+                    "type": "string",
+                    "description": "The default language in which the Visitor App is shown for this site.\n",
+                    "example": "en-US"
+                  },
+                  "queue_metric_window_sec": {
+                    "type": "integer",
+                    "description": "The time-frame used to calculate live metrics that need a finite time to have a meaningful value, e.g. average\nwait time. Defined in seconds, default being 600 s.\n",
+                    "example": 600
+                  },
+                  "service_level_duration_sec": {
+                    "type": "integer",
+                    "description": "Target time within the incoming engagement requests should be answered, in seconds.\n",
+                    "example": 600
+                  },
+                  "visitor_app_phone_extension_enabled": {
+                    "type": "boolean",
+                    "description": "If `true` then phone extension input is shown alongside phone number input in Visitor App.\n",
+                    "example": true
+                  },
+                  "boot_delay_ms": {
+                    "type": "integer",
+                    "description": "Delays the bootstrapping of Glia Visitor App by the given milliseconds. Delay may be useful on very heavy sites.\n",
+                    "example": 0
+                  },
+                  "shortcuts_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, keyboard shortcuts are enabled in the Glia Hub.",
+                    "example": true
+                  },
+                  "phone_number_default_country": {
+                    "type": "string",
+                    "description": "The country code that will be displayed by default when visitors enter their phone number.\n",
+                    "example": "us"
+                  },
+                  "hide_visitor_info_in_visitor_app": {
+                    "type": "boolean",
+                    "description": "If `true` then the visitor name and email fields are hidden in the Visitor App.\n",
+                    "example": false
+                  },
+                  "operator_screenshare_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, the operator's screen can be shared with the visitor.",
+                    "example": true
+                  },
+                  "visitor_screenshare_enabled": {
+                    "type": "boolean",
+                    "description": "If `true`, the visitor's screen can be shared with the operator.",
+                    "example": true
+                  },
+                  "reactive_tab": {
+                    "type": "object",
+                    "description": "Customize the reactive bubble's aesthetics.",
+                    "example": {
+                      "back_color": "#6bc56f",
+                      "contact_when_unstaffed": true,
+                      "font_size": 20,
+                      "format": "mix",
+                      "front_color": "#eeeeee",
+                      "hover_color": "#05a94d",
+                      "icon_class": "ico-text",
+                      "placement": "left",
+                      "position": "right",
+                      "show_unavailable": true,
+                      "size": 100,
+                      "text": "Let's talk!",
+                      "vertical_offset": 50,
+                      "visible_operator_count": 3
+                    }
+                  },
+                  "salemove_enabled": {
+                    "type": "boolean",
+                    "description": "If `true` then it enables Glia for the site, if `false` it disables Glia for the site. When Glia is enabled the\nGlia integration is delivered, otherwise a `204 No-Content` is delivered.\n",
+                    "example": true
+                  },
+                  "map": {
+                    "type": "object",
+                    "description": "An object with three possible attributes `latitude`, `longitude`, `zoom`. Defines the Glia Hub map center\ncoordinates and the zoom level.\n",
+                    "example": {
+                      "latitude": 25,
+                      "longitude": 5,
+                      "zoom": 2
+                    }
+                  },
+                  "store_data": {
+                    "type": "boolean",
+                    "description": "If `true` the following is stored:\n* chat transcripts,\n* visitor's information,\n* the metadata of possible file attachments,\n* the history of audio and video engagements ever happening.\n\nThis setting must be `true` to enable `store_file_attachments`.\n",
+                    "example": true
+                  },
+                  "allowed_file_senders": {
+                    "type": "object",
+                    "description": "Allows sending file attachments in the chat from visitor to operator and/or operator to visitor.\n\nE.g. `{operator: true, visitor: true}`.'\n",
+                    "example": {
+                      "operator": true,
+                      "visitor": false
+                    }
+                  },
+                  "addresses": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "A list of site’s allowed addresses. Addresses must be without protocol prefixes and ports. Can be a domain name\n(`www.example.com`) to let Glia run on all sites, or include path to restrict the access (`www.example.com/home`).\n",
+                    "example": [
+                      "example.com",
+                      "eu.example.com",
+                      "us.example.com"
+                    ]
+                  },
+                  "enable_visitor_transcript_download": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Allow visitor to download the chat transcript after the engagement.\n",
+                    "example": true
+                  },
+                  "visitor_time_to_inactive_sec": {
+                    "type": "integer",
+                    "minimum": 15,
+                    "maximum": 3600,
+                    "default": 30,
+                    "description": "The number of seconds to wait since the last activity of visitor before marking the visitor as inactive.\n",
+                    "example": 30
+                  },
+                  "visitor_reconnect_timeout_sec": {
+                    "type": "integer",
+                    "minimum": 5,
+                    "maximum": 1000,
+                    "default": 30,
+                    "description": "The number of seconds to wait for a disconnected visitor to return.\n\nIf the visitor does not return in time, the visitor will be removed from visitor list, any queues or engagement\nwill be ended if in progress.\n",
+                    "example": 15
+                  },
+                  "visitor_visibility": {
+                    "type": "string",
+                    "description": "Policy that determines whether a visitor is visible to an operator.\n\n- `all`: All site’s visitors are visible for all the site’s operators.\n- `staffing`: Visitor’s visibility is determined by the queue assignments.\n",
+                    "enum": [
+                      "all",
+                      "staffing"
+                    ],
+                    "example": "staffing",
+                    "default": "all"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "Site URL.",
+                      "example": "https://api.salemove.com/sites/3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "Site ID (in UUID v4 format).",
+                      "example": "3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Site name.",
+                      "example": "Example"
+                    },
+                    "hostname": {
+                      "type": "array",
+                      "deprecated": true,
+                      "description": "An array of client's allowed sites. Used as the same purpose for `addresses` but kept for backward compatibility.\n",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "example.com",
+                        "login.example.com"
+                      ]
+                    },
+                    "logo": {
+                      "type": "string",
+                      "description": "The site's logo in base64 format. If `null` then the picture is deleted.\n",
+                      "example": null
+                    },
+                    "default_operator_picture": {
+                      "type": "string",
+                      "description": "The site's default operator picture in base64 format. If `null` then the picture is deleted.\n",
+                      "example": null
+                    },
+                    "always_use_default_operator_picture": {
+                      "type": "boolean",
+                      "description": "Always use default operator picture instead of user's profile picture.\n",
+                      "example": false
+                    },
+                    "widget_mode": {
+                      "type": "boolean",
+                      "description": "If `true`, the visitor's engagement panel detaches and is movable. If `false`, the visitor's engagement panel\nremains intact to the edge of the window.\n",
+                      "example": true
+                    },
+                    "reactive_enabled": {
+                      "type": "boolean",
+                      "description": "If `true` then the reactive tab is shown to the visitor. If `false` then the reactive tab is hidden from the\nvisitor.\n",
+                      "example": true
+                    },
+                    "reactive_call_timeout": {
+                      "type": "integer",
+                      "description": "The time (in seconds) that operators have to answer an incoming engagement request before the request is re-tried\nor marked as declined.\n",
+                      "example": 30
+                    },
+                    "proactive_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator is able to call the visitor. If `false`, the operator can only wait for the visitor to call.\n",
+                      "example": true
+                    },
+                    "proactive_call_timeout": {
+                      "type": "integer",
+                      "description": "The time (in seconds) that visitors have to answer an incoming engagement before the engagement is re-tried or\nmarked as declined.\n",
+                      "example": 15
+                    },
+                    "multi_engagement_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator is able to conduct multiple engagements simultaneously. If `false`, the operator is only\nable to be engaged in 1 engagement at a time.\n",
+                      "example": true
+                    },
+                    "multi_engagement_default_availability": {
+                      "type": "string",
+                      "description": "Controls how the operator's availability status is updated during an engagement - namely `retain`, `chat` or\n`unavailable`.\n",
+                      "example": "unavailable"
+                    },
+                    "multi_engagement_max_count": {
+                      "type": "integer",
+                      "description": "The amount of engagements that an operator can participate in at any given time.\n",
+                      "example": 2
+                    },
+                    "multi_engagement_idle_time": {
+                      "type": "integer",
+                      "description": "The time (in seconds) before the operator is reminded to re-engage with the visitor on hold.\n",
+                      "example": 15
+                    },
+                    "time_zone": {
+                      "type": "string",
+                      "description": "The time zone that is used for statistics and general usage. The syntax is just city to time zone mapping, e.g\n`Eastern Time (US & Canada)`.\n",
+                      "example": "Eastern Time (US & Canada)"
+                    },
+                    "missed_call_unavailability_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, then in case operator misses or rejects an engagement or transfer request, the operator's status\nautomatically changes to either unavailable (Idle), in case they have no ongoing engagements; or temporarily\nunavailable, in case they have ongoing engagement(s).\n",
+                      "example": true
+                    },
+                    "welcome_message": {
+                      "type": "string",
+                      "description": "The message that is automatically sent at the start of each engagement. It fits an unlimited number of characters.\n",
+                      "example": null
+                    },
+                    "visitor_user_agent_whitelist": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of browsers that are not officially supported by Visitor App, but could be used by the visitor. Must be\nspecified as the User-Agent HTTP header that the browser is sending, e.g. `MSIE 10.6`.\n",
+                      "example": [
+                        "MSIE 10.0",
+                        "MSIE 10.6"
+                      ]
+                    },
+                    "visitor_user_agent_blacklist": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of browsers that are officially supported by Visitor App, but could not be used by the visitor. Must be\nspecified as the User-Agent HTTP header that the browser is sending, e.g. `Trident`.\n",
+                      "example": []
+                    },
+                    "observation_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, operators are able to observe visitors' browsing before an engagement. If `false`, operators are not\nable to observe visitor before an engagement.\n",
+                      "example": true
+                    },
+                    "store_recording": {
+                      "type": "boolean",
+                      "description": "If `true`, audio recordings of the site are stored. If `false`, audio recordings of the site are not stored.\n",
+                      "example": true
+                    },
+                    "cobrowse_permission_required": {
+                      "type": "boolean",
+                      "description": "If `true`, the visitor's permission to co-browse will be requested before the session in an engagement. If\n`false`, the operator can start co-browsing with a visitor anytime.\n",
+                      "example": false
+                    },
+                    "public_visitor_custom_attribute_changes_allowed": {
+                      "type": "boolean",
+                      "description": "If `true`, it is possible for a visitor to update their custom attributes using JavaScript in the browser.\n",
+                      "example": true
+                    },
+                    "interactive_cobrowsing_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator will be able to click on the visitor's website elements, fill in forms, and more during\nco-browsing. If `false`, the operator will not be able to interact with the visitor's website during\nco-browsing.\n",
+                      "example": true
+                    },
+                    "allowed_login_ips": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Allows login to Glia only from the IP addresses defined. Supports only IPv4 and range in CIDR notation.\n",
+                      "example": []
+                    },
+                    "allowed_file_content_types": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Array of file MIME types that are allowed to be sent.\n",
+                      "example": [
+                        "image/png",
+                        "image/jpeg",
+                        "application/pdf"
+                      ]
+                    },
+                    "video_in_call_visualizer": {
+                      "type": "string",
+                      "description": "Controls if and how video can be used in call visualizer - namely `two-way`, `one-way` or `off`.\n",
+                      "example": "two-way"
+                    },
+                    "store_file_attachments": {
+                      "type": "boolean",
+                      "description": "If `true`, chat file attachments would be stored. If `false`, the file attachments will be deleted 24 hours after\nthe engagement ends and the files' metadata will remain in the chat transcript.\n",
+                      "example": true
+                    },
+                    "custom_code": {
+                      "type": "string",
+                      "description": "Custom JavaScript that will be executed on the site’s web pages along with Glia integration script.\n",
+                      "example": ""
+                    },
+                    "interpret_document_mode_as_ie_version": {
+                      "type": "boolean",
+                      "description": "If `true`, detects visitor’s Internet Explorer version using the `document.documentMode` property. If `false`, it\ndoes not detect visitor's Internet Explorer version.\n",
+                      "example": true
+                    },
+                    "operator_console_omnibrowse": {
+                      "type": "boolean",
+                      "description": "If `true` then it enables Call Visualizer in the Glia Hub. If `false` then it disables Call Visualizer in the\nGlia Hub.\n",
+                      "example": true
+                    },
+                    "visitor_page_adaption": {
+                      "type": "string",
+                      "description": "Define the visitor's engagement mode, namely - `iframe`, `div`, `style`.\n",
+                      "example": "div"
+                    },
+                    "available_locale_names": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of all the Visitor App's language schemas available for this site.\nSee more in:\n* [Base Locales](ref:base-locales)\n* [Custom Locales](ref:custom-locales)\n",
+                      "example": [
+                        "de-DE",
+                        "en-US",
+                        "es-MX",
+                        "et-EE",
+                        "fi-FI",
+                        "fr-CA",
+                        "zh-CN",
+                        "zh-TW",
+                        "en-us-cobrowse"
+                      ]
+                    },
+                    "visitor_app_default_locale": {
+                      "type": "string",
+                      "description": "The default language in which the Visitor App is shown for this site.\n",
+                      "example": "en-US"
+                    },
+                    "queue_metric_window_sec": {
+                      "type": "integer",
+                      "description": "The time-frame used to calculate live metrics that need a finite time to have a meaningful value, e.g. average\nwait time. Defined in seconds, default being 600 s.\n",
+                      "example": 600
+                    },
+                    "service_level_duration_sec": {
+                      "type": "integer",
+                      "description": "Target time within the incoming engagement requests should be answered, in seconds.\n",
+                      "example": 600
+                    },
+                    "visitor_app_phone_extension_enabled": {
+                      "type": "boolean",
+                      "description": "If `true` then phone extension input is shown alongside phone number input in Visitor App.\n",
+                      "example": true
+                    },
+                    "boot_delay_ms": {
+                      "type": "integer",
+                      "description": "Delays the bootstrapping of Glia Visitor App by the given milliseconds. Delay may be useful on very heavy sites.\n",
+                      "example": 0
+                    },
+                    "shortcuts_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, keyboard shortcuts are enabled in the Glia Hub.",
+                      "example": true
+                    },
+                    "phone_number_default_country": {
+                      "type": "string",
+                      "description": "The country code that will be displayed by default when visitors enter their phone number.\n",
+                      "example": "us"
+                    },
+                    "hide_visitor_info_in_visitor_app": {
+                      "type": "boolean",
+                      "description": "If `true` then the visitor name and email fields are hidden in the Visitor App.\n",
+                      "example": false
+                    },
+                    "operator_screenshare_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the operator's screen can be shared with the visitor.",
+                      "example": true
+                    },
+                    "visitor_screenshare_enabled": {
+                      "type": "boolean",
+                      "description": "If `true`, the visitor's screen can be shared with the operator.",
+                      "example": true
+                    },
+                    "reactive_tab": {
+                      "type": "object",
+                      "description": "Customize the reactive bubble's aesthetics.",
+                      "example": {
+                        "back_color": "#6bc56f",
+                        "contact_when_unstaffed": true,
+                        "font_size": 20,
+                        "format": "mix",
+                        "front_color": "#eeeeee",
+                        "hover_color": "#05a94d",
+                        "icon_class": "ico-text",
+                        "placement": "left",
+                        "position": "right",
+                        "show_unavailable": true,
+                        "size": 100,
+                        "text": "Let's talk!",
+                        "vertical_offset": 50,
+                        "visible_operator_count": 3
+                      }
+                    },
+                    "salemove_enabled": {
+                      "type": "boolean",
+                      "description": "If `true` then it enables Glia for the site, if `false` it disables Glia for the site. When Glia is enabled the\nGlia integration is delivered, otherwise a `204 No-Content` is delivered.\n",
+                      "example": true
+                    },
+                    "map": {
+                      "type": "object",
+                      "description": "An object with three possible attributes `latitude`, `longitude`, `zoom`. Defines the Glia Hub map center\ncoordinates and the zoom level.\n",
+                      "example": {
+                        "latitude": 25,
+                        "longitude": 5,
+                        "zoom": 2
+                      }
+                    },
+                    "store_data": {
+                      "type": "boolean",
+                      "description": "If `true` the following is stored:\n* chat transcripts,\n* visitor's information,\n* the metadata of possible file attachments,\n* the history of audio and video engagements ever happening.\n\nThis setting must be `true` to enable `store_file_attachments`.\n",
+                      "example": true
+                    },
+                    "allowed_file_senders": {
+                      "type": "object",
+                      "description": "Allows sending file attachments in the chat from visitor to operator and/or operator to visitor.\n\nE.g. `{operator: true, visitor: true}`.'\n",
+                      "example": {
+                        "operator": true,
+                        "visitor": false
+                      }
+                    },
+                    "addresses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "A list of site’s allowed addresses. Addresses must be without protocol prefixes and ports. Can be a domain name\n(`www.example.com`) to let Glia run on all sites, or include path to restrict the access (`www.example.com/home`).\n",
+                      "example": [
+                        "example.com",
+                        "eu.example.com",
+                        "us.example.com"
+                      ]
+                    },
+                    "enable_visitor_transcript_download": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Allow visitor to download the chat transcript after the engagement.\n",
+                      "example": true
+                    },
+                    "visitor_time_to_inactive_sec": {
+                      "type": "integer",
+                      "minimum": 15,
+                      "maximum": 3600,
+                      "default": 30,
+                      "description": "The number of seconds to wait since the last activity of visitor before marking the visitor as inactive.\n",
+                      "example": 30
+                    },
+                    "visitor_reconnect_timeout_sec": {
+                      "type": "integer",
+                      "minimum": 5,
+                      "maximum": 1000,
+                      "default": 30,
+                      "description": "The number of seconds to wait for a disconnected visitor to return.\n\nIf the visitor does not return in time, the visitor will be removed from visitor list, any queues or engagement\nwill be ended if in progress.\n",
+                      "example": 15
+                    },
+                    "visitor_visibility": {
+                      "type": "string",
+                      "description": "Policy that determines whether a visitor is visible to an operator.\n\n- `all`: All site’s visitors are visible for all the site’s operators.\n- `staffing`: Visitor’s visibility is determined by the queue assignments.\n",
+                      "enum": [
+                        "all",
+                        "staffing"
+                      ],
+                      "example": "staffing",
+                      "default": "all"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/application_tokens": {
+      "post": {
+        "summary": "Create application token",
+        "tags": [
+          "Application Token"
+        ],
+        "description": "Creates an application token for a site.\n\nThe site's application token is useful for integrating an external application with Glia. It allows creating new site visitors, starting Call Visualizer sessions, etc.\n\n* The site's application token does not expire and should be created only once per integration or application.\n* The user whose bearer access token is used to send the request must have super manager role on the site.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "site_id": {
+                    "type": "string",
+                    "description": "Site ID (in UUID v4 format).",
+                    "example": "3a5c1497-a0f8-470c-af10-c5c2b8fe88cc"
+                  },
+                  "acls": {
+                    "type": "array",
+                    "description": "A list of access controls granted to the application token. Acces control list values:\n  * `visitors:create` - Allows creating new visitors for the site.\n  * `omnibrowse:start_session` - Allows starting a new Call Visualizer session.\n",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "visitors:create",
+                        "omnibrowse:start_session"
+                      ]
+                    },
+                    "example": [
+                      "omnibrowse:start_session"
+                    ]
+                  }
+                },
+                "required": [
+                  "site_id",
+                  "acls"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Application token ID.",
+                      "example": "2e56b224-6708-4755-b6c9-35f9889e42dd"
+                    },
+                    "site_id": {
+                      "example": "275ba146-6053-41ef-bfc3-d7ae8d3d6494",
+                      "type": "string",
+                      "description": "Site ID (in UUID v4 format)."
+                    },
+                    "acls": {
+                      "type": "array",
+                      "description": "A list of access controls granted to the application token. Acces control list values:\n  * `visitors:create` - Allows creating new visitors for the site.\n  * `omnibrowse:start_session` - Allows starting a new Call Visualizer session.\n",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "visitors:create",
+                          "omnibrowse:start_session"
+                        ]
+                      },
+                      "example": [
+                        "omnibrowse:start_session"
+                      ]
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "Application token.",
+                      "example": "38omYbnTZJL1Ugvn"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/reactive_tab": {
+      "put": {
+        "summary": "Update reactive tab",
+        "tags": [
+          "Reactive Tab"
+        ],
+        "description": "Updates the reactive tab visuals and behavior for the site with ID `site_id`.\n\nThe user updating the reactive tab must have the super manager role on the site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "visible_operator_count": {
+                    "type": "integer",
+                    "description": "The maximum number of operators to be displayed at any given time. Must be a positive integer.\n",
+                    "example": 3
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "The text displayed in the reactive tab.",
+                    "example": "Let's Talk!"
+                  },
+                  "front_color": {
+                    "type": "string",
+                    "description": "The color of the text and icons present on the reactive tab in `hex` format.\n",
+                    "example": "#53a0fd"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK\n\n**Note: Several values relevant to v1 of the Visitor App are returned in the output, but are deprecated as of\nVA2. They may be disregarded for all practical purposes.**\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "visible_operator_count": {
+                      "type": "integer",
+                      "description": "The maximum number of operators to be displayed at any given time. Must be a positive integer.\n",
+                      "example": 3
+                    },
+                    "text": {
+                      "type": "string",
+                      "description": "The text displayed in the reactive tab.",
+                      "example": "Let's Talk!"
+                    },
+                    "front_color": {
+                      "type": "string",
+                      "description": "The color of the text and icons present on the reactive tab in `hex` format.\n",
+                      "example": "#53a0fd"
+                    },
+                    "back_color": {
+                      "type": "string",
+                      "description": "Back color of the Reactive Tab in `hex` format.\n",
+                      "example": "#ffffff"
+                    },
+                    "hover_color": {
+                      "type": "string",
+                      "description": "Hover color of the Reactive Tab in `hex` format.",
+                      "example": "#e6e6e6"
+                    },
+                    "format": {
+                      "type": "string",
+                      "description": "Whether the Reactive Tab should contain just `text` or a `mix` of both text and icons.\n",
+                      "enum": [
+                        "text",
+                        "mix"
+                      ],
+                      "example": "mix"
+                    },
+                    "vertical_offset": {
+                      "type": "number",
+                      "description": "The vertical offset of the Reactive Tab from the bottom of the browser's viewport, expressed as a percentage.\nPossible values range from 0 to 100.\n",
+                      "example": 50
+                    },
+                    "font_size": {
+                      "type": "integer",
+                      "description": "The size of the font used to display the Reactive Tab text.\n",
+                      "enum": [
+                        20,
+                        24,
+                        27
+                      ],
+                      "example": 20
+                    },
+                    "icon_class": {
+                      "type": "string",
+                      "description": "The icon to be shown in the Reactive Tab.",
+                      "enum": [
+                        "ico-voice",
+                        "ico-text",
+                        "ico-video"
+                      ],
+                      "example": "ico-video"
+                    },
+                    "size": {
+                      "type": "number",
+                      "description": "The scale of the Reactive Tab as a percentage of the default size. Suggested values are between 80 and 100.\n",
+                      "example": 90
+                    },
+                    "placement": {
+                      "type": "string",
+                      "description": "Onto which side of the browser to place the Reactive Tab.",
+                      "enum": [
+                        "right",
+                        "left"
+                      ],
+                      "example": "right"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

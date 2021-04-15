@@ -1,0 +1,468 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Call Visualizer",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://omnibrowse.salemove.com",
+      "description": "Call Visualizer base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/auth/token": {
+      "post": {
+        "security": [],
+        "summary": "Fetch launch token",
+        "tags": [
+          "Launch token"
+        ],
+        "description": "Acquire a temporary launch token which can be used to start a Call Visualizer session.\n\nThe token has a very short lifespan and is intended to be used immediately. API user must provide a valid API\ntoken to acquire a launch token.\n",
+        "requestBody": {
+          "description": "Provide the API token to get the temporary launch token.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "api_token": {
+                    "type": "string",
+                    "description": "API token.",
+                    "example": "AjMMVGcvSdHg8H6f_dOr6Q"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "launch_token": {
+                      "type": "string",
+                      "description": "Launch token",
+                      "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJI...truncated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/visitors": {
+      "get": {
+        "summary": "Fetch by external ID",
+        "tags": [
+          "Visitors"
+        ],
+        "description": "Fetches site's visitor with given external ID.\n\nBy default, only active visitors will be returned. The user whose `Bearer` is used for making this request must\nhave access to the site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "external_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "External ID. Maximum length is 64 characters; can not be 5 digits.",
+            "example": "14755601"
+          },
+          {
+            "name": "include_offline",
+            "in": "query",
+            "description": "Show inactive visitors.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "enum": [
+                true,
+                false
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Visitor object.",
+                  "properties": {
+                    "visitor_id": {
+                      "type": "string",
+                      "description": "A visitor ID (in UUID v4 format).",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "note": {
+                      "type": "string",
+                      "description": "Notes about the visitor",
+                      "example": "Visitor note"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "generated_name": {
+                      "type": "string",
+                      "description": "Computer generated visitor name",
+                      "example": "Visitor #1"
+                    },
+                    "external_id\"": {
+                      "type": "string",
+                      "description": "External ID. Maximum length is 64 characters; can not be 5 digits.",
+                      "example": "14755601"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email for the resource.",
+                      "example": "test@email.com"
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "description": "Object containing visitor specific attributes.",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "example": {
+                        "external_id": "14755601"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visitor": {
+      "get": {
+        "summary": "Fetch by visitor code",
+        "tags": [
+          "Visitors"
+        ],
+        "description": "Fetches the visitor by the given `visitor_code`.\n\nThe user whose `Bearer` access token is used for making this request must have access to the site that the\nvisitor code was generated for.\n",
+        "parameters": [
+          {
+            "name": "visitor_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "12345",
+            "description": "Visitor code. A unique 5-digit code to identify the visitor."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Minimal visitor object.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Provided visitor code is not found or expired."
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/visitors/{visitor_id}": {
+      "get": {
+        "summary": "Fetch by visitor ID",
+        "tags": [
+          "Visitors"
+        ],
+        "description": "Fetches site's visitor by their ID.\n\nThe user whose `Bearer` access token is used for making this request must have access to the site.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "visitor_id",
+            "description": "A visitor ID (in UUID v4 format).",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Visitor object.",
+                  "properties": {
+                    "visitor_id": {
+                      "type": "string",
+                      "description": "A visitor ID (in UUID v4 format).",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "note": {
+                      "type": "string",
+                      "description": "Notes about the visitor",
+                      "example": "Visitor note"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "generated_name": {
+                      "type": "string",
+                      "description": "Computer generated visitor name",
+                      "example": "Visitor #1"
+                    },
+                    "external_id\"": {
+                      "type": "string",
+                      "description": "External ID. Maximum length is 64 characters; can not be 5 digits.",
+                      "example": "14755601"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email for the resource.",
+                      "example": "test@email.com"
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "description": "Object containing visitor specific attributes.",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "example": {
+                        "external_id": "14755601"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update external ID",
+        "tags": [
+          "Visitors"
+        ],
+        "description": "Updates visitor's external ID.\n\nThe user whose `Bearer` access token is used for making this update must have access to the site.\n\nThe maximum length of the external ID is 64 characters, at the same time it can not be a 5-digit string.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "visitor_id",
+            "description": "A visitor ID (in UUID v4 format).",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "external_id": {
+                    "type": "string",
+                    "description": "External ID. Maximum length is 64 characters; can not be 5 digits.",
+                    "example": "14755601"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Visitor object.",
+                  "properties": {
+                    "visitor_id": {
+                      "type": "string",
+                      "description": "A visitor ID (in UUID v4 format).",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "description": "Phone number in [E.164 Format](doc:glossary#phone-number).\n",
+                      "example": "+14156433423"
+                    },
+                    "note": {
+                      "type": "string",
+                      "description": "Notes about the visitor",
+                      "example": "Visitor note"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the resource.",
+                      "example": "Resource name"
+                    },
+                    "generated_name": {
+                      "type": "string",
+                      "description": "Computer generated visitor name",
+                      "example": "Visitor #1"
+                    },
+                    "external_id\"": {
+                      "type": "string",
+                      "description": "External ID. Maximum length is 64 characters; can not be 5 digits.",
+                      "example": "14755601"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email for the resource.",
+                      "example": "test@email.com"
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "description": "Object containing visitor specific attributes.",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "example": {
+                        "external_id": "14755601"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

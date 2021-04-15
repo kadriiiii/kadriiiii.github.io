@@ -1,0 +1,539 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Visitor App",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/visitor_app/base_locales": {
+      "get": {
+        "summary": "List base locales",
+        "tags": [
+          "Base Locales"
+        ],
+        "description": "Fetches the list of base locales.\n\nThe user must have super manager role on the site the locales belong to.\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "base_locales": {
+                      "type": "array",
+                      "description": "List of base locales.",
+                      "items": {
+                        "type": "object",
+                        "description": "Base locale resource.",
+                        "properties": {
+                          "locale_key": {
+                            "type": "string",
+                            "description": "Identifier of the base locale",
+                            "example": "en-US"
+                          },
+                          "revision": {
+                            "type": "string",
+                            "description": "Release hash for the resource. Used for versioning.",
+                            "example": "76fe2ed"
+                          },
+                          "translations": {
+                            "type": "object",
+                            "description": "Translations object.",
+                            "additionalProperties": {
+                              "type": "string"
+                            },
+                            "example": {
+                              "translation.key": "Translation value"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Your bearer token has expired or you are not authorized to perform this request.\n"
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          }
+        }
+      }
+    },
+    "/visitor_app/sites/{site_id}/custom_locales": {
+      "post": {
+        "summary": "Create locale",
+        "tags": [
+          "Custom locales"
+        ],
+        "description": "Creates a new custom locale.\n\nThe user must have super manager role on the site for which the locale is created.\n\nNote that custom locales can be based on any of the base locales, and are site specific.\n",
+        "parameters": [
+          {
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the custom locale.",
+                    "example": "English"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description for custom locale.",
+                    "example": "Description of custom locale"
+                  },
+                  "locale_key": {
+                    "type": "string",
+                    "description": "Unique identifier for custom locale. At least 7 characters.",
+                    "example": "en-US-edited"
+                  },
+                  "base_locale_key": {
+                    "type": "string",
+                    "description": "Locale key of the base locale that this custom locale is based on.",
+                    "example": "en-US"
+                  },
+                  "translations": {
+                    "type": "object",
+                    "description": "JSON object of all the overrides of base locale. Does not need to include all the keys that base locale has.\n",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "example": {
+                      "translation.key": "Translation value"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "locale_key",
+                  "base_locale_key",
+                  "translations"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Custom locale successfully created.",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Custom locale resource.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the custom locale.",
+                      "example": "English"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description for custom locale.",
+                      "example": "Description of custom locale"
+                    },
+                    "locale_key": {
+                      "type": "string",
+                      "description": "Unique identifier for custom locale. At least 7 characters.",
+                      "example": "en-US-edited"
+                    },
+                    "base_locale_key": {
+                      "type": "string",
+                      "description": "Locale key of the base locale that this custom locale is based on.",
+                      "example": "en-US"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "translation_version": {
+                      "type": "string",
+                      "description": "Version if the custom locale",
+                      "example": "516bc1a5423bc2"
+                    },
+                    "translations": {
+                      "type": "object",
+                      "description": "JSON object of all the overrides of base locale. Does not need to include all the keys that base locale has.\n",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "example": {
+                        "translation.key": "Translation value"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List locales",
+        "tags": [
+          "Custom locales"
+        ],
+        "description": "Fetches list of all custom locales for the given site.\n\nThe user must have super manager role on the site the locales belong to.\n",
+        "parameters": [
+          {
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "custom_locales": {
+                      "type": "array",
+                      "description": "List of custom locales.",
+                      "items": {
+                        "type": "object",
+                        "description": "Custom locale resource.",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of the resource.",
+                            "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the custom locale.",
+                            "example": "English"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Description for custom locale.",
+                            "example": "Description of custom locale"
+                          },
+                          "locale_key": {
+                            "type": "string",
+                            "description": "Unique identifier for custom locale. At least 7 characters.",
+                            "example": "en-US-edited"
+                          },
+                          "base_locale_key": {
+                            "type": "string",
+                            "description": "Locale key of the base locale that this custom locale is based on.",
+                            "example": "en-US"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "A site ID (in UUID v4 format) associated with the resource.",
+                            "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                          },
+                          "translation_version": {
+                            "type": "string",
+                            "description": "Version if the custom locale",
+                            "example": "516bc1a5423bc2"
+                          },
+                          "translations": {
+                            "type": "object",
+                            "description": "JSON object of all the overrides of base locale. Does not need to include all the keys that base locale has.\n",
+                            "additionalProperties": {
+                              "type": "string"
+                            },
+                            "example": {
+                              "translation.key": "Translation value"
+                            }
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was created.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "created_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who created the resource.",
+                            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was updated.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "updated_by": {
+                            "type": "string",
+                            "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                            "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Your bearer token has expired or you are not authorized to perform this request.\n"
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          }
+        }
+      }
+    },
+    "/visitor_app/sites/{site_id}/custom_locales/{custom_locale_id}": {
+      "put": {
+        "summary": "Update locale",
+        "tags": [
+          "Custom locales"
+        ],
+        "description": "Updates a existing custom locale.\n\nThe user must have super manager role on the site the custom locale belongs to. Does **not** keep existing values.\n",
+        "parameters": [
+          {
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "custom_locale_id",
+            "description": "ID of the custom locale.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the custom locale.",
+                    "example": "English"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description for custom locale.",
+                    "example": "Description of custom locale"
+                  },
+                  "base_locale_key": {
+                    "type": "string",
+                    "description": "Locale key of the base locale that this custom locale is based on.",
+                    "example": "en-US"
+                  },
+                  "translations": {
+                    "type": "object",
+                    "description": "JSON object of all the overrides of base locale. Does not need to include all the keys that base locale has.\n",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "example": {
+                      "translation.key": "Translation value"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "base_locale_key",
+                  "translations"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK\n\nCustom locale is successfully updated.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Custom locale resource.",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of the resource.",
+                      "example": "48e8b1bb-6ccb-431e-b15e-685500a5a45e"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the custom locale.",
+                      "example": "English"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description for custom locale.",
+                      "example": "Description of custom locale"
+                    },
+                    "locale_key": {
+                      "type": "string",
+                      "description": "Unique identifier for custom locale. At least 7 characters.",
+                      "example": "en-US-edited"
+                    },
+                    "base_locale_key": {
+                      "type": "string",
+                      "description": "Locale key of the base locale that this custom locale is based on.",
+                      "example": "en-US"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "A site ID (in UUID v4 format) associated with the resource.",
+                      "example": "4e12729c-96a8-436b-ba63-4d5cfc92abf3"
+                    },
+                    "translation_version": {
+                      "type": "string",
+                      "description": "Version if the custom locale",
+                      "example": "516bc1a5423bc2"
+                    },
+                    "translations": {
+                      "type": "object",
+                      "description": "JSON object of all the overrides of base locale. Does not need to include all the keys that base locale has.\n",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "example": {
+                        "translation.key": "Translation value"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who created the resource.",
+                      "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "A user ID (in UUID v4 format) of who updated the resource.",
+                      "example": "b5cee5ac-a44b-433b-ae86-4a854fd474ab"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete locale",
+        "tags": [
+          "Custom locales"
+        ],
+        "description": "Deletes an existing custom locale.\n\nThe user must have super manager role to be able to delete it.\n",
+        "parameters": [
+          {
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "custom_locale_id",
+            "description": "ID of the custom locale.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "c3753f72-fcfe-4b4d-b91e-b48f46d149f9",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Custom locales successfully deleted. Returns no content."
+          },
+          "401": {
+            "description": "Your bearer token has expired or you are not authorized to perform this request.\n"
+          },
+          "403": {
+            "description": "Your bearer token is valid but you have no access to the requested resource.\n"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

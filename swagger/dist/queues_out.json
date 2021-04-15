@@ -1,0 +1,2857 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Queues",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/queues": {
+      "post": {
+        "summary": "Create queue",
+        "tags": [
+          "Queues"
+        ],
+        "description": "Creates a new queue with a set of specified properties.\n\nThe user whose credentials are provided in `Authorization` header must have super manager role on the site that the\nqueue is defined for.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.salemove.v1+json": {
+              "schema": {
+                "properties": {
+                  "site_id": {
+                    "type": "string",
+                    "description": "ID of the site the queue belongs to. Can not be modified after creation.\n"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Queue name."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Queue description."
+                  },
+                  "capacity_policy": {
+                    "description": "Capacity policy dictates how will the queue capacity be regulated. At the moment, two types of capacity policies are\nsupported:\n\n* Fixed: the queue capacity is set to a fixed number and doesn't change.\n* Variable: the queue capacity changes depending on the number of operators\nstaffing the queue.\n",
+                    "oneOf": [
+                      {
+                        "title": "Fixed Policy",
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "Must be `fixed`."
+                          },
+                          "capacity": {
+                            "type": "integer",
+                            "description": "The maximum number of concurrent visitors allowed into the queue.\n"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "capacity"
+                        ]
+                      },
+                      {
+                        "title": "Variable Policy",
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "Must be `variable`."
+                          },
+                          "capacity": {
+                            "type": "number",
+                            "description": "The number that is multiplied by the number of operators staffing the queue to determine the effective\nqueue capacity (rounded down).\n"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "capacity"
+                        ]
+                      }
+                    ]
+                  },
+                  "routing_policy": {
+                    "type": "object",
+                    "description": "A collection of properties which determine whether visitor should be put into this queue when enqueued and whether\noperator can serve visitors from this queue.\n\nNote, that one visitor may be put into multiple queues at once, based on queue routing policy and visitor's\nattributes.\n\nWhen an empty object is given, all enqueueing visitors will be put into created queue.\n",
+                    "properties": {
+                      "media": {
+                        "description": "Set of allowed engagement media types.\n\nWhen this routing policy is applied to a queue, visitors who request engagement with insufficient media level,\nwon't be placed into the queue.\n\nExample 1: A queue has `routing_policy.media = [\"text\"]`, visitor requests engagement with media type `audio`.\nBecause queue doesn't have audio in the list of allowed media types, such visitor can't be put into the queue.\n\nExample 2: A queue has `routing_policy.media = [\"text\", \"phone\", \"audio\"]`, visitor requests engagement with\nmedia type `audio`. In this case visitor can be put into the queue, because the queue allowed media types\nincludes audio.\n",
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "phone",
+                            "audio",
+                            "video"
+                          ]
+                        }
+                      },
+                      "team_ids": {
+                        "description": "The allowed team IDs.\n\nMust be a set of strings, where each element is a team ID (in UUID v4 format).\n\nThis routing policy allows visitors to be put into the queue only if they are assigned to at least one team from\nthe\nspecified list. Similarly, only operators who belong to at least one team\nfrom the specified list can serve visitors from the queue.\n",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "when_unstaffed": {
+                    "type": "string",
+                    "description": "A strategy to apply to visitors when queue becomes unstaffed (i.e. when there are no operators online who match\nqueue routing policy).\n",
+                    "enum": [
+                      "accept",
+                      "reject"
+                    ]
+                  },
+                  "operator_ranking_enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If `true`, queued visitor will be engaged with the first available operator who has the highest rank in the queue.\n"
+                  },
+                  "welcome_message": {
+                    "type": "string",
+                    "description": "If specified, this message will be sent automatically at the start of each engagement in this queue.\n\nWelcome message can be specified as a [Response Card](doc:suggestion#response-cards) in JSON format.\n"
+                  },
+                  "scheduling_policy_id": {
+                    "type": "string",
+                    "description": "ID of the queue scheduling policy (in UUID v4 format).\n\nSee [`POST /queues/scheduling_policies`](ref:queue-scheduling#post_queues-scheduling-policies) on how to\ncreate a scheduling policy for the queue.\n"
+                  },
+                  "fallback_queue_id": {
+                    "type": "string",
+                    "description": "ID of a fallback queue (in UUID v4 format).\n\nFallback queue is a queue to which visitors are re-routed when the Primary queue is full, unstaffed or closed.\nFallback queue must be a queue that does not have the Primary queue as a direct or indirect fallback,\nor in other words there can be no fallback cycles.\n\nFor example if:\n\n  Queue B is assigned as a fallback queue to queue A\n\n  Queue C is assigned as a fallback queue to queue B\n\nThen queue A cannot be assigned as a fallback queue of queue C as this creates a fallback cycle: `A -> B -> C -> A`\n"
+                  },
+                  "operator_affinity": {
+                    "type": "object",
+                    "description": "Operator affinity of the queue.\n\nAllows to engage the visitor with the last operator with whom the visitor had an engagement prior to enqueueing.\n",
+                    "properties": {
+                      "time_window_sec": {
+                        "type": "integer",
+                        "description": "The number of seconds to wait for the previously engaged operator to become available after the visitor has\nenqueued.\n\nIf the operator does not become available during `time_window_sec`, the visitor will be matched with other\noperators based on the routing policy.\n",
+                        "minimum": 0,
+                        "exclusiveMinimum": true,
+                        "maximum": 345600
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "site_id",
+                  "name",
+                  "capacity_policy",
+                  "routing_policy"
+                ],
+                "example": {
+                  "name": "Technical support queue (rich media)",
+                  "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                  "description": "Technical support queue with AV capabilities.",
+                  "capacity_policy": {
+                    "type": "fixed",
+                    "capacity": 15
+                  },
+                  "routing_policy": {
+                    "media": [
+                      "phone",
+                      "audio",
+                      "video"
+                    ]
+                  },
+                  "when_unstaffed": "reject",
+                  "operator_ranking_enabled": false,
+                  "welcome_message": "Welcome to our company",
+                  "scheduling_policy_id": "db46cede-0927-46a2-ae02-3d93dbb6648d",
+                  "fallback_queue_id": "7a5ba173-3f6e-432e-96fc-1a45b3eba3b1",
+                  "operator_affinity": {
+                    "time_window_sec": 600
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Queue ID (in UUID v4 format). Cannot be modified after creation.\n"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Queue name."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site the queue belongs to. Can not be modified after creation.\n"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Queue description."
+                    },
+                    "capacity": {
+                      "type": "integer",
+                      "deprecated": true,
+                      "description": "The maximum number of concurrent visitors allowed into the queue. Use `capacity_policy` instead.\n"
+                    },
+                    "capacity_policy": {
+                      "description": "Capacity policy dictates how will the queue capacity be regulated. At the moment, two types of capacity policies are\nsupported:\n\n* Fixed: the queue capacity is set to a fixed number and doesn't change.\n* Variable: the queue capacity changes depending on the number of operators\nstaffing the queue.\n",
+                      "oneOf": [
+                        {
+                          "title": "Fixed Policy",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Must be `fixed`."
+                            },
+                            "capacity": {
+                              "type": "integer",
+                              "description": "The maximum number of concurrent visitors allowed into the queue.\n"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "capacity"
+                          ]
+                        },
+                        {
+                          "title": "Variable Policy",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Must be `variable`."
+                            },
+                            "capacity": {
+                              "type": "number",
+                              "description": "The number that is multiplied by the number of operators staffing the queue to determine the effective\nqueue capacity (rounded down).\n"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "capacity"
+                          ]
+                        }
+                      ]
+                    },
+                    "routing_policy": {
+                      "type": "object",
+                      "description": "A collection of properties which determine whether visitor should be put into this queue when enqueued and whether\noperator can serve visitors from this queue.\n\nNote, that one visitor may be put into multiple queues at once, based on queue routing policy and visitor's\nattributes.\n\nWhen an empty object is given, all enqueueing visitors will be put into created queue.\n",
+                      "properties": {
+                        "media": {
+                          "description": "Set of allowed engagement media types.\n\nWhen this routing policy is applied to a queue, visitors who request engagement with insufficient media level,\nwon't be placed into the queue.\n\nExample 1: A queue has `routing_policy.media = [\"text\"]`, visitor requests engagement with media type `audio`.\nBecause queue doesn't have audio in the list of allowed media types, such visitor can't be put into the queue.\n\nExample 2: A queue has `routing_policy.media = [\"text\", \"phone\", \"audio\"]`, visitor requests engagement with\nmedia type `audio`. In this case visitor can be put into the queue, because the queue allowed media types\nincludes audio.\n",
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "text",
+                              "phone",
+                              "audio",
+                              "video"
+                            ]
+                          }
+                        },
+                        "team_ids": {
+                          "description": "The allowed team IDs.\n\nMust be a set of strings, where each element is a team ID (in UUID v4 format).\n\nThis routing policy allows visitors to be put into the queue only if they are assigned to at least one team from\nthe\nspecified list. Similarly, only operators who belong to at least one team\nfrom the specified list can serve visitors from the queue.\n",
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "available_properties": {
+                      "type": "object",
+                      "properties": {
+                        "media": {
+                          "type": "array",
+                          "description": "Set of currently available engagement media types. Visitors cannot request engagements with media that is not\ncurrently available.\n\nIs empty when the queue is closed or unstaffed.\n",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "text",
+                              "phone",
+                              "audio",
+                              "video"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Current queue status. Takes into account the status of fallback queue(s) recursively (if any).\n",
+                      "enum": [
+                        "opened",
+                        "full",
+                        "unstaffed",
+                        "closed"
+                      ]
+                    },
+                    "self_status": {
+                      "type": "string",
+                      "description": "Current queue status without taking into account the status of fallback queue(s). Always `closed` for new queues.\n",
+                      "enum": [
+                        "opened",
+                        "full",
+                        "unstaffed",
+                        "closed"
+                      ]
+                    },
+                    "when_unstaffed": {
+                      "type": "string",
+                      "description": "A strategy to apply to visitors when queue becomes unstaffed (i.e. when there are no operators online who match\nqueue routing policy).\n",
+                      "enum": [
+                        "accept",
+                        "reject"
+                      ]
+                    },
+                    "operator_ranking_enabled": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If `true`, queued visitor will be engaged with the first available operator who has the highest rank in the queue.\n"
+                    },
+                    "welcome_message": {
+                      "type": "string",
+                      "description": "If specified, this message will be sent automatically at the start of each engagement in this queue.\n\nWelcome message can be specified as a [Response Card](doc:suggestion#response-cards) in JSON format.\n"
+                    },
+                    "scheduling_policy_id": {
+                      "type": "string",
+                      "description": "ID of the queue scheduling policy (in UUID v4 format).\n\nSee [`POST /queues/scheduling_policies`](ref:queue-scheduling#post_queues-scheduling-policies) on how to\ncreate a scheduling policy for the queue.\n"
+                    },
+                    "fallback_queue_id": {
+                      "type": "string",
+                      "description": "ID of a fallback queue (in UUID v4 format).\n\nFallback queue is a queue to which visitors are re-routed when the Primary queue is full, unstaffed or closed.\nFallback queue must be a queue that does not have the Primary queue as a direct or indirect fallback,\nor in other words there can be no fallback cycles.\n\nFor example if:\n\n  Queue B is assigned as a fallback queue to queue A\n\n  Queue C is assigned as a fallback queue to queue B\n\nThen queue A cannot be assigned as a fallback queue of queue C as this creates a fallback cycle: `A -> B -> C -> A`\n"
+                    },
+                    "operator_affinity": {
+                      "type": "object",
+                      "description": "Operator affinity of the queue.\n\nAllows to engage the visitor with the last operator with whom the visitor had an engagement prior to enqueueing.\n",
+                      "properties": {
+                        "time_window_sec": {
+                          "type": "integer",
+                          "description": "The number of seconds to wait for the previously engaged operator to become available after the visitor has\nenqueued.\n\nIf the operator does not become available during `time_window_sec`, the visitor will be matched with other\noperators based on the routing policy.\n",
+                          "minimum": 0,
+                          "exclusiveMinimum": true,
+                          "maximum": 345600
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "59b0d786-e59a-4c62-a064-05e4f47488a2",
+                  "name": "Technical support queue (rich media)",
+                  "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                  "description": "Technical support queue with AV capabilities.",
+                  "capacity": 15,
+                  "capacity_policy": {
+                    "type": "fixed",
+                    "capacity": 15
+                  },
+                  "routing_policy": {
+                    "media": [
+                      "phone",
+                      "audio",
+                      "video"
+                    ]
+                  },
+                  "available_properties": {
+                    "media": []
+                  },
+                  "when_unstaffed": "reject",
+                  "status": "closed",
+                  "self_status": "closed",
+                  "operator_ranking_enabled": false,
+                  "welcome_message": "Hi, how can we help you?",
+                  "scheduling_policy_id": "db46cede-0927-46a2-ae02-3d93dbb6648d",
+                  "fallback_queue_id": "7a5ba173-3f6e-432e-96fc-1a45b3eba3b1",
+                  "operator_affinity": {
+                    "time_window_sec": 600
+                  },
+                  "created_at": "2017-02-20T00:00:00.000Z",
+                  "updated_at": "2017-02-20T00:00:00.000Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List queues",
+        "tags": [
+          "Queues"
+        ],
+        "description": "Fetches a collection of queues.\n\nThe request can be made either by the visitor or the Glia user (operator).\n\n* Visitor can only request collection of queues for the site he is currently on.\n\n* Operator can request collection of queues for the sites specified in the request. The operator must be authorized\nto access the requested sites.\n\n* Fetching queues can be filtered using the `team_ids` parameter. When applied, this filter will fetch only those queues\nwhich have specified teams assigned to them.\n\n* Additionally, in conjunction with the `team_ids` filter, the `include_without_teams` filter can be applied, which will include\nqueues that do not have any teams assigned to them.\n",
+        "parameters": [
+          {
+            "description": "A list of site IDs whose queues are requested.",
+            "name": "site_ids[]",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "team_ids[]",
+            "in": "query",
+            "description": "An optional list of team IDs, that is used to fetch only those queues that have specified teams assigned to them.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "include_without_teams",
+            "in": "query",
+            "required": false,
+            "description": "Optional filter, which is usable in conjunction with the `team_ids` filter, when applied it will include queues that do not have any teams assigned to them.",
+            "schema": {
+              "type": "boolean",
+              "enum": [
+                true,
+                false
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "queues": {
+                      "type": "array",
+                      "description": "List of queues.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "average_wait_time": {
+                            "type": "integer",
+                            "description": "Average waiting duration of currently queued visitors (in seconds).\n"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Queue ID (in UUID v4 format). Cannot be modified after creation.\n"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Queue name."
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of the site the queue belongs to. Can not be modified after creation.\n"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Queue description."
+                          },
+                          "capacity": {
+                            "type": "integer",
+                            "deprecated": true,
+                            "description": "The maximum number of concurrent visitors allowed into the queue. Use `capacity_policy` instead.\n"
+                          },
+                          "capacity_policy": {
+                            "description": "Capacity policy dictates how will the queue capacity be regulated. At the moment, two types of capacity policies are\nsupported:\n\n* Fixed: the queue capacity is set to a fixed number and doesn't change.\n* Variable: the queue capacity changes depending on the number of operators\nstaffing the queue.\n",
+                            "oneOf": [
+                              {
+                                "title": "Fixed Policy",
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "description": "Must be `fixed`."
+                                  },
+                                  "capacity": {
+                                    "type": "integer",
+                                    "description": "The maximum number of concurrent visitors allowed into the queue.\n"
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "capacity"
+                                ]
+                              },
+                              {
+                                "title": "Variable Policy",
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "description": "Must be `variable`."
+                                  },
+                                  "capacity": {
+                                    "type": "number",
+                                    "description": "The number that is multiplied by the number of operators staffing the queue to determine the effective\nqueue capacity (rounded down).\n"
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "capacity"
+                                ]
+                              }
+                            ]
+                          },
+                          "routing_policy": {
+                            "type": "object",
+                            "description": "A collection of properties which determine whether visitor should be put into this queue when enqueued and whether\noperator can serve visitors from this queue.\n\nNote, that one visitor may be put into multiple queues at once, based on queue routing policy and visitor's\nattributes.\n\nWhen an empty object is given, all enqueueing visitors will be put into created queue.\n",
+                            "properties": {
+                              "media": {
+                                "description": "Set of allowed engagement media types.\n\nWhen this routing policy is applied to a queue, visitors who request engagement with insufficient media level,\nwon't be placed into the queue.\n\nExample 1: A queue has `routing_policy.media = [\"text\"]`, visitor requests engagement with media type `audio`.\nBecause queue doesn't have audio in the list of allowed media types, such visitor can't be put into the queue.\n\nExample 2: A queue has `routing_policy.media = [\"text\", \"phone\", \"audio\"]`, visitor requests engagement with\nmedia type `audio`. In this case visitor can be put into the queue, because the queue allowed media types\nincludes audio.\n",
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "enum": [
+                                    "text",
+                                    "phone",
+                                    "audio",
+                                    "video"
+                                  ]
+                                }
+                              },
+                              "team_ids": {
+                                "description": "The allowed team IDs.\n\nMust be a set of strings, where each element is a team ID (in UUID v4 format).\n\nThis routing policy allows visitors to be put into the queue only if they are assigned to at least one team from\nthe\nspecified list. Similarly, only operators who belong to at least one team\nfrom the specified list can serve visitors from the queue.\n",
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "available_properties": {
+                            "type": "object",
+                            "properties": {
+                              "media": {
+                                "type": "array",
+                                "description": "Set of currently available engagement media types. Visitors cannot request engagements with media that is not\ncurrently available.\n\nIs empty when the queue is closed or unstaffed.\n",
+                                "items": {
+                                  "type": "string",
+                                  "enum": [
+                                    "text",
+                                    "phone",
+                                    "audio",
+                                    "video"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "Current queue status. Takes into account the status of fallback queue(s) recursively (if any).\n",
+                            "enum": [
+                              "opened",
+                              "full",
+                              "unstaffed",
+                              "closed"
+                            ]
+                          },
+                          "self_status": {
+                            "type": "string",
+                            "description": "Current queue status without taking into account the status of fallback queue(s). Always `closed` for new queues.\n",
+                            "enum": [
+                              "opened",
+                              "full",
+                              "unstaffed",
+                              "closed"
+                            ]
+                          },
+                          "when_unstaffed": {
+                            "type": "string",
+                            "description": "A strategy to apply to visitors when queue becomes unstaffed (i.e. when there are no operators online who match\nqueue routing policy).\n",
+                            "enum": [
+                              "accept",
+                              "reject"
+                            ]
+                          },
+                          "operator_ranking_enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "description": "If `true`, queued visitor will be engaged with the first available operator who has the highest rank in the queue.\n"
+                          },
+                          "welcome_message": {
+                            "type": "string",
+                            "description": "If specified, this message will be sent automatically at the start of each engagement in this queue.\n\nWelcome message can be specified as a [Response Card](doc:suggestion#response-cards) in JSON format.\n"
+                          },
+                          "scheduling_policy_id": {
+                            "type": "string",
+                            "description": "ID of the queue scheduling policy (in UUID v4 format).\n\nSee [`POST /queues/scheduling_policies`](ref:queue-scheduling#post_queues-scheduling-policies) on how to\ncreate a scheduling policy for the queue.\n"
+                          },
+                          "fallback_queue_id": {
+                            "type": "string",
+                            "description": "ID of a fallback queue (in UUID v4 format).\n\nFallback queue is a queue to which visitors are re-routed when the Primary queue is full, unstaffed or closed.\nFallback queue must be a queue that does not have the Primary queue as a direct or indirect fallback,\nor in other words there can be no fallback cycles.\n\nFor example if:\n\n  Queue B is assigned as a fallback queue to queue A\n\n  Queue C is assigned as a fallback queue to queue B\n\nThen queue A cannot be assigned as a fallback queue of queue C as this creates a fallback cycle: `A -> B -> C -> A`\n"
+                          },
+                          "operator_affinity": {
+                            "type": "object",
+                            "description": "Operator affinity of the queue.\n\nAllows to engage the visitor with the last operator with whom the visitor had an engagement prior to enqueueing.\n",
+                            "properties": {
+                              "time_window_sec": {
+                                "type": "integer",
+                                "description": "The number of seconds to wait for the previously engaged operator to become available after the visitor has\nenqueued.\n\nIf the operator does not become available during `time_window_sec`, the visitor will be matched with other\noperators based on the routing policy.\n",
+                                "minimum": 0,
+                                "exclusiveMinimum": true,
+                                "maximum": 345600
+                              }
+                            }
+                          },
+                          "visitors_count": {
+                            "type": "integer",
+                            "description": "Number of visitors currently in the queue."
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was created.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was updated.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "queues": [
+                    {
+                      "average_wait_time": 34,
+                      "visitors_count": 7,
+                      "id": "59b0d786-e59a-4c62-a064-05e4f47488a2",
+                      "name": "Technical support queue (rich media)",
+                      "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                      "description": "Technical support queue with AV capabilities.",
+                      "capacity": 15,
+                      "capacity_policy": {
+                        "type": "fixed",
+                        "capacity": 15
+                      },
+                      "routing_policy": {
+                        "media": [
+                          "phone",
+                          "audio",
+                          "video"
+                        ]
+                      },
+                      "available_properties": {
+                        "media": []
+                      },
+                      "when_unstaffed": "reject",
+                      "status": "closed",
+                      "self_status": "closed",
+                      "operator_ranking_enabled": false,
+                      "welcome_message": "Hi, how can we help you?",
+                      "scheduling_policy_id": "db46cede-0927-46a2-ae02-3d93dbb6648d",
+                      "fallback_queue_id": "7a5ba173-3f6e-432e-96fc-1a45b3eba3b1",
+                      "operator_affinity": {
+                        "time_window_sec": 600
+                      },
+                      "created_at": "2017-02-20T00:00:00.000Z",
+                      "updated_at": "2017-02-20T00:00:00.000Z"
+                    },
+                    {
+                      "average_wait_time": 5,
+                      "visitors_count": 2,
+                      "id": "3f82ad26-fada-4f77-a293-9a7a84fb3d1e",
+                      "name": "Technical support queue (text)",
+                      "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                      "description": "Technical support queue with only chat capabilities.",
+                      "capacity": 15,
+                      "capacity_policy": {
+                        "type": "fixed",
+                        "capacity": 15
+                      },
+                      "routing_policy": {
+                        "media": [
+                          "text"
+                        ]
+                      },
+                      "available_properties": {
+                        "media": null
+                      },
+                      "when_unstaffed": "reject",
+                      "status": "closed",
+                      "self_status": "closed",
+                      "operator_ranking_enabled": false,
+                      "welcome_message": null,
+                      "scheduling_policy_id": null,
+                      "fallback_queue_id": null,
+                      "operator_affinity": null,
+                      "created_at": "2017-02-20T00:00:00.000Z",
+                      "updated_at": "2017-02-20T00:00:00.000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queues/{queue_id}": {
+      "get": {
+        "summary": "Fetch queue",
+        "tags": [
+          "Queues"
+        ],
+        "description": "Retrieves the properties of the queue with the given ID.\n\nThe user whose bearer access token is provided in `Authorization` header must have at least manager role on the\nsite that the queue is defined for.\n",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "description": "Queue ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Queue ID (in UUID v4 format). Cannot be modified after creation.\n"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Queue name."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site the queue belongs to. Can not be modified after creation.\n"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Queue description."
+                    },
+                    "capacity": {
+                      "type": "integer",
+                      "deprecated": true,
+                      "description": "The maximum number of concurrent visitors allowed into the queue. Use `capacity_policy` instead.\n"
+                    },
+                    "capacity_policy": {
+                      "description": "Capacity policy dictates how will the queue capacity be regulated. At the moment, two types of capacity policies are\nsupported:\n\n* Fixed: the queue capacity is set to a fixed number and doesn't change.\n* Variable: the queue capacity changes depending on the number of operators\nstaffing the queue.\n",
+                      "oneOf": [
+                        {
+                          "title": "Fixed Policy",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Must be `fixed`."
+                            },
+                            "capacity": {
+                              "type": "integer",
+                              "description": "The maximum number of concurrent visitors allowed into the queue.\n"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "capacity"
+                          ]
+                        },
+                        {
+                          "title": "Variable Policy",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Must be `variable`."
+                            },
+                            "capacity": {
+                              "type": "number",
+                              "description": "The number that is multiplied by the number of operators staffing the queue to determine the effective\nqueue capacity (rounded down).\n"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "capacity"
+                          ]
+                        }
+                      ]
+                    },
+                    "routing_policy": {
+                      "type": "object",
+                      "description": "A collection of properties which determine whether visitor should be put into this queue when enqueued and whether\noperator can serve visitors from this queue.\n\nNote, that one visitor may be put into multiple queues at once, based on queue routing policy and visitor's\nattributes.\n\nWhen an empty object is given, all enqueueing visitors will be put into created queue.\n",
+                      "properties": {
+                        "media": {
+                          "description": "Set of allowed engagement media types.\n\nWhen this routing policy is applied to a queue, visitors who request engagement with insufficient media level,\nwon't be placed into the queue.\n\nExample 1: A queue has `routing_policy.media = [\"text\"]`, visitor requests engagement with media type `audio`.\nBecause queue doesn't have audio in the list of allowed media types, such visitor can't be put into the queue.\n\nExample 2: A queue has `routing_policy.media = [\"text\", \"phone\", \"audio\"]`, visitor requests engagement with\nmedia type `audio`. In this case visitor can be put into the queue, because the queue allowed media types\nincludes audio.\n",
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "text",
+                              "phone",
+                              "audio",
+                              "video"
+                            ]
+                          }
+                        },
+                        "team_ids": {
+                          "description": "The allowed team IDs.\n\nMust be a set of strings, where each element is a team ID (in UUID v4 format).\n\nThis routing policy allows visitors to be put into the queue only if they are assigned to at least one team from\nthe\nspecified list. Similarly, only operators who belong to at least one team\nfrom the specified list can serve visitors from the queue.\n",
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "available_properties": {
+                      "type": "object",
+                      "properties": {
+                        "media": {
+                          "type": "array",
+                          "description": "Set of currently available engagement media types. Visitors cannot request engagements with media that is not\ncurrently available.\n\nIs empty when the queue is closed or unstaffed.\n",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "text",
+                              "phone",
+                              "audio",
+                              "video"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Current queue status. Takes into account the status of fallback queue(s) recursively (if any).\n",
+                      "enum": [
+                        "opened",
+                        "full",
+                        "unstaffed",
+                        "closed"
+                      ]
+                    },
+                    "self_status": {
+                      "type": "string",
+                      "description": "Current queue status without taking into account the status of fallback queue(s). Always `closed` for new queues.\n",
+                      "enum": [
+                        "opened",
+                        "full",
+                        "unstaffed",
+                        "closed"
+                      ]
+                    },
+                    "when_unstaffed": {
+                      "type": "string",
+                      "description": "A strategy to apply to visitors when queue becomes unstaffed (i.e. when there are no operators online who match\nqueue routing policy).\n",
+                      "enum": [
+                        "accept",
+                        "reject"
+                      ]
+                    },
+                    "operator_ranking_enabled": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If `true`, queued visitor will be engaged with the first available operator who has the highest rank in the queue.\n"
+                    },
+                    "welcome_message": {
+                      "type": "string",
+                      "description": "If specified, this message will be sent automatically at the start of each engagement in this queue.\n\nWelcome message can be specified as a [Response Card](doc:suggestion#response-cards) in JSON format.\n"
+                    },
+                    "scheduling_policy_id": {
+                      "type": "string",
+                      "description": "ID of the queue scheduling policy (in UUID v4 format).\n\nSee [`POST /queues/scheduling_policies`](ref:queue-scheduling#post_queues-scheduling-policies) on how to\ncreate a scheduling policy for the queue.\n"
+                    },
+                    "fallback_queue_id": {
+                      "type": "string",
+                      "description": "ID of a fallback queue (in UUID v4 format).\n\nFallback queue is a queue to which visitors are re-routed when the Primary queue is full, unstaffed or closed.\nFallback queue must be a queue that does not have the Primary queue as a direct or indirect fallback,\nor in other words there can be no fallback cycles.\n\nFor example if:\n\n  Queue B is assigned as a fallback queue to queue A\n\n  Queue C is assigned as a fallback queue to queue B\n\nThen queue A cannot be assigned as a fallback queue of queue C as this creates a fallback cycle: `A -> B -> C -> A`\n"
+                    },
+                    "operator_affinity": {
+                      "type": "object",
+                      "description": "Operator affinity of the queue.\n\nAllows to engage the visitor with the last operator with whom the visitor had an engagement prior to enqueueing.\n",
+                      "properties": {
+                        "time_window_sec": {
+                          "type": "integer",
+                          "description": "The number of seconds to wait for the previously engaged operator to become available after the visitor has\nenqueued.\n\nIf the operator does not become available during `time_window_sec`, the visitor will be matched with other\noperators based on the routing policy.\n",
+                          "minimum": 0,
+                          "exclusiveMinimum": true,
+                          "maximum": 345600
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "59b0d786-e59a-4c62-a064-05e4f47488a2",
+                  "name": "Technical support queue (rich media)",
+                  "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                  "description": "Technical support queue with AV capabilities.",
+                  "capacity": 15,
+                  "capacity_policy": {
+                    "type": "fixed",
+                    "capacity": 15
+                  },
+                  "routing_policy": {
+                    "media": [
+                      "phone",
+                      "audio",
+                      "video"
+                    ]
+                  },
+                  "available_properties": {
+                    "media": []
+                  },
+                  "when_unstaffed": "reject",
+                  "status": "closed",
+                  "self_status": "closed",
+                  "operator_ranking_enabled": false,
+                  "welcome_message": "Hi, how can we help you?",
+                  "scheduling_policy_id": "db46cede-0927-46a2-ae02-3d93dbb6648d",
+                  "fallback_queue_id": "7a5ba173-3f6e-432e-96fc-1a45b3eba3b1",
+                  "operator_affinity": {
+                    "time_window_sec": 600
+                  },
+                  "created_at": "2017-02-20T00:00:00.000Z",
+                  "updated_at": "2017-02-20T00:00:00.000Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update queue",
+        "tags": [
+          "Queues"
+        ],
+        "description": "Updates specified properties of a queue.\n\nThe user whose bearer access token is provided in `Authorization` header must have the super manager role on the\nsite that the queue is defined for.\n\n* If the specified fallback queue creates a fallback cycle with the updated queue then a `409 Conflict` response is\nreturned.\n\n* Note that the site ID of a queue can not be changed.\n",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "description": "Queue ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.salemove.v1+json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Queue name."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Queue description."
+                  },
+                  "capacity_policy": {
+                    "description": "Capacity policy dictates how will the queue capacity be regulated. At the moment, two types of capacity policies are\nsupported:\n\n* Fixed: the queue capacity is set to a fixed number and doesn't change.\n* Variable: the queue capacity changes depending on the number of operators\nstaffing the queue.\n",
+                    "oneOf": [
+                      {
+                        "title": "Fixed Policy",
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "Must be `fixed`."
+                          },
+                          "capacity": {
+                            "type": "integer",
+                            "description": "The maximum number of concurrent visitors allowed into the queue.\n"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "capacity"
+                        ]
+                      },
+                      {
+                        "title": "Variable Policy",
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "Must be `variable`."
+                          },
+                          "capacity": {
+                            "type": "number",
+                            "description": "The number that is multiplied by the number of operators staffing the queue to determine the effective\nqueue capacity (rounded down).\n"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "capacity"
+                        ]
+                      }
+                    ]
+                  },
+                  "routing_policy": {
+                    "type": "object",
+                    "description": "A collection of properties which determine whether visitor should be put into this queue when enqueued and whether\noperator can serve visitors from this queue.\n\nNote, that one visitor may be put into multiple queues at once, based on queue routing policy and visitor's\nattributes.\n\nWhen an empty object is given, all enqueueing visitors will be put into created queue.\n",
+                    "properties": {
+                      "media": {
+                        "description": "Set of allowed engagement media types.\n\nWhen this routing policy is applied to a queue, visitors who request engagement with insufficient media level,\nwon't be placed into the queue.\n\nExample 1: A queue has `routing_policy.media = [\"text\"]`, visitor requests engagement with media type `audio`.\nBecause queue doesn't have audio in the list of allowed media types, such visitor can't be put into the queue.\n\nExample 2: A queue has `routing_policy.media = [\"text\", \"phone\", \"audio\"]`, visitor requests engagement with\nmedia type `audio`. In this case visitor can be put into the queue, because the queue allowed media types\nincludes audio.\n",
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "phone",
+                            "audio",
+                            "video"
+                          ]
+                        }
+                      },
+                      "team_ids": {
+                        "description": "The allowed team IDs.\n\nMust be a set of strings, where each element is a team ID (in UUID v4 format).\n\nThis routing policy allows visitors to be put into the queue only if they are assigned to at least one team from\nthe\nspecified list. Similarly, only operators who belong to at least one team\nfrom the specified list can serve visitors from the queue.\n",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "when_unstaffed": {
+                    "type": "string",
+                    "description": "A strategy to apply to visitors when queue becomes unstaffed (i.e. when there are no operators online who match\nqueue routing policy).\n",
+                    "enum": [
+                      "accept",
+                      "reject"
+                    ]
+                  },
+                  "operator_ranking_enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If `true`, queued visitor will be engaged with the first available operator who has the highest rank in the queue.\n"
+                  },
+                  "welcome_message": {
+                    "type": "string",
+                    "description": "If specified, this message will be sent automatically at the start of each engagement in this queue.\n\nWelcome message can be specified as a [Response Card](doc:suggestion#response-cards) in JSON format.\n"
+                  },
+                  "scheduling_policy_id": {
+                    "type": "string",
+                    "description": "ID of the queue scheduling policy (in UUID v4 format).\n\nSee [`POST /queues/scheduling_policies`](ref:queue-scheduling#post_queues-scheduling-policies) on how to\ncreate a scheduling policy for the queue.\n"
+                  },
+                  "fallback_queue_id": {
+                    "type": "string",
+                    "description": "ID of a fallback queue (in UUID v4 format).\n\nFallback queue is a queue to which visitors are re-routed when the Primary queue is full, unstaffed or closed.\nFallback queue must be a queue that does not have the Primary queue as a direct or indirect fallback,\nor in other words there can be no fallback cycles.\n\nFor example if:\n\n  Queue B is assigned as a fallback queue to queue A\n\n  Queue C is assigned as a fallback queue to queue B\n\nThen queue A cannot be assigned as a fallback queue of queue C as this creates a fallback cycle: `A -> B -> C -> A`\n"
+                  },
+                  "operator_affinity": {
+                    "type": "object",
+                    "description": "Operator affinity of the queue.\n\nAllows to engage the visitor with the last operator with whom the visitor had an engagement prior to enqueueing.\n",
+                    "properties": {
+                      "time_window_sec": {
+                        "type": "integer",
+                        "description": "The number of seconds to wait for the previously engaged operator to become available after the visitor has\nenqueued.\n\nIf the operator does not become available during `time_window_sec`, the visitor will be matched with other\noperators based on the routing policy.\n",
+                        "minimum": 0,
+                        "exclusiveMinimum": true,
+                        "maximum": 345600
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "name": "Technical support queue (text)",
+                  "description": "Text queue for technical support team",
+                  "capacity_policy": {
+                    "type": "variable",
+                    "multiplier": 1.5
+                  },
+                  "routing_policy": {
+                    "media": [
+                      "text"
+                    ],
+                    "team_ids": [
+                      "ca98bb0c-187e-4db9-9662-b33e7f2326c0"
+                    ]
+                  },
+                  "when_unstaffed": "reject",
+                  "operator_ranking_enabled": true,
+                  "welcome_message": "Welcome to our company",
+                  "scheduling_policy_id": "db46cede-0927-46a2-ae02-3d93dbb6648d",
+                  "fallback_queue_id": "7a5ba173-3f6e-432e-96fc-1a45b3eba3b1",
+                  "operator_affinity": {
+                    "time_window_sec": 600
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Queue ID (in UUID v4 format). Cannot be modified after creation.\n"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Queue name."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site the queue belongs to. Can not be modified after creation.\n"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Queue description."
+                    },
+                    "capacity": {
+                      "type": "integer",
+                      "deprecated": true,
+                      "description": "The maximum number of concurrent visitors allowed into the queue. Use `capacity_policy` instead.\n"
+                    },
+                    "capacity_policy": {
+                      "description": "Capacity policy dictates how will the queue capacity be regulated. At the moment, two types of capacity policies are\nsupported:\n\n* Fixed: the queue capacity is set to a fixed number and doesn't change.\n* Variable: the queue capacity changes depending on the number of operators\nstaffing the queue.\n",
+                      "oneOf": [
+                        {
+                          "title": "Fixed Policy",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Must be `fixed`."
+                            },
+                            "capacity": {
+                              "type": "integer",
+                              "description": "The maximum number of concurrent visitors allowed into the queue.\n"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "capacity"
+                          ]
+                        },
+                        {
+                          "title": "Variable Policy",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Must be `variable`."
+                            },
+                            "capacity": {
+                              "type": "number",
+                              "description": "The number that is multiplied by the number of operators staffing the queue to determine the effective\nqueue capacity (rounded down).\n"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "capacity"
+                          ]
+                        }
+                      ]
+                    },
+                    "routing_policy": {
+                      "type": "object",
+                      "description": "A collection of properties which determine whether visitor should be put into this queue when enqueued and whether\noperator can serve visitors from this queue.\n\nNote, that one visitor may be put into multiple queues at once, based on queue routing policy and visitor's\nattributes.\n\nWhen an empty object is given, all enqueueing visitors will be put into created queue.\n",
+                      "properties": {
+                        "media": {
+                          "description": "Set of allowed engagement media types.\n\nWhen this routing policy is applied to a queue, visitors who request engagement with insufficient media level,\nwon't be placed into the queue.\n\nExample 1: A queue has `routing_policy.media = [\"text\"]`, visitor requests engagement with media type `audio`.\nBecause queue doesn't have audio in the list of allowed media types, such visitor can't be put into the queue.\n\nExample 2: A queue has `routing_policy.media = [\"text\", \"phone\", \"audio\"]`, visitor requests engagement with\nmedia type `audio`. In this case visitor can be put into the queue, because the queue allowed media types\nincludes audio.\n",
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "text",
+                              "phone",
+                              "audio",
+                              "video"
+                            ]
+                          }
+                        },
+                        "team_ids": {
+                          "description": "The allowed team IDs.\n\nMust be a set of strings, where each element is a team ID (in UUID v4 format).\n\nThis routing policy allows visitors to be put into the queue only if they are assigned to at least one team from\nthe\nspecified list. Similarly, only operators who belong to at least one team\nfrom the specified list can serve visitors from the queue.\n",
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "available_properties": {
+                      "type": "object",
+                      "properties": {
+                        "media": {
+                          "type": "array",
+                          "description": "Set of currently available engagement media types. Visitors cannot request engagements with media that is not\ncurrently available.\n\nIs empty when the queue is closed or unstaffed.\n",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "text",
+                              "phone",
+                              "audio",
+                              "video"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Current queue status. Takes into account the status of fallback queue(s) recursively (if any).\n",
+                      "enum": [
+                        "opened",
+                        "full",
+                        "unstaffed",
+                        "closed"
+                      ]
+                    },
+                    "self_status": {
+                      "type": "string",
+                      "description": "Current queue status without taking into account the status of fallback queue(s). Always `closed` for new queues.\n",
+                      "enum": [
+                        "opened",
+                        "full",
+                        "unstaffed",
+                        "closed"
+                      ]
+                    },
+                    "when_unstaffed": {
+                      "type": "string",
+                      "description": "A strategy to apply to visitors when queue becomes unstaffed (i.e. when there are no operators online who match\nqueue routing policy).\n",
+                      "enum": [
+                        "accept",
+                        "reject"
+                      ]
+                    },
+                    "operator_ranking_enabled": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If `true`, queued visitor will be engaged with the first available operator who has the highest rank in the queue.\n"
+                    },
+                    "welcome_message": {
+                      "type": "string",
+                      "description": "If specified, this message will be sent automatically at the start of each engagement in this queue.\n\nWelcome message can be specified as a [Response Card](doc:suggestion#response-cards) in JSON format.\n"
+                    },
+                    "scheduling_policy_id": {
+                      "type": "string",
+                      "description": "ID of the queue scheduling policy (in UUID v4 format).\n\nSee [`POST /queues/scheduling_policies`](ref:queue-scheduling#post_queues-scheduling-policies) on how to\ncreate a scheduling policy for the queue.\n"
+                    },
+                    "fallback_queue_id": {
+                      "type": "string",
+                      "description": "ID of a fallback queue (in UUID v4 format).\n\nFallback queue is a queue to which visitors are re-routed when the Primary queue is full, unstaffed or closed.\nFallback queue must be a queue that does not have the Primary queue as a direct or indirect fallback,\nor in other words there can be no fallback cycles.\n\nFor example if:\n\n  Queue B is assigned as a fallback queue to queue A\n\n  Queue C is assigned as a fallback queue to queue B\n\nThen queue A cannot be assigned as a fallback queue of queue C as this creates a fallback cycle: `A -> B -> C -> A`\n"
+                    },
+                    "operator_affinity": {
+                      "type": "object",
+                      "description": "Operator affinity of the queue.\n\nAllows to engage the visitor with the last operator with whom the visitor had an engagement prior to enqueueing.\n",
+                      "properties": {
+                        "time_window_sec": {
+                          "type": "integer",
+                          "description": "The number of seconds to wait for the previously engaged operator to become available after the visitor has\nenqueued.\n\nIf the operator does not become available during `time_window_sec`, the visitor will be matched with other\noperators based on the routing policy.\n",
+                          "minimum": 0,
+                          "exclusiveMinimum": true,
+                          "maximum": 345600
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    }
+                  }
+                },
+                "example": {
+                  "name": "Technical support queue (text)",
+                  "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                  "description": "Text queue for technical support team",
+                  "capacity": 15,
+                  "capacity_policy": {
+                    "type": "variable",
+                    "multiplier": 1.5
+                  },
+                  "routing_policy": {
+                    "media": [
+                      "text"
+                    ],
+                    "team_ids": [
+                      "ca98bb0c-187e-4db9-9662-b33e7f2326c0"
+                    ]
+                  },
+                  "available_properties": {
+                    "media": null
+                  },
+                  "when_unstaffed": "reject",
+                  "status": "closed",
+                  "self_status": "closed",
+                  "operator_ranking_enabled": true,
+                  "welcome_message": "Welcome to our company",
+                  "scheduling_policy_id": "db46cede-0927-46a2-ae02-3d93dbb6648d",
+                  "operator_affinity": {
+                    "time_window_sec": 600
+                  },
+                  "created_at": "2017-02-20T00:00:00.000Z",
+                  "updated_at": "2017-02-22T13:52:40.000Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete queue",
+        "tags": [
+          "Queues"
+        ],
+        "description": "Removes the queue if the queue is empty.\n\nThe user whose bearer access token is provided in `Authorization` header must have the super manager role on the\nsite that the queue is defined for.\n\n* If the queue is not empty, or is in use in any other sense, e.g. associated to a\n[phone channel](ref:contacts), [digital channel](ref:digital-channels), or assigned as a fallback queue to\nanother queue, the queue cannot be deleted and a `409 Conflict` response is returned.\n",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "description": "Queue ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/queues/{queue_id}/rankings": {
+      "get": {
+        "summary": "List rankings",
+        "tags": [
+          "Operator rankings"
+        ],
+        "description": "Fetches a collection of operators with their ranks in the queue.\n\nThe user whose bearer access token is provided in `Authorization` header must have the super manager role on the\nsite that the queue is defined for.\n\nThe operator collection includes only the operators that have been assigned a rank in the queue at some point in\ntime. This means that the collection might not include all of the operators that are associated with the queue and\nit might include operators that are no longer associated with the queue.\n",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "description": "Queue ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "operators": {
+                      "type": "array",
+                      "description": "List of queue operator rankings.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Operator ID."
+                          },
+                          "rank": {
+                            "type": "integer",
+                            "description": "Operator rank.\n\nOperators with a smaller rank number will be considered for engagement before operators with a high rank number.\n\nIf `null` is set as a rank, the operator rank will be removed and not be included in the collection anymore.\n\nOperators with rank 10 and no rank are treated as having the same priority.\n",
+                            "nullable": true,
+                            "minimum": 1,
+                            "maximum": 10
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "operators": [
+                    {
+                      "id": "c8b52f0b-ad05-4c71-8c98-5056f07c4d1a",
+                      "rank": 10
+                    },
+                    {
+                      "id": "f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                      "rank": 2
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update rankings",
+        "tags": [
+          "Operator rankings"
+        ],
+        "description": "Updates operators' rankings of the queue.\n\nThe user whose bearer access token is provided in `Authorization` header must have the super manager role on the\nsite that the queue is defined for.\n\nOperators must be assigned to the site that the queue is defined for.\n",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "description": "Queue ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.salemove.v1+json": {
+              "schema": {
+                "properties": {
+                  "operators": {
+                    "type": "array",
+                    "description": "List of queue operator rankings.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Operator ID."
+                        },
+                        "rank": {
+                          "type": "integer",
+                          "description": "Operator rank.\n\nOperators with a smaller rank number will be considered for engagement before operators with a high rank number.\n\nIf `null` is set as a rank, the operator rank will be removed and not be included in the collection anymore.\n\nOperators with rank 10 and no rank are treated as having the same priority.\n",
+                          "nullable": true,
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "operators": [
+                  {
+                    "id": "c8b52f0b-ad05-4c71-8c98-5056f07c4d1a",
+                    "rank": 10
+                  },
+                  {
+                    "id": "f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                    "rank": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "operators": {
+                      "type": "array",
+                      "description": "List of queue operator rankings.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Operator ID."
+                          },
+                          "rank": {
+                            "type": "integer",
+                            "description": "Operator rank.\n\nOperators with a smaller rank number will be considered for engagement before operators with a high rank number.\n\nIf `null` is set as a rank, the operator rank will be removed and not be included in the collection anymore.\n\nOperators with rank 10 and no rank are treated as having the same priority.\n",
+                            "nullable": true,
+                            "minimum": 1,
+                            "maximum": 10
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "operators": [
+                    {
+                      "id": "c8b52f0b-ad05-4c71-8c98-5056f07c4d1a",
+                      "rank": 10
+                    },
+                    {
+                      "id": "f42811bc-8519-4d33-bbb1-36d4555ecb0a",
+                      "rank": 2
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queue_tickets": {
+      "post": {
+        "summary": "Create ticket",
+        "tags": [
+          "Queue tickets"
+        ],
+        "description": "Queue Ticket represents the visitor's request for engagement with any available operator.\n\nCreates a new Queue Ticket entity and puts the visitor into the queue. The visitor, whose credentials are contained\nin `Authorization` header, must be present on the same site, that the Queue Ticket is created on.\n\n* Note that this endpoint requires the **visitor's** bearer access token in the Authorization header.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.salemove.v1+json": {
+              "schema": {
+                "properties": {
+                  "site_id": {
+                    "type": "string",
+                    "description": "ID of the Site, that the Visitor enqueues on."
+                  },
+                  "media": {
+                    "type": "string",
+                    "description": "The initial Engagement media type.\n\nCan only be `text` or `phone` if the request is made by a Visitor integrator.\n",
+                    "enum": [
+                      "text",
+                      "phone",
+                      "audio",
+                      "video"
+                    ]
+                  },
+                  "media_options": {
+                    "type": "object",
+                    "description": "Any additional parameters for the desired media type.",
+                    "properties": {
+                      "phone_number": {
+                        "type": "string",
+                        "description": "Phone number of the user. The supported format is [E.164](doc:glossary#phone-number).\nMust be set if `audio_source` is `phone`.\n"
+                      },
+                      "phone_extension": {
+                        "type": "string",
+                        "description": "The phone number extension of the user.\n\nA valid extension contains 1-7 digits and any number of `,` characters.\n\nThere is an initial two second delay time before the first extension character is processed. Each `,` character\nin the extension adds a two second wait time before the next character is processed. Maximum length is 25\ncharacters.\n\nValid only if `phone` is also set or was set beforehand.\n"
+                      },
+                      "one_way": {
+                        "type": "boolean",
+                        "description": "* When set to `true`, the video will start from the operator to the visitor only.\n* When set to `false`, the video starts both ways - from the operator to the visitor and from the visitor\nto the operator.\n",
+                        "default": true
+                      }
+                    }
+                  },
+                  "team_ids": {
+                    "type": "array",
+                    "deprecated": true,
+                    "description": "Set of Team IDs to restrict Engagement request to.\n\nAn Operator must belong to at least one of the specified Team IDs to be able to serve the Visitor.\n\n* This parameter can't be used together with parameters `queue_ids` or `queue_id`.\n\n* Deprecated. Use `queue_ids` instead.\n",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "queue_id": {
+                    "type": "string",
+                    "deprecated": true,
+                    "description": "Queue ID, to which Queue Ticket will be assigned to.\n\nThis parameter can't be used together with parameter `team_ids`.\n\n* Use `queue_ids` instead.\n"
+                  },
+                  "queue_ids": {
+                    "type": "array",
+                    "description": "Set of Queue IDs, to which Queue Ticket will be assigned to.\n\nAn Operator must belong to at least one of the specified Queue IDs to be able to serve the Visitor.\n\n* This parameter can't be used together with parameter `team_ids`.\n",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "One of the engagement/transfer request sources:\n* `button_embed` - (_reactive_) Engagement started via Contact Operator Button.\n* `callout` - (_reactive_) Engagement started via business rules. E.g. a business rule triggered a media\nselector which was then used to start the engagement.\n* `external_call` - (_reactive_) **Deprecated**\n* `facebook` - (_reactive_) Visitor sent message from Facebook Messenger.\n* `hotlink` - (_reactive_) Engagement started via hotlink.\n* `offline_phone` - (_reactive_) Visitor called a phone number.\n* `outbound_call` - (_proactive_) Operator called visitor's phone.\n* `outbound_text` - (_proactive_) SMS message was sent to visitor's phone.\n* `sdk` - (_reactive_) Engagement started using the JS SDK, Android SDK or iOS SDK.\n* `slack` - (_reactive_) Engagement started via Slack.\n* `sms` - (_reactive_) Visitor sent SMS message.\n* `tab` - (_reactive_) Engagement started in the browser tab (via the bubble).\n* `visitor_integrator` - (_reactive_) Engagement started by REST API call.\n* `whatsapp` - (_reactive_) Visitor sent message from WhatsApp.\n* `<empty>` - (_proactive_) Engagement was requested by the operator.",
+                    "enum": [
+                      "button_embed",
+                      "callout",
+                      "external_call",
+                      "facebook",
+                      "hotlink",
+                      "offline_phone",
+                      "outbound_call",
+                      "outbound_text",
+                      "sdk",
+                      "slack",
+                      "sms",
+                      "tab",
+                      "visitor_integrator",
+                      "whatsapp",
+                      "<empty>"
+                    ]
+                  },
+                  "webhooks": {
+                    "maxItems": 10,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "HTTP Webhook",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "The URL (including protocol) to which the HTTP request will be sent to.\n",
+                          "example": "https://example.com"
+                        },
+                        "method": {
+                          "type": "string",
+                          "description": "The HTTP method that will be used for the HTTP request.",
+                          "example": "POST"
+                        },
+                        "headers": {
+                          "type": "object",
+                          "description": "An arbitrary object which will be used to set request headers for the HTTP request. The keys of the object\nwill be used as header names and values as header values. This can be used to authenticate incoming HTTP\nrequests in your server.\n",
+                          "example": {
+                            "Authorization": "value"
+                          }
+                        },
+                        "events": {
+                          "type": "array",
+                          "description": "An array of events (at least one) upon which a HTTP request will be made.\n",
+                          "items": {
+                            "type": "string",
+                            "example": "engagement.start"
+                          }
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "method",
+                        "events"
+                      ]
+                    }
+                  },
+                  "visitor_context": {
+                    "type": "object",
+                    "description": "When the visitor is not capable of CoBrowsing, e.g. they called in via phone, the CoBrowsing area can be re-purposed to display extra information to the operator.\nFor example, when a phone number is associated with a specific promotion, a PDF file describing the promotion can be displayed.\nThe visitor context can either contain an URL to a web page or an illustration file.\nThe illustration file can be of any type that can be embedded in an iframe in the operator's web browser.\n",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "Either a (web) page or an illustration file. When providing an illustration file, it is also recommended to include `content_type`.\n",
+                        "enum": [
+                          "page",
+                          "illustration"
+                        ]
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "URL pointing to the context, must be secure (HTTPS).\n",
+                        "example": "https://example.com/context.pdf"
+                      },
+                      "content_type": {
+                        "type": "string",
+                        "description": "MIME type of the illustration file. For example: `application/pdf`.\n",
+                        "example": "application/pdf"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Context name. Displayed to the operator when provided.\n"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "url"
+                    ]
+                  }
+                },
+                "required": [
+                  "site_id",
+                  "media"
+                ],
+                "example": {
+                  "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                  "source": "hotlink",
+                  "media": "video",
+                  "queue_ids": [
+                    "cd564dd0-c8c1-44d2-88a9-074243e029b8"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK\n\nNothing to add, the visitor already has an existing active Queue Ticket with the same request criteria.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Queue ticket ID."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the Site, that the Visitor enqueues on."
+                    },
+                    "source": {
+                      "type": "string",
+                      "description": "One of the engagement/transfer request sources:\n* `button_embed` - (_reactive_) Engagement started via Contact Operator Button.\n* `callout` - (_reactive_) Engagement started via business rules. E.g. a business rule triggered a media\nselector which was then used to start the engagement.\n* `external_call` - (_reactive_) **Deprecated**\n* `facebook` - (_reactive_) Visitor sent message from Facebook Messenger.\n* `hotlink` - (_reactive_) Engagement started via hotlink.\n* `offline_phone` - (_reactive_) Visitor called a phone number.\n* `outbound_call` - (_proactive_) Operator called visitor's phone.\n* `outbound_text` - (_proactive_) SMS message was sent to visitor's phone.\n* `sdk` - (_reactive_) Engagement started using the JS SDK, Android SDK or iOS SDK.\n* `slack` - (_reactive_) Engagement started via Slack.\n* `sms` - (_reactive_) Visitor sent SMS message.\n* `tab` - (_reactive_) Engagement started in the browser tab (via the bubble).\n* `visitor_integrator` - (_reactive_) Engagement started by REST API call.\n* `whatsapp` - (_reactive_) Visitor sent message from WhatsApp.\n* `<empty>` - (_proactive_) Engagement was requested by the operator.",
+                      "enum": [
+                        "button_embed",
+                        "callout",
+                        "external_call",
+                        "facebook",
+                        "hotlink",
+                        "offline_phone",
+                        "outbound_call",
+                        "outbound_text",
+                        "sdk",
+                        "slack",
+                        "sms",
+                        "tab",
+                        "visitor_integrator",
+                        "whatsapp",
+                        "<empty>"
+                      ]
+                    },
+                    "media": {
+                      "type": "string",
+                      "description": "The initial Engagement media type.\n\nCan only be `text` or `phone` if the request is made by a Visitor integrator.\n",
+                      "enum": [
+                        "text",
+                        "phone",
+                        "audio",
+                        "video"
+                      ]
+                    },
+                    "team_ids": {
+                      "type": "array",
+                      "deprecated": true,
+                      "description": "Set of Team IDs to restrict Engagement request to.\n\nAn Operator must belong to at least one of the specified Team IDs to be able to serve the Visitor.\n\n* This parameter can't be used together with parameters `queue_ids` or `queue_id`.\n\n* Deprecated. Use `queue_ids` instead.\n",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "visitor_authentication": {
+                      "type": "object",
+                      "description": "Headers which are required to make subsequent requests that modify the Queue Ticket and an eventual engagement.\n"
+                    },
+                    "webhooks": {
+                      "maxItems": 10,
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "HTTP Webhook",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "description": "The URL (including protocol) to which the HTTP request will be sent to.\n",
+                            "example": "https://example.com"
+                          },
+                          "method": {
+                            "type": "string",
+                            "description": "The HTTP method that will be used for the HTTP request.",
+                            "example": "POST"
+                          },
+                          "headers": {
+                            "type": "object",
+                            "description": "An arbitrary object which will be used to set request headers for the HTTP request. The keys of the object\nwill be used as header names and values as header values. This can be used to authenticate incoming HTTP\nrequests in your server.\n",
+                            "example": {
+                              "Authorization": "value"
+                            }
+                          },
+                          "events": {
+                            "type": "array",
+                            "description": "An array of events (at least one) upon which a HTTP request will be made.\n",
+                            "items": {
+                              "type": "string",
+                              "example": "engagement.start"
+                            }
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "method",
+                          "events"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "site_id",
+                    "source",
+                    "media",
+                    "team_ids",
+                    "created_at",
+                    "visitor_authentication",
+                    "webhooks"
+                  ]
+                },
+                "example": {
+                  "id": "59b0d786-e59a-4c62-a064-05e4f47488a2",
+                  "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                  "source": "hotlink",
+                  "media": "video",
+                  "queue_ids": [
+                    "cd564dd0-c8c1-44d2-88a9-074243e029b8"
+                  ],
+                  "created_at": "2017-02-20T00:00:00.000Z",
+                  "visitor_authentication": {
+                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXNpdG9yOjVmOGE2YmM2LTAxNTYtNDM0ZC04N2RkLWMyYWEzMjQwMDJkOSIsInJvbGVzIjpbeyJ0eXBlIjoidmlzaXRvciIsInZpc2l0b3JfaWQiOiI1ZjhhNmJjNi0wMTU2LTQzNGQtODdkZC1jMmFhMzI0MDAyZDkifSx7InR5cGUiOiJzaXRlX3Zpc2l0b3IiLCJzaXRlX2lkIjoiZWEwY2FiMTctMzAxYy00YzNiLWI2ZWItNmNlZjZkZDkzYjVjIn1dLCJpc3MiOiJTYWxlTW92ZSBWaXNpdC1SZWdpc3RyeSIsImlhdCI6MTU0MTE2NDE1NSwiZXhwIjoxNTQyMzczNzU1fQ.hjILobSmfLBTZwQtMSHxdg6bAo7W5UysLOmIaktRdPNuAN3iEWOC6A-PXfwPM98MKFs5QgKX_H-q4JJ_gixB0w"
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created\n\nA new Queue Ticket has been created.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Queue ticket ID."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the Site, that the Visitor enqueues on."
+                    },
+                    "source": {
+                      "type": "string",
+                      "description": "One of the engagement/transfer request sources:\n* `button_embed` - (_reactive_) Engagement started via Contact Operator Button.\n* `callout` - (_reactive_) Engagement started via business rules. E.g. a business rule triggered a media\nselector which was then used to start the engagement.\n* `external_call` - (_reactive_) **Deprecated**\n* `facebook` - (_reactive_) Visitor sent message from Facebook Messenger.\n* `hotlink` - (_reactive_) Engagement started via hotlink.\n* `offline_phone` - (_reactive_) Visitor called a phone number.\n* `outbound_call` - (_proactive_) Operator called visitor's phone.\n* `outbound_text` - (_proactive_) SMS message was sent to visitor's phone.\n* `sdk` - (_reactive_) Engagement started using the JS SDK, Android SDK or iOS SDK.\n* `slack` - (_reactive_) Engagement started via Slack.\n* `sms` - (_reactive_) Visitor sent SMS message.\n* `tab` - (_reactive_) Engagement started in the browser tab (via the bubble).\n* `visitor_integrator` - (_reactive_) Engagement started by REST API call.\n* `whatsapp` - (_reactive_) Visitor sent message from WhatsApp.\n* `<empty>` - (_proactive_) Engagement was requested by the operator.",
+                      "enum": [
+                        "button_embed",
+                        "callout",
+                        "external_call",
+                        "facebook",
+                        "hotlink",
+                        "offline_phone",
+                        "outbound_call",
+                        "outbound_text",
+                        "sdk",
+                        "slack",
+                        "sms",
+                        "tab",
+                        "visitor_integrator",
+                        "whatsapp",
+                        "<empty>"
+                      ]
+                    },
+                    "media": {
+                      "type": "string",
+                      "description": "The initial Engagement media type.\n\nCan only be `text` or `phone` if the request is made by a Visitor integrator.\n",
+                      "enum": [
+                        "text",
+                        "phone",
+                        "audio",
+                        "video"
+                      ]
+                    },
+                    "team_ids": {
+                      "type": "array",
+                      "deprecated": true,
+                      "description": "Set of Team IDs to restrict Engagement request to.\n\nAn Operator must belong to at least one of the specified Team IDs to be able to serve the Visitor.\n\n* This parameter can't be used together with parameters `queue_ids` or `queue_id`.\n\n* Deprecated. Use `queue_ids` instead.\n",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "visitor_authentication": {
+                      "type": "object",
+                      "description": "Headers which are required to make subsequent requests that modify the Queue Ticket and an eventual engagement.\n"
+                    },
+                    "webhooks": {
+                      "maxItems": 10,
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "HTTP Webhook",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "description": "The URL (including protocol) to which the HTTP request will be sent to.\n",
+                            "example": "https://example.com"
+                          },
+                          "method": {
+                            "type": "string",
+                            "description": "The HTTP method that will be used for the HTTP request.",
+                            "example": "POST"
+                          },
+                          "headers": {
+                            "type": "object",
+                            "description": "An arbitrary object which will be used to set request headers for the HTTP request. The keys of the object\nwill be used as header names and values as header values. This can be used to authenticate incoming HTTP\nrequests in your server.\n",
+                            "example": {
+                              "Authorization": "value"
+                            }
+                          },
+                          "events": {
+                            "type": "array",
+                            "description": "An array of events (at least one) upon which a HTTP request will be made.\n",
+                            "items": {
+                              "type": "string",
+                              "example": "engagement.start"
+                            }
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "method",
+                          "events"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "site_id",
+                    "source",
+                    "media",
+                    "team_ids",
+                    "created_at",
+                    "visitor_authentication",
+                    "webhooks"
+                  ]
+                },
+                "example": {
+                  "id": "59b0d786-e59a-4c62-a064-05e4f47488a2",
+                  "site_id": "51138845-3c46-4c21-8bd8-1cf45957f62e",
+                  "source": "hotlink",
+                  "media": "video",
+                  "queue_ids": [
+                    "cd564dd0-c8c1-44d2-88a9-074243e029b8"
+                  ],
+                  "created_at": "2017-02-20T00:00:00.000Z",
+                  "visitor_authentication": {
+                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXNpdG9yOjVmOGE2YmM2LTAxNTYtNDM0ZC04N2RkLWMyYWEzMjQwMDJkOSIsInJvbGVzIjpbeyJ0eXBlIjoidmlzaXRvciIsInZpc2l0b3JfaWQiOiI1ZjhhNmJjNi0wMTU2LTQzNGQtODdkZC1jMmFhMzI0MDAyZDkifSx7InR5cGUiOiJzaXRlX3Zpc2l0b3IiLCJzaXRlX2lkIjoiZWEwY2FiMTctMzAxYy00YzNiLWI2ZWItNmNlZjZkZDkzYjVjIn1dLCJpc3MiOiJTYWxlTW92ZSBWaXNpdC1SZWdpc3RyeSIsImlhdCI6MTU0MTE2NDE1NSwiZXhwIjoxNTQyMzczNzU1fQ.hjILobSmfLBTZwQtMSHxdg6bAo7W5UysLOmIaktRdPNuAN3iEWOC6A-PXfwPM98MKFs5QgKX_H-q4JJ_gixB0w"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict\n\nVisitor has an active Queue Ticket with criteria conflicting with what was requested. The active Queue Ticket\ncan be deleted and a subsequent request made with new criteria to replace it.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Conflict"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queue_tickets/{queue_ticket_id}": {
+      "delete": {
+        "summary": "Delete ticket",
+        "tags": [
+          "Queue tickets"
+        ],
+        "description": "Deletes the Queue Ticket and removes the visitor from the queue.\n",
+        "parameters": [
+          {
+            "name": "queue_ticket_id",
+            "in": "path",
+            "required": true,
+            "description": "Queue ticket ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/queues/scheduling_policies": {
+      "post": {
+        "summary": "Create policy",
+        "tags": [
+          "Queue scheduling"
+        ],
+        "description": "Creates a new queue scheduling policy with a set of specified properties.\n\nThe user whose bearer access token is provided in `Authorization` header must have the super manager role on the\nsite that the queue scheduling policy is defined for.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.salemove.v1+json": {
+              "schema": {
+                "properties": {
+                  "site_id": {
+                    "type": "string",
+                    "description": "ID of the site to where the queue scheduling policy belongs.\n\nCan only be set when creating a policy. Can not be modified afterwards.\n"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Queue scheduling policy name."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Queue scheduling policy description."
+                  },
+                  "timezone": {
+                    "type": "string",
+                    "description": "The timezone of queue scheduling policy business hours.\n\nMust be a valid timezone name in\n[Olson](https://developer.ibm.com/articles/au-aix-posix/#9Olsonformatspecificationoutline) format.\n",
+                    "example": "America/New_York"
+                  },
+                  "business_hours": {
+                    "type": "object",
+                    "description": "A collection of rules determining the days of week and daily time intervals during which all the queues with the current scheduling policy must be open.",
+                    "properties": {
+                      "opens_at": {
+                        "type": "string",
+                        "description": "Start of the interval.\n\nMust be in format of `HH:MM`, where `HH` is an hour of the day on a 24-hour clock ('00..24'), and `MM` is a\nminute of the hour (`00..59`). The interval is closed-open type (inclusive lower bound, exclusive upper bound).\n",
+                        "example": [
+                          "15:30"
+                        ]
+                      },
+                      "closes_at": {
+                        "type": "string",
+                        "description": "End of the interval.\n\nMust be in the same format as `opens_at`.\n"
+                      },
+                      "days_of_week": {
+                        "type": "array",
+                        "minItems": 1,
+                        "description": "List of weekdays which current rule applies to.\n\nWeekdays must be in format of 3-letter weekday case-insensitive abbreviations.\n\nDuplicate elements are ignored.\n",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "mon",
+                            "tue",
+                            "wed",
+                            "thu",
+                            "fri",
+                            "sat",
+                            "sun"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "opens_at",
+                      "closes_at",
+                      "days_of_week"
+                    ]
+                  }
+                },
+                "required": [
+                  "site_id",
+                  "name",
+                  "timezone",
+                  "business_hours"
+                ],
+                "example": {
+                  "site_id": "aa1df566-2106-47d2-86e8-58e4cc996012",
+                  "name": "Default Policy",
+                  "description": "08-18 with a lunch-break",
+                  "timezone": "America/New_York",
+                  "business_hours": [
+                    {
+                      "opens_at": "08:00",
+                      "closes_at": "12:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    },
+                    {
+                      "opens_at": "13:00",
+                      "closes_at": "18:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Policy ID."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site to where the queue scheduling policy belongs.\n\nCan only be set when creating a policy. Can not be modified afterwards.\n"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Queue scheduling policy name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Queue scheduling policy description."
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "description": "The timezone of queue scheduling policy business hours.\n\nMust be a valid timezone name in\n[Olson](https://developer.ibm.com/articles/au-aix-posix/#9Olsonformatspecificationoutline) format.\n",
+                      "example": "America/New_York"
+                    },
+                    "business_hours": {
+                      "type": "object",
+                      "description": "A collection of rules determining the days of week and daily time intervals during which all the queues with the current scheduling policy must be open.",
+                      "properties": {
+                        "opens_at": {
+                          "type": "string",
+                          "description": "Start of the interval.\n\nMust be in format of `HH:MM`, where `HH` is an hour of the day on a 24-hour clock ('00..24'), and `MM` is a\nminute of the hour (`00..59`). The interval is closed-open type (inclusive lower bound, exclusive upper bound).\n",
+                          "example": [
+                            "15:30"
+                          ]
+                        },
+                        "closes_at": {
+                          "type": "string",
+                          "description": "End of the interval.\n\nMust be in the same format as `opens_at`.\n"
+                        },
+                        "days_of_week": {
+                          "type": "array",
+                          "minItems": 1,
+                          "description": "List of weekdays which current rule applies to.\n\nWeekdays must be in format of 3-letter weekday case-insensitive abbreviations.\n\nDuplicate elements are ignored.\n",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "mon",
+                              "tue",
+                              "wed",
+                              "thu",
+                              "fri",
+                              "sat",
+                              "sun"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "opens_at",
+                        "closes_at",
+                        "days_of_week"
+                      ]
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "ID of the user who created the policy."
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "ID of the user who most recently updated the policy."
+                    }
+                  }
+                },
+                "example": {
+                  "id": "dafcae2c-56cb-4cc7-8162-f2d37a96b030",
+                  "site_id": "aa1df566-2106-47d2-86e8-58e4cc996012",
+                  "name": "Default Policy",
+                  "description": "08-18 with a lunch-break",
+                  "timezone": "America/New_York",
+                  "business_hours": [
+                    {
+                      "opens_at": "08:00",
+                      "closes_at": "12:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    },
+                    {
+                      "opens_at": "13:00",
+                      "closes_at": "18:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    }
+                  ],
+                  "created_at": "2017-02-20T00:00:00Z",
+                  "updated_at": "2017-02-20T00:00:00Z",
+                  "created_by": "354f7f5f-0e7a-4511-a780-a4e94883e780",
+                  "updated_by": "354f7f5f-0e7a-4511-a780-a4e94883e780"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List policies",
+        "tags": [
+          "Queue scheduling"
+        ],
+        "description": "Fetches a collection of queue scheduling policies.\n\nThe endpoint requires an array of `site_ids`.\n\nThe user whose bearer access token is provided in `Authorization` header must have super manager privileges on the\nrequested sites.\n",
+        "parameters": [
+          {
+            "description": "A list of site IDs whose queue scheduling policies are requested.",
+            "name": "site_ids[]",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "scheduling_policies": {
+                      "type": "array",
+                      "description": "List of queue scheduling policies.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Policy ID."
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "ID of the site to where the queue scheduling policy belongs.\n\nCan only be set when creating a policy. Can not be modified afterwards.\n"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Queue scheduling policy name."
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Queue scheduling policy description."
+                          },
+                          "timezone": {
+                            "type": "string",
+                            "description": "The timezone of queue scheduling policy business hours.\n\nMust be a valid timezone name in\n[Olson](https://developer.ibm.com/articles/au-aix-posix/#9Olsonformatspecificationoutline) format.\n",
+                            "example": "America/New_York"
+                          },
+                          "business_hours": {
+                            "type": "object",
+                            "description": "A collection of rules determining the days of week and daily time intervals during which all the queues with the current scheduling policy must be open.",
+                            "properties": {
+                              "opens_at": {
+                                "type": "string",
+                                "description": "Start of the interval.\n\nMust be in format of `HH:MM`, where `HH` is an hour of the day on a 24-hour clock ('00..24'), and `MM` is a\nminute of the hour (`00..59`). The interval is closed-open type (inclusive lower bound, exclusive upper bound).\n",
+                                "example": [
+                                  "15:30"
+                                ]
+                              },
+                              "closes_at": {
+                                "type": "string",
+                                "description": "End of the interval.\n\nMust be in the same format as `opens_at`.\n"
+                              },
+                              "days_of_week": {
+                                "type": "array",
+                                "minItems": 1,
+                                "description": "List of weekdays which current rule applies to.\n\nWeekdays must be in format of 3-letter weekday case-insensitive abbreviations.\n\nDuplicate elements are ignored.\n",
+                                "items": {
+                                  "type": "string",
+                                  "enum": [
+                                    "mon",
+                                    "tue",
+                                    "wed",
+                                    "thu",
+                                    "fri",
+                                    "sat",
+                                    "sun"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "opens_at",
+                              "closes_at",
+                              "days_of_week"
+                            ]
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was created.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "An ISO-8601 timestamp of when the resource was updated.",
+                            "example": "2016-06-21T09:12:33.001Z"
+                          },
+                          "created_by": {
+                            "type": "string",
+                            "description": "ID of the user who created the policy."
+                          },
+                          "updated_by": {
+                            "type": "string",
+                            "description": "ID of the user who most recently updated the policy."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "scheduling_policies": [
+                    {
+                      "id": "dafcae2c-56cb-4cc7-8162-f2d37a96b030",
+                      "site_id": "aa1df566-2106-47d2-86e8-58e4cc996012",
+                      "name": "Default Policy",
+                      "description": "08-18 with a lunch-break",
+                      "timezone": "America/New_York",
+                      "business_hours": [
+                        {
+                          "opens_at": "08:00",
+                          "closes_at": "12:00",
+                          "days_of_week": [
+                            "mon",
+                            "tue",
+                            "wed",
+                            "thu",
+                            "fri"
+                          ]
+                        },
+                        {
+                          "opens_at": "13:00",
+                          "closes_at": "18:00",
+                          "days_of_week": [
+                            "mon",
+                            "tue",
+                            "wed",
+                            "thu",
+                            "fri"
+                          ]
+                        }
+                      ],
+                      "created_at": "2017-02-20T00:00:00Z",
+                      "updated_at": "2017-02-20T00:00:00Z",
+                      "created_by": "354f7f5f-0e7a-4511-a780-a4e94883e780",
+                      "updated_by": "354f7f5f-0e7a-4511-a780-a4e94883e780"
+                    },
+                    {
+                      "id": "38d8980f-8248-456a-bc4f-17258874539c",
+                      "site_id": "aa1df566-2106-47d2-86e8-58e4cc996012",
+                      "name": "Weekend Policy",
+                      "description": "From 10:00 to 14:00 without lunch",
+                      "timezone": "America/New_York",
+                      "business_hours": [
+                        {
+                          "opens_at": "10:00",
+                          "closes_at": "14:00",
+                          "days_of_week": [
+                            "sat",
+                            "sun"
+                          ]
+                        }
+                      ],
+                      "created_at": "2017-02-20T00:00:00Z",
+                      "updated_at": "2017-02-20T00:00:00Z",
+                      "created_by": "354f7f5f-0e7a-4511-a780-a4e94883e780",
+                      "updated_by": "354f7f5f-0e7a-4511-a780-a4e94883e780"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queues/scheduling_policies/{scheduling_policy_id}": {
+      "get": {
+        "summary": "Fetch policy",
+        "tags": [
+          "Queue scheduling"
+        ],
+        "description": "Retrieves the properties of the queue scheduling policy with the given ID.\n\nThe user whose bearer access token is provided in `Authorization` header must have super manager role on the site\nthat the queue scheduling policy is defined for.\n",
+        "parameters": [
+          {
+            "name": "scheduling_policy_id",
+            "in": "path",
+            "required": true,
+            "description": "Scheduling policy ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Policy ID."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site to where the queue scheduling policy belongs.\n\nCan only be set when creating a policy. Can not be modified afterwards.\n"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Queue scheduling policy name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Queue scheduling policy description."
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "description": "The timezone of queue scheduling policy business hours.\n\nMust be a valid timezone name in\n[Olson](https://developer.ibm.com/articles/au-aix-posix/#9Olsonformatspecificationoutline) format.\n",
+                      "example": "America/New_York"
+                    },
+                    "business_hours": {
+                      "type": "object",
+                      "description": "A collection of rules determining the days of week and daily time intervals during which all the queues with the current scheduling policy must be open.",
+                      "properties": {
+                        "opens_at": {
+                          "type": "string",
+                          "description": "Start of the interval.\n\nMust be in format of `HH:MM`, where `HH` is an hour of the day on a 24-hour clock ('00..24'), and `MM` is a\nminute of the hour (`00..59`). The interval is closed-open type (inclusive lower bound, exclusive upper bound).\n",
+                          "example": [
+                            "15:30"
+                          ]
+                        },
+                        "closes_at": {
+                          "type": "string",
+                          "description": "End of the interval.\n\nMust be in the same format as `opens_at`.\n"
+                        },
+                        "days_of_week": {
+                          "type": "array",
+                          "minItems": 1,
+                          "description": "List of weekdays which current rule applies to.\n\nWeekdays must be in format of 3-letter weekday case-insensitive abbreviations.\n\nDuplicate elements are ignored.\n",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "mon",
+                              "tue",
+                              "wed",
+                              "thu",
+                              "fri",
+                              "sat",
+                              "sun"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "opens_at",
+                        "closes_at",
+                        "days_of_week"
+                      ]
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "ID of the user who created the policy."
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "ID of the user who most recently updated the policy."
+                    }
+                  }
+                },
+                "example": {
+                  "id": "dafcae2c-56cb-4cc7-8162-f2d37a96b030",
+                  "site_id": "aa1df566-2106-47d2-86e8-58e4cc996012",
+                  "name": "Default Policy",
+                  "description": "08-18 with a lunch-break",
+                  "timezone": "America/New_York",
+                  "business_hours": [
+                    {
+                      "opens_at": "08:00",
+                      "closes_at": "12:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    },
+                    {
+                      "opens_at": "13:00",
+                      "closes_at": "18:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    }
+                  ],
+                  "created_at": "2017-02-20T00:00:00Z",
+                  "updated_at": "2017-02-20T00:00:00Z",
+                  "created_by": "354f7f5f-0e7a-4511-a780-a4e94883e780",
+                  "updated_by": "354f7f5f-0e7a-4511-a780-a4e94883e780"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update policy",
+        "tags": [
+          "Queue scheduling"
+        ],
+        "description": "Updates the properties of the queue scheduling policy with the given ID with\na set of specified properties.\n\nNote that the site ID of a queue scheduling policy can not be changed.\n\nThe user whose bearer access token is provided in `Authorization` header must have super manager role on the site\nthat the queue scheduling policy is defined for.\n",
+        "parameters": [
+          {
+            "name": "scheduling_policy_id",
+            "in": "path",
+            "required": true,
+            "description": "Scheduling policy ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.salemove.v1+json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Queue scheduling policy name."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Queue scheduling policy description."
+                  },
+                  "timezone": {
+                    "type": "string",
+                    "description": "The timezone of queue scheduling policy business hours.\n\nMust be a valid timezone name in\n[Olson](https://developer.ibm.com/articles/au-aix-posix/#9Olsonformatspecificationoutline) format.\n",
+                    "example": "America/New_York"
+                  },
+                  "business_hours": {
+                    "type": "object",
+                    "description": "A collection of rules determining the days of week and daily time intervals during which all the queues with the current scheduling policy must be open.",
+                    "properties": {
+                      "opens_at": {
+                        "type": "string",
+                        "description": "Start of the interval.\n\nMust be in format of `HH:MM`, where `HH` is an hour of the day on a 24-hour clock ('00..24'), and `MM` is a\nminute of the hour (`00..59`). The interval is closed-open type (inclusive lower bound, exclusive upper bound).\n",
+                        "example": [
+                          "15:30"
+                        ]
+                      },
+                      "closes_at": {
+                        "type": "string",
+                        "description": "End of the interval.\n\nMust be in the same format as `opens_at`.\n"
+                      },
+                      "days_of_week": {
+                        "type": "array",
+                        "minItems": 1,
+                        "description": "List of weekdays which current rule applies to.\n\nWeekdays must be in format of 3-letter weekday case-insensitive abbreviations.\n\nDuplicate elements are ignored.\n",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "mon",
+                            "tue",
+                            "wed",
+                            "thu",
+                            "fri",
+                            "sat",
+                            "sun"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "opens_at",
+                      "closes_at",
+                      "days_of_week"
+                    ]
+                  }
+                },
+                "example": {
+                  "name": "Default Policy",
+                  "description": "08-18 with a lunch-break",
+                  "timezone": "America/New_York",
+                  "business_hours": [
+                    {
+                      "opens_at": "08:00",
+                      "closes_at": "12:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    },
+                    {
+                      "opens_at": "13:00",
+                      "closes_at": "18:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Policy ID."
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site to where the queue scheduling policy belongs.\n\nCan only be set when creating a policy. Can not be modified afterwards.\n"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Queue scheduling policy name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Queue scheduling policy description."
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "description": "The timezone of queue scheduling policy business hours.\n\nMust be a valid timezone name in\n[Olson](https://developer.ibm.com/articles/au-aix-posix/#9Olsonformatspecificationoutline) format.\n",
+                      "example": "America/New_York"
+                    },
+                    "business_hours": {
+                      "type": "object",
+                      "description": "A collection of rules determining the days of week and daily time intervals during which all the queues with the current scheduling policy must be open.",
+                      "properties": {
+                        "opens_at": {
+                          "type": "string",
+                          "description": "Start of the interval.\n\nMust be in format of `HH:MM`, where `HH` is an hour of the day on a 24-hour clock ('00..24'), and `MM` is a\nminute of the hour (`00..59`). The interval is closed-open type (inclusive lower bound, exclusive upper bound).\n",
+                          "example": [
+                            "15:30"
+                          ]
+                        },
+                        "closes_at": {
+                          "type": "string",
+                          "description": "End of the interval.\n\nMust be in the same format as `opens_at`.\n"
+                        },
+                        "days_of_week": {
+                          "type": "array",
+                          "minItems": 1,
+                          "description": "List of weekdays which current rule applies to.\n\nWeekdays must be in format of 3-letter weekday case-insensitive abbreviations.\n\nDuplicate elements are ignored.\n",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "mon",
+                              "tue",
+                              "wed",
+                              "thu",
+                              "fri",
+                              "sat",
+                              "sun"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "opens_at",
+                        "closes_at",
+                        "days_of_week"
+                      ]
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was created.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "description": "An ISO-8601 timestamp of when the resource was updated.",
+                      "example": "2016-06-21T09:12:33.001Z"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "ID of the user who created the policy."
+                    },
+                    "updated_by": {
+                      "type": "string",
+                      "description": "ID of the user who most recently updated the policy."
+                    }
+                  }
+                },
+                "example": {
+                  "id": "dafcae2c-56cb-4cc7-8162-f2d37a96b030",
+                  "site_id": "aa1df566-2106-47d2-86e8-58e4cc996012",
+                  "name": "Default Policy",
+                  "description": "08-18 with a lunch-break",
+                  "timezone": "America/New_York",
+                  "business_hours": [
+                    {
+                      "opens_at": "08:00",
+                      "closes_at": "12:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    },
+                    {
+                      "opens_at": "13:00",
+                      "closes_at": "18:00",
+                      "days_of_week": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                      ]
+                    }
+                  ],
+                  "created_at": "2017-02-20T00:00:00Z",
+                  "updated_at": "2017-02-20T00:00:00Z",
+                  "created_by": "354f7f5f-0e7a-4511-a780-a4e94883e780",
+                  "updated_by": "354f7f5f-0e7a-4511-a780-a4e94883e780"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete policy",
+        "tags": [
+          "Queue scheduling"
+        ],
+        "description": "Removes a queue scheduling policy with the given ID if there are no queues using this scheduling policy.\n\nThe user whose bearer access token is provided in `Authorization` header must have super manager role on the site\nthat the queue scheduling policy is defined for.\n",
+        "parameters": [
+          {
+            "name": "scheduling_policy_id",
+            "in": "path",
+            "required": true,
+            "description": "Scheduling policy ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

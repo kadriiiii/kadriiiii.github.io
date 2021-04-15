@@ -1,0 +1,1045 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Visitor",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.salemove.com",
+      "description": "Glia REST API base URL"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/visitors": {
+      "post": {
+        "summary": "Create visitor",
+        "security": [
+          {
+            "AppToken": []
+          }
+        ],
+        "description": "Integrators may need to engage operators with visitors outside of the web browser or without using the Glia\nJavaScript API. In this case the integrator can create a visitor entity using the REST API. The response will\ncontain a bearer access token which can be used for all of the following requests related to the visitor.\n\nThe bearer access token should be renewed every 24 hours via\n[`POST https://api.salemove.com/visitors/{visitor_id}/token`](ref:visitor#post_visitors-visitor-id-token).\n",
+        "tags": [
+          "Visitor"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "application_token": {
+                    "type": "string",
+                    "description": "Application token of the site.",
+                    "example": "38omYbnTZJL1Ugvn"
+                  },
+                  "native_mobile_visitor": {
+                    "type": "object",
+                    "description": "Extra visitor information that should be specified when creating or renewing a visitor token from a native mobile application. This information is needed to register webhooks for sending push notifications to the mobile device.\n\nPush notifications are supported for both [Apple iOS (APNS)](https://docs.glia.com/glia-dev/reference/webhooks#apple-push-notification-webhook) and [Android (FCM)](https://docs.glia.com/glia-dev/reference/webhooks#firebase-cloud-messaging-webhooks) devices.\n",
+                    "properties": {
+                      "device_token": {
+                        "type": "string",
+                        "description": "A token that uniquely identifies a mobile app and a mobile device pair. For Apple iOS (APNS), this is the device token. For Android (FCM), this is the registration token.\n\nMaximum length is 255 characters.\n",
+                        "example": "912e991a1a9d87568085afb9cc8bd738bb7ab08988dce04778f78522ab6405b7"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK\n\nUse the bearer token (`access_token`) within next 24 hours to make requests on behalf of the visitor with the\ngiven ID (`id`).\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The unique ID of the visitor.",
+                      "example": "55555555-0000-4f8e-8526-e52146d5cb4d"
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "_Deprecated_",
+                      "example": "66666666-7777-44f2-9458-b002409f5f87"
+                    },
+                    "access_token": {
+                      "type": "string",
+                      "description": "The visitor's bearer access token to be used for the next 24 hours.",
+                      "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.. truncated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visitors/{visitor_id}/token": {
+      "post": {
+        "summary": "Renew token",
+        "security": [
+          {
+            "AppToken": []
+          }
+        ],
+        "description": "Visitors created using the REST API have bearer access tokens which for security reasons have short lifetime.\n\nThese tokens should be renewed once in every 24 hours.\n",
+        "tags": [
+          "Visitor"
+        ],
+        "parameters": [
+          {
+            "name": "visitor_id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the visitor.",
+            "example": "55555555-0000-4f8e-8526-e52146d5cb4d",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "application_token": {
+                    "type": "string",
+                    "description": "Application token of the site.",
+                    "example": "38omYbnTZJL1Ugvn"
+                  },
+                  "native_mobile_visitor": {
+                    "type": "object",
+                    "description": "Extra visitor information that should be specified when creating or renewing a visitor token from a native mobile application. This information is needed to register webhooks for sending push notifications to the mobile device.\n\nPush notifications are supported for both [Apple iOS (APNS)](https://docs.glia.com/glia-dev/reference/webhooks#apple-push-notification-webhook) and [Android (FCM)](https://docs.glia.com/glia-dev/reference/webhooks#firebase-cloud-messaging-webhooks) devices.\n",
+                    "properties": {
+                      "device_token": {
+                        "type": "string",
+                        "description": "A token that uniquely identifies a mobile app and a mobile device pair. For Apple iOS (APNS), this is the device token. For Android (FCM), this is the registration token.\n\nMaximum length is 255 characters.\n",
+                        "example": "912e991a1a9d87568085afb9cc8bd738bb7ab08988dce04778f78522ab6405b7"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK\n\nUse the bearer token (`access_token`) within next 24 hours to make requests on behalf of the visitor with the\ngiven ID (`id`).\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The unique ID of the visitor.",
+                      "example": "55555555-0000-4f8e-8526-e52146d5cb4d"
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "_Deprecated_",
+                      "example": "66666666-7777-44f2-9458-b002409f5f87"
+                    },
+                    "access_token": {
+                      "type": "string",
+                      "description": "The visitor's bearer access token to be used for the next 24 hours.",
+                      "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.. truncated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/visitors/{visitor_id}": {
+      "get": {
+        "summary": "Fetch visitor",
+        "description": "Fetches the visitor's information for a visitor that has an ID `visitor_id` on the site with ID `site_id`.\n\nIf visitor is authenticated, the response will include the attributes and tokens fetched from the authentication\nprovider.\n",
+        "tags": [
+          "Visitor"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "visitor_id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the visitor.",
+            "example": "55555555-0000-4f8e-8526-e52146d5cb4d",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK\n\nDetails of the visitor with ID `visitor_id` on the site with the ID `site_id`. For authenticated visitors the\nattributes and tokens fetched from the authentication provider are included.\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "The visitor's information URL.",
+                      "example": "https://api.salemove.com/sites/55555555-6708-4755-b6c9-35f9889e42dd/visitors/55555555-0000..."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The visitor's name.",
+                      "example": "Mark White"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "The visitor's email.",
+                      "example": "mark.white@lawoffice.com"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "description": "The visitor's phone number.",
+                      "example": "+0012024561111"
+                    },
+                    "note": {
+                      "type": "string",
+                      "description": "The notes associated with the visitor.",
+                      "example": "Bought insurance previously; considering upgrade."
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "description": "An object with custom key-value pairs to be assigned to the visitor. The server treats all keys and values as\nstrings and also returns them as strings. Nested key-value pairs are not supported.\n",
+                      "example": "\\\"home_address\\\": \\\"Washington, DC\\\""
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique ID of the visitor.",
+                      "example": "55555555-0000-4f8e-8526-e52146d5cb4d"
+                    },
+                    "banned": {
+                      "type": "boolean",
+                      "description": "Shows if the visitor is banned from the site.",
+                      "enum": [
+                        true,
+                        false
+                      ]
+                    },
+                    "authenticated_attributes": {
+                      "type": "object",
+                      "description": "Visitor's attributes and tokens fetched from the authentication provider, if visitor is authenticated. Empty,\nif visitor is not yet authenticated.\n",
+                      "properties": {
+                        "visitor_authentication_id": {
+                          "type": "string",
+                          "description": "ID of the authentication request used to authenticate the visitor.\n"
+                        },
+                        "visitor_name": {
+                          "type": "string",
+                          "description": "Visitor's authenticated name.\n"
+                        },
+                        "visitor_preferred_name": {
+                          "type": "string",
+                          "description": "Visitor's authenticated preferred name.\n"
+                        },
+                        "visitor_email": {
+                          "type": "string",
+                          "description": "Visitor's authenticated email.\n"
+                        },
+                        "authentication_provider_id": {
+                          "type": "string",
+                          "description": "The ID of the authentication provider used to authenticate visitor.\n"
+                        },
+                        "issuer": {
+                          "type": "string",
+                          "description": "Issuer as returned by the authentication provider during visitor authentication.\n"
+                        },
+                        "subject": {
+                          "type": "string",
+                          "description": "Subject as returned by the authentication provider during visitor authentication.\n"
+                        },
+                        "id_token": {
+                          "type": "string",
+                          "description": "The ID token issued by the authentication provider according to the OpenID Connect standard. Only relevant\nwhen the authentication provider type is `openid_connect`.\n"
+                        },
+                        "access_token": {
+                          "type": "string",
+                          "description": "The access token to retrieve additional visitor context or perform operations on behalf of a visitor.\n"
+                        },
+                        "authenticated_at": {
+                          "type": "string",
+                          "description": "The UTC timestamp of the visitor's authentication.\n"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update visitor",
+        "description": "Updates the visitor's information for a specific `visitor_id` and matching the site with a matching `site_id`.\n",
+        "tags": [
+          "Visitor"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "visitor_id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the visitor.",
+            "example": "55555555-0000-4f8e-8526-e52146d5cb4d",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The visitor's name.",
+                    "example": "Mark White"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "The visitor's email.",
+                    "example": "mark.white@lawoffice.com"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "The visitor's phone number.",
+                    "example": "+0012024561111"
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "The notes associated with the visitor.",
+                    "example": "Bought insurance previously; considering upgrade."
+                  },
+                  "note_update_method": {
+                    "type": "string",
+                    "description": "Specifies a method for updating the visitor's note.\n\n* `replace` - the notes for the visitor will be overwritten by the field `note` in the request.\n* `append` - the line break (`\\n`) will be added and field `note` in the request will be appended to the existing\nvisitor’s notes.\n",
+                    "default": "replace",
+                    "enum": [
+                      "replace",
+                      "append"
+                    ]
+                  },
+                  "custom_attributes": {
+                    "type": "object",
+                    "description": "An object with custom key-value pairs to be assigned to the visitor. The server treats all keys and values as\nstrings and also returns them as strings. Nested key-value pairs are not supported.\n",
+                    "example": "\\\"home_address\\\": \\\"Washington, DC\\\""
+                  },
+                  "custom_attributes_update_method": {
+                    "type": "string",
+                    "description": "Specifies the method for updating custom attributes.\n\n* `replace` - all custom attributes for the visitor will be overwritten by the field `custom_attributes` in the\nrequest.\n* `merge` - only custom attributes present in the request will be added or updated. In case of merge it is\npossible to remove a custom attribute by setting its value to `null`.\n",
+                    "default": "replace",
+                    "enum": [
+                      "replace",
+                      "merge"
+                    ]
+                  },
+                  "context": {
+                    "type": "object",
+                    "description": "An object with visitor's browser context.\n\nThe `context` and `custom_attributes` are needed to trigger `visitor_custom_attributes_changed` business rule\nevent.\nContent for this can be obtained from [Visitor JS SDK](https://sdk-docs.glia.com/visitor-js-api/current/Salemove.html#getBrowserContext).\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Visitor's information successfully updated."
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/visitor_authentication_providers": {
+      "post": {
+        "summary": "Add provider",
+        "description": "Adds an authentication provider to the given site.\n\nThe Glia platform currently integrates with OpenID Connect and OAuth2 providers. Note that one site can have\nmultiple authentication providers.\n",
+        "tags": [
+          "Authentication providers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "requestBody": {
+          "description": "Parameters for adding auth provider.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "name",
+                  "type",
+                  "authorize_url",
+                  "access_token_url",
+                  "scope",
+                  "client_id",
+                  "client_secret",
+                  "default_provider"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "Descriptive name",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Type of the authentication provider. Supported values are `openid_connect` and `oauth2`.\n",
+                    "type": "string"
+                  },
+                  "authorize_url": {
+                    "description": "The URL where Glia directs the visitor to authenticate determined by the authentication provider.\n",
+                    "type": "string"
+                  },
+                  "access_token_url": {
+                    "type": "string",
+                    "description": "The URL from where Glia will fetch the ID and/or access tokens determined by the authentication\n"
+                  },
+                  "userinfo_url": {
+                    "type": "string",
+                    "description": "The URL from where Glia will fetch user information from determined by the authentication provider. Used only\nwhen `type` is `oauth2`. When `type` is `openid_connect` you find the same data within the ID token received via\n`access_token_url`.\n\nGlia will request the URL from the authentication provider via HTTP GET method that contains\n`Authorization: Bearer access_token` and `Accept: application/json` headers where `access_token`\nwas retrieved from `access_token_url` beforehand.\n\nThe response should contain any or none of the following fields (other fields are ignored):\n`name` `email` `preferred_username`.\nSee response for an example of `userinfo_url`.\n"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "Determines which visitor’s details (e.g. name email) are retrieved in ID token and/or what permissions are\ngranted by the access token. In case of OpenID Connect the scope must include at least `openid`; `email` and\n`profile` (separated by space) should be added to receive visitor attributes.\n\nSee [openid.net](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes) for details.\n"
+                  },
+                  "client_id": {
+                    "type": "string",
+                    "description": "The client ID that Glia uses when fetching the ID and/or access tokens from the authentication\n"
+                  },
+                  "client_secret": {
+                    "type": "string",
+                    "description": "The client secret that goes with the client ID above."
+                  },
+                  "default_provider": {
+                    "type": "boolean",
+                    "description": "`true` if the added authentication provider should be the default one, `false` otherwise. There can be only one\ndefault provider for each site.\n"
+                  }
+                },
+                "example": {
+                  "name": "Authentication provider settings for example.com",
+                  "type": "openid_connect",
+                  "authorize_url": "https://example.com/oauth2/v1/authorize",
+                  "access_token_url": "https://example.com/oauth2/v1/token",
+                  "scope": "openid%20email%20profile",
+                  "client_id": "0oan31sqxd7s1gkg30x7",
+                  "client_secret": "25af3b86e11884ef5e8ef70a0ad06cba81b89ed6af3781a0",
+                  "default_provider": true
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK\n\nIf your authentication provider `type` is `oauth2`, the output of `userinfo_url` will be similar to this:\n\n```json\n{\n  \"name\": \"John Smith\",\n  \"email\": \"john.smith@example\"\n}\n```\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site for which the authentication providers are fetched.\n"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_by": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Descriptive name",
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "Type of the authentication provider. Supported values are `openid_connect` and `oauth2`.\n",
+                      "type": "string"
+                    },
+                    "authorize_url": {
+                      "description": "The URL where Glia directs the visitor to authenticate determined by the authentication provider.\n",
+                      "type": "string"
+                    },
+                    "access_token_url": {
+                      "type": "string",
+                      "description": "The URL from where Glia will fetch the ID and/or access tokens determined by the authentication\n"
+                    },
+                    "userinfo_url": {
+                      "type": "string",
+                      "description": "The URL from where Glia will fetch user information from determined by the authentication provider. Used only\nwhen `type` is `oauth2`. When `type` is `openid_connect` you find the same data within the ID token received via\n`access_token_url`.\n\nGlia will request the URL from the authentication provider via HTTP GET method that contains\n`Authorization: Bearer access_token` and `Accept: application/json` headers where `access_token`\nwas retrieved from `access_token_url` beforehand.\n\nThe response should contain any or none of the following fields (other fields are ignored):\n`name` `email` `preferred_username`.\nSee response for an example of `userinfo_url`.\n"
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "Determines which visitor’s details (e.g. name email) are retrieved in ID token and/or what permissions are\ngranted by the access token. In case of OpenID Connect the scope must include at least `openid`; `email` and\n`profile` (separated by space) should be added to receive visitor attributes.\n\nSee [openid.net](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes) for details.\n"
+                    },
+                    "client_id": {
+                      "type": "string",
+                      "description": "The client ID that Glia uses when fetching the ID and/or access tokens from the authentication\n"
+                    },
+                    "client_secret": {
+                      "type": "string",
+                      "description": "The client secret that goes with the client ID above."
+                    },
+                    "default_provider": {
+                      "type": "boolean",
+                      "description": "`true` if the added authentication provider should be the default one, `false` otherwise. There can be only one\ndefault provider for each site.\n"
+                    }
+                  },
+                  "example": {
+                    "id": "c892ce61-ec63-4428-aade-3124ec602588",
+                    "site_id": "3b88576f-1fb2-4aa5-9188-2931df5a0783",
+                    "name": "Authentication provider settings for example.com",
+                    "type": "openid_connect",
+                    "authorize_url": "https://example.com.com/oauth2/v1/authorize",
+                    "access_token_url": "https://example.com.com/oauth2/v1/token",
+                    "scope": "openid%20email%20profile",
+                    "default_provider": true,
+                    "client_id": "0oan31sqxd7s1gkg30x7",
+                    "created_at": "2019-11-20T01:32:38.000Z",
+                    "created_by": "c0a7f32f-6806-4045-92bd-33c04b50e883",
+                    "updated_at": "2019-11-20T01:32:38.000Z",
+                    "updated_by": "c0a7f32f-6806-4045-92bd-33c04b50e883"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List providers",
+        "description": "Gets the list of the authentication providers added to the given site.\n",
+        "tags": [
+          "Authentication providers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "site_id": {
+                        "type": "string",
+                        "description": "ID of the site for which the authentication providers are fetched.\n"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "created_by": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_by": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "Descriptive name",
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "Type of the authentication provider. Supported values are `openid_connect` and `oauth2`.\n",
+                        "type": "string"
+                      },
+                      "authorize_url": {
+                        "description": "The URL where Glia directs the visitor to authenticate determined by the authentication provider.\n",
+                        "type": "string"
+                      },
+                      "access_token_url": {
+                        "type": "string",
+                        "description": "The URL from where Glia will fetch the ID and/or access tokens determined by the authentication\n"
+                      },
+                      "userinfo_url": {
+                        "type": "string",
+                        "description": "The URL from where Glia will fetch user information from determined by the authentication provider. Used only\nwhen `type` is `oauth2`. When `type` is `openid_connect` you find the same data within the ID token received via\n`access_token_url`.\n\nGlia will request the URL from the authentication provider via HTTP GET method that contains\n`Authorization: Bearer access_token` and `Accept: application/json` headers where `access_token`\nwas retrieved from `access_token_url` beforehand.\n\nThe response should contain any or none of the following fields (other fields are ignored):\n`name` `email` `preferred_username`.\nSee response for an example of `userinfo_url`.\n"
+                      },
+                      "scope": {
+                        "type": "string",
+                        "description": "Determines which visitor’s details (e.g. name email) are retrieved in ID token and/or what permissions are\ngranted by the access token. In case of OpenID Connect the scope must include at least `openid`; `email` and\n`profile` (separated by space) should be added to receive visitor attributes.\n\nSee [openid.net](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes) for details.\n"
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "description": "The client ID that Glia uses when fetching the ID and/or access tokens from the authentication\n"
+                      },
+                      "client_secret": {
+                        "type": "string",
+                        "description": "The client secret that goes with the client ID above."
+                      },
+                      "default_provider": {
+                        "type": "boolean",
+                        "description": "`true` if the added authentication provider should be the default one, `false` otherwise. There can be only one\ndefault provider for each site.\n"
+                      }
+                    },
+                    "example": {
+                      "id": "c892ce61-ec63-4428-aade-3124ec602588",
+                      "site_id": "3b88576f-1fb2-4aa5-9188-2931df5a0783",
+                      "name": "Authentication provider settings for example.com",
+                      "type": "openid_connect",
+                      "authorize_url": "https://example.com.com/oauth2/v1/authorize",
+                      "access_token_url": "https://example.com.com/oauth2/v1/token",
+                      "scope": "openid%20email%20profile",
+                      "default_provider": true,
+                      "client_id": "0oan31sqxd7s1gkg30x7",
+                      "created_at": "2019-11-20T01:32:38.000Z",
+                      "created_by": "c0a7f32f-6806-4045-92bd-33c04b50e883",
+                      "updated_at": "2019-11-20T01:32:38.000Z",
+                      "updated_by": "c0a7f32f-6806-4045-92bd-33c04b50e883"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "4bfa559f-0e22-43b2-935b-af3d627c0a85",
+                      "site_id": "3b88576f-1fb2-4aa5-9188-2931df5a0783",
+                      "name": "Authentication provider settings for example.com",
+                      "type": "openid_connect",
+                      "authorize_url": "https://example.com/authorize_url",
+                      "access_token_url": "https://example.com/access_token_url",
+                      "scope": "openid%20email%20profile",
+                      "default_provider": true,
+                      "client_id": "123456",
+                      "created_at": "2019-11-15T07:16:55.000Z",
+                      "created_by": "c0a7f32f-6806-4045-92bd-33c04b50e883",
+                      "updated_at": "2019-11-15T07:16:55.000Z",
+                      "updated_by": "c0a7f32f-6806-4045-92bd-33c04b50e883"
+                    },
+                    {
+                      "id": "c892ce61-ec63-4428-aade-3124ec602588",
+                      "site_id": "3b88576f-1fb2-4aa5-9188-2931df5a0783",
+                      "name": "Updated authentication provider settings for example2.com",
+                      "type": "openid_connect",
+                      "authorize_url": "https://example2.com.com/oauth2/v1/authorize",
+                      "access_token_url": "https://example2.com.com/oauth2/v1/token",
+                      "scope": "openid%20email%20profile",
+                      "default_provider": false,
+                      "client_id": "0oan31sqxd7s1gkg30x7",
+                      "created_at": "2019-11-20T01:32:38.000Z",
+                      "created_by": "c0a7f32f-6806-4045-92bd-33c04b50e883",
+                      "updated_at": "2019-11-21T01:32:38.000Z",
+                      "updated_by": "c0a7f32f-6806-4045-92bd-33c04b50e883"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/visitor_authentication_providers/{provider_id}": {
+      "patch": {
+        "summary": "Update provider",
+        "description": "Updates the given authentication provider.\n",
+        "tags": [
+          "Authentication providers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "site_id",
+            "description": "ID of the site.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "31a3f2ea-4473-4519-8f9e-a33cc6a48a74"
+          },
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "example": "02d7aaf2-966e-4292-9102-4afcc20397f3",
+            "description": "ID of the authentication provider.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Parameters for updating auth provider.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "name",
+                  "type",
+                  "authorize_url",
+                  "access_token_url",
+                  "scope",
+                  "client_id",
+                  "client_secret",
+                  "default_provider"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "Descriptive name",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Type of the authentication provider. Supported values are `openid_connect` and `oauth2`.\n",
+                    "type": "string"
+                  },
+                  "authorize_url": {
+                    "description": "The URL where Glia directs the visitor to authenticate determined by the authentication provider.\n",
+                    "type": "string"
+                  },
+                  "access_token_url": {
+                    "type": "string",
+                    "description": "The URL from where Glia will fetch the ID and/or access tokens determined by the authentication\n"
+                  },
+                  "userinfo_url": {
+                    "type": "string",
+                    "description": "The URL from where Glia will fetch user information from determined by the authentication provider. Used only\nwhen `type` is `oauth2`. When `type` is `openid_connect` you find the same data within the ID token received via\n`access_token_url`.\n\nGlia will request the URL from the authentication provider via HTTP GET method that contains\n`Authorization: Bearer access_token` and `Accept: application/json` headers where `access_token`\nwas retrieved from `access_token_url` beforehand.\n\nThe response should contain any or none of the following fields (other fields are ignored):\n`name` `email` `preferred_username`.\nSee response for an example of `userinfo_url`.\n"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "Determines which visitor’s details (e.g. name email) are retrieved in ID token and/or what permissions are\ngranted by the access token. In case of OpenID Connect the scope must include at least `openid`; `email` and\n`profile` (separated by space) should be added to receive visitor attributes.\n\nSee [openid.net](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes) for details.\n"
+                  },
+                  "client_id": {
+                    "type": "string",
+                    "description": "The client ID that Glia uses when fetching the ID and/or access tokens from the authentication\n"
+                  },
+                  "client_secret": {
+                    "type": "string",
+                    "description": "The client secret that goes with the client ID above."
+                  },
+                  "default_provider": {
+                    "type": "boolean",
+                    "description": "`true` if the added authentication provider should be the default one, `false` otherwise. There can be only one\ndefault provider for each site.\n"
+                  }
+                },
+                "example": {
+                  "name": "Authentication provider settings for example.com",
+                  "type": "openid_connect",
+                  "authorize_url": "https://example.com/oauth2/v1/authorize",
+                  "access_token_url": "https://example.com/oauth2/v1/token",
+                  "scope": "openid%20email%20profile",
+                  "client_id": "0oan31sqxd7s1gkg30x7",
+                  "client_secret": "25af3b86e11884ef5e8ef70a0ad06cba81b89ed6af3781a0",
+                  "default_provider": true
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK\n\nIf your authentication provider `type` is `oauth2`, the output of `userinfo_url` will be similar to this:\n\n```json\n{\n  \"name\": \"John Smith\",\n  \"email\": \"john.smith@example\"\n}\n```\n",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "site_id": {
+                      "type": "string",
+                      "description": "ID of the site for which the authentication providers are fetched.\n"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_by": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Descriptive name",
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "Type of the authentication provider. Supported values are `openid_connect` and `oauth2`.\n",
+                      "type": "string"
+                    },
+                    "authorize_url": {
+                      "description": "The URL where Glia directs the visitor to authenticate determined by the authentication provider.\n",
+                      "type": "string"
+                    },
+                    "access_token_url": {
+                      "type": "string",
+                      "description": "The URL from where Glia will fetch the ID and/or access tokens determined by the authentication\n"
+                    },
+                    "userinfo_url": {
+                      "type": "string",
+                      "description": "The URL from where Glia will fetch user information from determined by the authentication provider. Used only\nwhen `type` is `oauth2`. When `type` is `openid_connect` you find the same data within the ID token received via\n`access_token_url`.\n\nGlia will request the URL from the authentication provider via HTTP GET method that contains\n`Authorization: Bearer access_token` and `Accept: application/json` headers where `access_token`\nwas retrieved from `access_token_url` beforehand.\n\nThe response should contain any or none of the following fields (other fields are ignored):\n`name` `email` `preferred_username`.\nSee response for an example of `userinfo_url`.\n"
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "Determines which visitor’s details (e.g. name email) are retrieved in ID token and/or what permissions are\ngranted by the access token. In case of OpenID Connect the scope must include at least `openid`; `email` and\n`profile` (separated by space) should be added to receive visitor attributes.\n\nSee [openid.net](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes) for details.\n"
+                    },
+                    "client_id": {
+                      "type": "string",
+                      "description": "The client ID that Glia uses when fetching the ID and/or access tokens from the authentication\n"
+                    },
+                    "client_secret": {
+                      "type": "string",
+                      "description": "The client secret that goes with the client ID above."
+                    },
+                    "default_provider": {
+                      "type": "boolean",
+                      "description": "`true` if the added authentication provider should be the default one, `false` otherwise. There can be only one\ndefault provider for each site.\n"
+                    }
+                  },
+                  "example": {
+                    "id": "c892ce61-ec63-4428-aade-3124ec602588",
+                    "site_id": "3b88576f-1fb2-4aa5-9188-2931df5a0783",
+                    "name": "Authentication provider settings for example.com",
+                    "type": "openid_connect",
+                    "authorize_url": "https://example.com.com/oauth2/v1/authorize",
+                    "access_token_url": "https://example.com.com/oauth2/v1/token",
+                    "scope": "openid%20email%20profile",
+                    "default_provider": true,
+                    "client_id": "0oan31sqxd7s1gkg30x7",
+                    "created_at": "2019-11-20T01:32:38.000Z",
+                    "created_by": "c0a7f32f-6806-4045-92bd-33c04b50e883",
+                    "updated_at": "2019-11-20T01:32:38.000Z",
+                    "updated_by": "c0a7f32f-6806-4045-92bd-33c04b50e883"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visitor_authentication_requests": {
+      "post": {
+        "summary": "Request authentication",
+        "description": "In order to authenticate the visitor using an authentication provider, an authentication request must be created.\n\nNote that in addition to  this REST API endpoint, there is  an authentication request message that can be used to\nrequest authentication from a bot and the Visitor JS SDK has a method `createAuthenticationRequest` to request\nauthentication from visitor side.\n\nSee:\n* [Authentication request message](doc:authentication-request)\n* [`createAuthenticationRequest`](https://sdk-docs.glia.com/visitor-js-api/current/Salemove.html#createAuthenticationRequest)\n",
+        "tags": [
+          "Authentication requests"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "site_id",
+                  "visitor_id",
+                  "authentication_provider_id"
+                ],
+                "properties": {
+                  "authentication_provider_id": {
+                    "description": "The ID of the authentication provider to be used.",
+                    "type": "string"
+                  },
+                  "webhooks": {
+                    "description": "Array of webhook objects described in HTTP Webhooks. Allowed events are:\n\n* `visitor.authentication.success`\n* `visitor.authentication.failure`\n\nSee details in [Webhooks](ref:webhooks).\n",
+                    "type": "array",
+                    "example": [
+                      {
+                        "url": "http://www.example.com/webhook/success",
+                        "events": [
+                          "visitor.authentication.success"
+                        ]
+                      },
+                      {
+                        "url": "http://www.example.com/webhook/failure",
+                        "events": [
+                          "visitor.authentication.failure"
+                        ]
+                      },
+                      {
+                        "url": "http://www.example.com/webhook/log",
+                        "events": [
+                          "visitor.authentication.success",
+                          "visitor.authentication.failure"
+                        ]
+                      }
+                    ]
+                  },
+                  "site_id": {
+                    "description": "The ID of the site to which authentication request will be created.",
+                    "type": "string"
+                  },
+                  "visitor_id": {
+                    "description": "The ID of the visitor to whom authentication request will be created.",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.salemove.v1+json": {
+                "schema": {
+                  "properties": {
+                    "authentication_request_id": {
+                      "type": "string",
+                      "example": "4bfa559f-0e22-43b2-935b-af3d627c0a85"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visitor_authentication_requests/{authentication_request_id}": {
+      "delete": {
+        "summary": "Cancel authentication",
+        "description": "Closes an on-going authentication request for a specific visitor user on a specific site.\n",
+        "tags": [
+          "Authentication requests"
+        ],
+        "parameters": [
+          {
+            "name": "authentication_request_id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the authentication request, generated during creation.",
+            "example": "33f268c6-6a80-4430-95a8-44e1dd854053",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "site_id",
+                  "visitor_id",
+                  "fail_reason"
+                ],
+                "properties": {
+                  "fail_reason": {
+                    "type": "string",
+                    "description": "The reason why the authentication request is closed. Can be any string to clearly indicate the reason: a\nhuman-readable explanation, error code, etc.\n",
+                    "example": "Reason why the authentication request has been closed"
+                  },
+                  "site_id": {
+                    "description": "The ID of the site to which authentication request will be created.",
+                    "type": "string"
+                  },
+                  "visitor_id": {
+                    "description": "The ID of the visitor to whom authentication request will be created.",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "AppToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  }
+}
