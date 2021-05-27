@@ -1,4 +1,5 @@
 <script src="//api.glia.com/salemove_integration.js"></script>
+<meta name="robots" content="noindex">
 
 <style>
   .button1 {
