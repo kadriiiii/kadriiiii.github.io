@@ -1,9 +1,18 @@
 <!DOCTYPE HTML>
 <html>
   <body>
-    <p>Hello World Example</p>
+    <p>First name: <input type = "text" id="first_name"></p>
+    <p>Last name: <input type = "text" id="last_name"></p>
+    <button onclick="getName()">Mis su nimi on?</button>
+    <p id="full_name"></p>
     <script>
       alert("Tere!\nMis teed?");
+    </script>
+    <script>
+      function getName() {
+       fullName.innerHTML =
+       "Nimi on: " + first_name.value + " " + last_name.value;
+      }
     </script>
   </body>
 </html>
