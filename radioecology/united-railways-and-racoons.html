@@ -40,14 +40,14 @@
 
 <!-- Visitor's custom attribute test -->
 <script>
-  sm.getApi({version: 'v1'}).then(function(glia) {
-    glia.updateInformation({
-      customAttributesUpdateMethod: 'merge',
-      customAttributes: {
-        ID: 'insurance'
-      }
-    })
-  });
+sm.getApi({version: 'v1'}).then(function(glia) {
+  glia.updateInformation({
+    customAttributesUpdateMethod: 'merge',
+    customAttributes: {
+      vip: 'true'
+    }
+  })
+});
 </script>
 <!-- Visitor's custom attribute test end -->
 
