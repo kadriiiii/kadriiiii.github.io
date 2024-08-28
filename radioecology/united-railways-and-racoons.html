@@ -39,14 +39,16 @@
 <!-- CV <> SF test end -->  
 
 <!-- Visitor's custom attribute test -->
-sm.getApi({version: 'v1'}).then(function(glia) {
-  glia.updateInformation({
-    customAttributes: {
-      ID: 'insurance
-    }
-  }).catch(function(error) {
+<script>
+  sm.getApi({version: 'v1'}).then(function(glia) {
+    glia.updateInformation({
+      customAttributesUpdateMethod: 'merge',
+      customAttributes: {
+        ID: 'insurance'
+      }
+    })
   });
-});
+</script>
 <!-- Visitor's custom attribute test end -->
 
 <meta charset="UTF-8">
