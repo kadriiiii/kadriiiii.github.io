@@ -335,7 +335,7 @@ top bar
 #navigation, #navigation ul, #navigation ul li, #navigation ul li a, #navigation #menu-button { margin: 0; padding: 0; border: 0; list-style: none; line-height: 1; display: block; position: relative; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 #navigation:after, #navigation>ul:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 #navigation #menu-button { display: none; }
-#navigation { float: left; margin-top: 8px; position: relative; z-index: 99; }
+#navigation { float: right; margin-top: 8px; position: relative; z-index: 99; }
 #navigation>ul>li { float: left; }
 #navigation.align-center>ul { font-size: 0; text-align: center; }
 #navigation.align-center>ul>li { display: inline-block; float: none; }
@@ -1143,12 +1143,11 @@ Header - 2
 ------------------------------------------*/
 .header-2 { background-color: #fff; padding-top: 10px; position: relative; z-index: 9 }
 .header-action { margin-top: 10px; }
-.header-2 .navigation-2 { background-color: #fff; border-top: 1px solid #dee7f2; margin-top: 20px; border-bottom: 1px solid #dee7f2;}
-.header-2 #navigation { float: left; margin-top: 0px; background-color: #fff;}
-.header-2 #navigation>ul>li>a { padding: 16px 30px; font-size: 13px; text-decoration: none; color: #66707f; font-weight: 600; text-transform: uppercase; border-left: 1px solid #dee7f2;}
+.header-2 .navigation-2 { background-color: #fff; border-top: 1px solid #dee7f2; margin-top: 20px; border-bottom: 1px solid #dee7f2; }
+.header-2 #navigation { float: left; margin-top: 0px; background-color: #fff; }
+.header-2 #navigation>ul>li>a { padding: 16px 30px; font-size: 13px; text-decoration: none; color: #66707f; font-weight: 600; text-transform: uppercase; border-left: 1px solid #dee7f2; }
 .header-2 #navigation>ul>li.has-sub>a { padding-right: 50px; }
 .header-2 #navigation>ul>li.has-sub>a:before { position: absolute; right: 28px; width:6px; height:6px; border-top: 2px solid #66707f; border-right: 2px solid #66707f; top: 40%; transform: rotate(135deg); -webkit-transition: all .25s ease; -moz-transition: all .25s ease; -ms-transition: all .25s ease; -o-transition: all .25s ease; transition: all .25s ease; }
-
 
 /*-----------------------------------------
 Landing Page Template
