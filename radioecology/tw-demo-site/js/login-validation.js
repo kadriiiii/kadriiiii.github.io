@@ -10,7 +10,7 @@ function pageType() {
 }
 
 function validate() {
-  
+
 //This rewrite is honestly a bit gross
 
   const isBanking = localStorage.getItem('isBanking');
@@ -31,11 +31,11 @@ function validate() {
     console.log(errorMessage);
   })
   .then(setUserInfo(isBanking, isCU));
-  
+
   function validate2() {
     const password = document.getElementById("password").value;
     const username = document.getElementById("first_name").value;
-    
+
     var loggedIn = false;
 
     if (username.length > 1 && password == "glia123") {
@@ -45,7 +45,7 @@ function validate() {
       //navigate moved to promise
       loggedIn = true;
       return loggedIn;
-    
+
     } else if (!(username.length > 1 && password == "glia123") && invoke_make_blank) {
       var newDiv = document.createElement("div");
       var newContent = document.createTextNode("*Failed Login Attempt");
@@ -61,7 +61,7 @@ function validate() {
     }
   }
 
-  
+
 }
 
 /**
@@ -76,7 +76,7 @@ function setUserInfo(isBanking, isCU) {
       customAttributesUpdateMethod: 'replace',
       externalId: '',
       customAttributes: {
-        
+
       }
     }).catch(function(error){
     console.log(JSON.stringify(error));
@@ -100,25 +100,14 @@ function loggingToggle() {
   const loggedStatus = localStorage.getItem('loggingStatus');
   const username = localStorage.getItem('username');
   const isBanking = localStorage.getItem('isBanking');
-  const isCU = localStorage.getItem('isCU');
   if (loggedStatus && isBanking) {
     document.getElementsByClassName("login-section")[0].innerHTML = "<div class='control-label'><a href= account-summary-banking.html>Welcome, " + username + "</a></div><a href='index.html' id='log-out'><span class='tooltiptext'>Log Out</span><img id='logout-icon' src='images/logout.png'</a>";
     logOut();
 
   }
-  else if (loggedStatus && isCU) {
-    document.getElementsByClassName("login-section")[0].innerHTML = "<div class='control-label'><a href= account-summary-credit-union.html>Welcome, " + username + "</a></div><a href='index.html' id='log-out'><span class='tooltiptext'>Log Out</span><img id='logout-icon' src='images/logout.png'</a>";
-    logOut();
-
-  }
   else {
-      if (isBanking > 0) {
-        document.getElementsByClassName("login-section")[0].innerHTML = "<a href='login-banking.html' class='btn btn-default log-in'>Log In</a>";
-      } else if (isCU > 0){
-        document.getElementsByClassName("login-section")[0].innerHTML = "<a href='login-credit-union.html' class='btn btn-default log-in'>Log In</a>";
-      } else {
-        document.getElementsByClassName("login-section")[0].innerHTML = "<a href='login-insurance.html' class='btn btn-default log-in'>Log In</a>";
-      }
+      // All conditions result in the same button, so no need for if/else.
+      document.getElementsByClassName("login-section")[0].innerHTML = "<a href='#' onclick='return false;' class='btn btn-default log-in'>Log In</a>";
   }
 }
 

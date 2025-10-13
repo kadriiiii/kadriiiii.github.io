@@ -223,10 +223,6 @@ Background & Block color
 .card-body{padding: 30px;}
 .card-header{background-color: #f7fafd;}
 
-
-
-
-
 /* Update 16 june 2017*/
 
 /*-----------------------------------------
@@ -304,7 +300,6 @@ icon
 /* default icon size of font*/
 .icon-2x { font-size: 48px; }
 .icon-4x { font-size: 68px; }
-`
 .icon-6x { font-size: 88px; }
 .icon-8x { font-size: 108px; }
 .icon-default { color: #f51f8a; }
@@ -406,7 +401,7 @@ display: block; background: #dddddd; content: '';}*/
 .slider { position: relative; }
 .slider-img img { position: relative; z-index: -1; width: 100%; }
 .slider-img { background: -moz-linear-gradient(top, rgba(16, 75, 149, 0.8) 0%, rgba(16, 75, 149, 0.8) 100%); background: -webkit-linear-gradient(top, rgba(16, 75, 149, 0.8) 0%, rgba(16, 75, 149, 0.8) 100%); background: linear-gradient(to bottom, rgba(16, 75, 149, 0.8) 0%, rgba(16, 75, 149, 0.8) 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cc1b2429', endColorstr='#cc1b2429', GradientType=0); position: relative; }
-.slider-captions { position: absolute; bottom: 200px; }
+.slider-captions { position: absolute; bottom: 150px; }
 .slider-title { color: #fff; font-size: 52px; font-weight: 700; line-height: 62px; }
 .slider-text { color: #fff; }
 .slider .owl-prev { position: absolute; left: 0px; top: 40%; left: 20px; }
@@ -428,7 +423,6 @@ index-1
 .rate-icon { float: left; padding-top: 5px; padding-right: 20px; padding-left: 20px; }
 .rate-box { }
 .rate-title { text-transform: uppercase; font-size: 14px; color: #778191; }
-.cta { background-size: cover; margin: 0; min-height: 410px; border: none; padding: 100px 0px; background: linear-gradient(rgba(16, 75, 149, 0.8), rgba(16, 75, 149, 0.8)), rgba(16, 75, 149, 0.8) url(..images/cta-img.jpg) no-repeat center; }
 .testimonial-img-1 { }
 .testimonial-name-1 { color: #15549a; font-size: 14px; text-transform: uppercase; font-weight: 500; margin-bottom: 0px; }
 
@@ -493,7 +487,6 @@ index-1
 -------------------------------------*/
 .header-wide { }
 .header-wide .lead { font-size: 21px; color: #778191; margin-top: 12px; }
-.lead-hero-wrapper { background: url(..images/lead-hero-img.jpg)no-repeat; background-size: cover; padding-top: 80px; padding-bottom: 80px; }
 .lead-hero-caption { color: #fff; padding-top: 50px; margin-bottom: 20px; }
 .rating-list { color: #f99d31; margin-top: 25px; font-size: 14px; }
 .lead-hero-title { font-size: 48px; color: #fff; line-height: 58px; }
@@ -506,7 +499,6 @@ index-1
 .pink-circle.circle { background-color: transparent; width: 60px; height: 60px; border: 2px solid #f51f8a; border-radius: 100px; color: #f51f8a; text-align: center; padding: 10px; margin: 0px auto 30px auto; line-height: 1.7; display: inline-block; }
 .highlight-outline { border-radius: 2px; }
 .highlight-outline.outline:hover { border-color: #15549a; -webkit-box-shadow: 1px 1px 9px 2px rgba(0, 0, 0, 0.2); -moz-box-shadow: 1px 1px 9px 2px rgba(0, 0, 0, 0.2); box-shadow: 1px 1px 9px 2px rgba(0, 0, 0, 0.2); }
-.counter-wrapper { background: url(..images/counter-wrapper.jpg)no-repeat; background-size: cover; padding-top: 150px; padding-bottom: 150px; text-align: center; }
 .counter-block { text-align: center; display: inline-block; margin-bottom: 20px; }
 .counter { display: inline-block; font-size: 46px; border-radius: 50%; color: #fff; font-weight: 600; margin-bottom: 20px; }
 .lead-testimonial .customer-quote-circle { position: initial; margin-bottom: 20px; }
@@ -530,7 +522,6 @@ index-1
 .header-regular #navigation.small-screen #menu-button { color: #fff; }
 .header-regular #navigation.small-screen #menu-button:before { background: #fff; }
 .header-regular #navigation.small-screen #menu-button:after { border-top: 2px solid #fff; border-bottom: 2px solid #fff; }
-.hero-section { background: url(..images/hero-img-1.jpg)no-repeat; background-size: cover; background-position-x: center; }
 .hero-tab-block { padding-top: 241px; padding-bottom: 100px; }
 .hero-tab-block .st-tabs .nav-link { padding: 18px 25px; text-align: center; margin-right: -1px; margin-left: -1px; }
 .loan-form { }
@@ -547,7 +538,7 @@ index-1
 .nice-select { -webkit-tap-highlight-color: transparent; background-color: #f3f7fa; border-radius: 2px; border: solid 2px #d5e0e8; box-sizing: border-box; clear: both; cursor: pointer; display: block; float: left; font-family: inherit; font-size: 14px; font-weight: normal; height: 64px; line-height: 40px; outline: none; padding: 9px 14px; position: relative; text-align: left !important; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; white-space: nowrap; width: auto; color: #3c4d6b; }
 .nice-select:hover { border-color: #dbdbdb; }
 .nice-select:active, .nice-select.open, .nice-select:focus { border-color: #15549a; }
-.nice-select:after { border-bottom: 2px solid #3c4d6b; border-right: 2px solid #3c4d6b; content: ''; display: block; height: 7px; margin-top: -4px; pointer-events: none; position: absolute; right: 14px; top: 50%; -webkit-transform-origin: 66% 66%; -ms-transform-origin: 66% 66%; transform-origin: 66% 66%; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); -webkit-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; width: 7px; }
+.nice-select:after { border-bottom: 2px solid #3c4d6b; border-right: 2px solid #3c4d6b; content: ''; display: block; height: 7px; margin-top: -4px; pointer-events: none; position: absolute; right: 14px; top: 50%; -webkit-transform-origin: 66% 66%; -ms-transform-origin: 66% 66%; transform-origin: 66% 66%; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); -webkit-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
 .nice-select.open:after { -webkit-transform: rotate(-135deg); -ms-transform: rotate(-135deg); transform: rotate(-135deg); }
 .nice-select.open .list { opacity: 1; pointer-events: auto; -webkit-transform: scale(1) translateY(0); -ms-transform: scale(1) translateY(0); transform: scale(1) translateY(0); }
 .nice-select.disabled { border-color: #ededed; color: #999; pointer-events: none; }
@@ -579,7 +570,6 @@ index-1
  index-8 homepage student-refinance (11 June, 2018)
 -----------------------------------------------------*/
 .header-wide { padding-top: 10px; padding-bottom: 10px; }
-.refinance-hero-section { background: url(..images/hero-img-2.jpg)no-repeat; background-size: cover; position: relative; background-position-x: center; }
 .refinance-hero-block { padding-top: 164px; padding-bottom: 164px; }
 .refinance-hero-block h1 { font-size: 48px; line-height: 58px; }
 .refinance-rate-section { background-color: rgba(21, 84, 154, 0.8); color: #fff; padding: 20px 25px; position: absolute; bottom: 0; border-bottom: 5px solid #0a4b94; }
@@ -685,9 +675,6 @@ compare Student loan table
 .post-caption-img img { border-radius: 3px; }
 .post-caption-content { position: absolute; bottom: 0px; padding: 27px; }
 .post-caption-block .meta { text-transform: capitalize; }
-.cta-section-app { background: url(..images/cta-img-4.jpg)no-repeat; background-size: cover; background-position-x: 50%; }
-
-
 /*---------------------------------------------------
     borrow-life-saving
 -----------------------------------------------------*/
@@ -792,7 +779,7 @@ footer
 /*--------------------------------
 Page header
 ---------------------------------*/
-.page-header { margin: 0; padding: 175px 0px 80px; min-height: 410px; border: none; background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 0, 0, 0.2) url(..images/page-header.jpg) no-repeat center; background-size: cover; }
+.page-header { margin: 0; padding: 175px 0px 80px; min-height: 410px; border: none; background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 0, 0, 0.2) url(../images/page-header.jpg) no-repeat center; background-size: cover; }
 .page-title { margin-bottom: 0px; font-size: 36px; }
 .rate-block { text-align: right; }
 .rate-number { margin-bottom: 0px; line-height: 1; color: #f51f8a; }
@@ -931,7 +918,7 @@ Pagination
 /*--------------------------------
 Extra Plugin CSS - Back to top
 ---------------------------------*/
-.cd-top { display: inline-block; height: 40px; width: 40px; position: fixed; bottom: 40px; right: 10px; overflow: hidden; text-indent: 100%; white-space: nowrap; visibility: hidden; border-radius: 5px; background: rgba(245, 31, 138, 100) url(..images/cd-top-arrow.svg) no-repeat center 50%; opacity: 0; -webkit-transition: opacity .3s 0s, visibility 0s .3s; -moz-transition: opacity .3s 0s, visibility 0s .3s; transition: opacity .3s 0s, visibility 0s .3s; }
+.cd-top { display: inline-block; height: 40px; width: 40px; position: fixed; bottom: 40px; right: 10px; overflow: hidden; text-indent: 100%; white-space: nowrap; visibility: hidden; border-radius: 5px; background: rgba(245, 31, 138, 100); opacity: 0; -webkit-transition: opacity .3s 0s, visibility 0s .3s; -moz-transition: opacity .3s 0s, visibility 0s .3s; transition: opacity .3s 0s, visibility 0s .3s; }
 .cd-top.cd-is-visible, .cd-top.cd-fade-out, .no-touch .cd-top:hover { -webkit-transition: opacity .3s 0s, visibility 0s 0s; -moz-transition: opacity .3s 0s, visibility 0s 0s; transition: opacity .3s 0s, visibility 0s 0s; }
 .cd-top.cd-is-visible {    /* the button becomes visible */
 visibility: visible; opacity: 1; }
@@ -1009,7 +996,6 @@ About us
 .why-choose-section { }
 .testimonial-section { }
 .cta-section { }
-.cta-section-second { background: url(..images/cta-img-2.jpg)no-repeat; background-size: cover; }
 .cta-section-second h1 { font-size: 42px; }
 .text-big { font-size: 20px; color: #f51f8a; font-weight: 600; margin-bottom: 0px; }
 
@@ -1152,8 +1138,6 @@ Header - 2
 /*-----------------------------------------
 Landing Page Template
 ------------------------------------------*/
-.hero { position: relative; padding-top: 60px; padding-bottom: 100px; background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 0, 0, 0.2) url(..images/lp-car-image.jpg) no-repeat center; background-size: cover; }
-.hero-home-loan { position: relative; padding-top: 60px; padding-bottom: 100px; background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 0, 0, 0.2) url(..images/home-loan-lp.jpg) no-repeat center; background-size: cover; }
 .hero-title { font-size: 48px; line-height: 52px; color: #fff; font-weight: 800; letter-spacing: -1px; margin-bottom: 30px; }
 .hero-captions { padding-top: 80px; }
 .hero-text { color: #fff; }
@@ -1195,7 +1179,7 @@ Landing Page Template
   .slider-captions { position: absolute; bottom: 70px; width: 100%; }
   .slider-title { color: #fff; font-size: 32px; font-weight: 700; line-height: 42px; }
   .slider .owl-prev { position: absolute; left: 0px; top: 40%; left: 0px; }
-  .slider .owl-next { position: absolute; right: 0px; top: 40%; right: 0px; }
+  .slider .owl-next { position: absolute; right: 0px; top: 40%; right: 20px; }
 }
 @media screen and (min-width:1300px) and (max-width:1440px) {
   .slider-captions { position: absolute; bottom: 100px; width: 100%; }
@@ -1295,72 +1279,6 @@ Landing Page Template
   /*--------------- slider for mobile view ( for mobile view  )---------- */
   .slider-captions { position: absolute; bottom: 10px; text-align: center; width: 100%; }
   .slider-title { color: #fff; font-size: 18px; text-transform: uppercase; font-weight: 700; line-height: 26px; }
-  .slider .owl-prev { position: absolute; left: 0px; top: 30%; left: 0px; }
-  .slider .owl-next { position: absolute; right: 0px; top: 30%; right: 0px; }
-  .rate-icon { float: none; }
-  .rate-counter-block { text-align: center; }
-  .loan-rate { font-size: 24px; }
-  .widget-share { background-color: #fff; padding: 14px; position: absolute; top: 0px; right: 0px; }
-  .search-nav { display: none; }
-  .top-text { padding-left: 14px; }
-  .header-action { text-align: center; }
-  .rate-badge { display: none; }
-  .video-play { left: 39%; }
-
-  /*--------------- index-6 ---------- */
-  .lead-hero-caption { padding-top: 0px; }
-
-  /*--------------- index-7 ---------- */
-  #navigation { margin-top: 18px; }
-  .hero-tab-block { padding-top: 91px; padding-bottom: 100px; }
-
-  /*--------------- index-8 ---------- */
-  .refinance-rate-block-title { font-size: 24px; }
-  .refinance-hero-block { padding-top: 44px; }
-
-  /*--------------- compare credit card  ---------- */
-  .compare-table .table>tbody>tr>td { padding: 10px; }
-  .compare-card-title { font-size: 13px; font-weight: 600; display: block; width: 148px; }
-  .expandable-info .card { min-height: inherit; }
-
-  /*--------------- compare personal loan card  ---------- */
-  .compare-personal-loan-table .table>tbody>tr>td { padding: 10px; }
-  .compare-personal-loan-title { font-size: 13px; font-weight: 600; display: block; width: 148px; }
-  .expandable-info .card { min-height: inherit; }
-
-  /*--------------- compare student loan card  ---------- */
-  .compare-student-loan-table .table>tbody>tr>td { padding: 10px; }
-  .compare-student-loan-title { font-size: 13px; font-weight: 600; display: block; width: 148px; }
-  .expandable-info .card { min-height: inherit; }
-
-  /*--------------- card landing page  ---------- */
-  .card-benefit-tabs .st-tabs .nav-link { display: block; padding: 16px 58px; border: 1px solid #f6f9ff; border-radius: 5px; background-color: #f6f9ff; margin-bottom: 8px; margin-right: 10px; }
-  .header-wide .lead, .header-wide .lead { font-size: 13px; }
-  .card-hero-section { padding-top: 60px; padding-bottom: 60px; }
-
-  /*--------------- Index - 9 bank borrow  ---------- */
-  .overlay-section { margin-top: 0px; }
-  .overlay-section .card { margin-bottom: 20px; }
-  .hover-tabs.st-tabs .nav-link { display: block; padding: 0px 39px 3px 0px; }
-  .quick-info span:nth-child(2){display: none;}
-/*--------------- borrow-life-saving  ---------- */
-.bank-account-tabs.st-tabs .nav-link {
-
-    padding: 16px 57px;
-}
-.pinside60 {
-    padding: 30px;
-}
-}
-@media only screen and (max-width:320px) {
-
-  /*--------------- slider for mobile view ( for mobile view  )---------- */
-  .slider-captions { position: absolute;
-    bottom: 20px;
-    text-align: center;
-    max-width: 70%;
-    left: 15%; }
-  .slider-title { color: #fff; font-size: 18px; text-transform: uppercase; font-weight: 700; line-height: 26px; }
   .slider-captions .btn{display: none;}
   .slider .owl-prev { position: absolute; left: 0px; top: 30%; left: 0px; }
   .slider .owl-next { position: absolute; right: 0px; top: 30%; right: 0px; }
@@ -1375,131 +1293,4 @@ Landing Page Template
 }
 }
 
-
-
-
-
-
-HTML CSSResult Skip Results Iframe
-EDIT ON
-ol.collection {
-    margin: 0px;
-    padding: 0px;
-}
-
-li {
-    list-style: none;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-/* 2 Column Card Layout */
-@media screen and (max-width: 100%) {
-    .collection-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 0px;
-    }
-
-    .item {
-        border: 1px solid gray;
-        border-radius: 2px;
-        padding: 10px;
-    }
-
-    /* Don't display the first item, since it is used to display the header for tabular layouts*/
-    .collection-container>li:first-child {
-        display: none;
-    }
-
-    .attribute::before {
-        content: attr(data-name);
-    }
-
-    /* Attribute name for first column, and attribute value for second column. */
-    .attribute {
-        display: grid;
-        grid-template-columns: minmax(9em, 30%) 1fr;
-    }
-}
-
-/* 1 Column Card Layout */
-@media screen and (max-width:580px) {
-    .collection-container {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Tabular Layout */
-@media screen and (min-width: 737px) {
-    /* The maximum column width, that can wrap */
-    .item-container {
-        display: grid;
-        grid-template-columns: 2em 2em 10fr;
-    }
-
-    .attribute-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(var(--column-width-min), 1fr));
-    }
-
-    /* Definition of wrapping column width for attribute groups. */
-    .part-information {
-        --column-width-min: 10em;
-    }
-
-    .part-id {
-        --column-width-min: 10em
-    /* [disabled]text-align: center; */
-    text-align: left;
-    color: black;
-    }
-
-    .vendor-information {
-        --column-width-min: 10em;
-    }
-
-
-    .collection {
-
-    }
-
-    /* In order to maximize row lines, only display one line for a cell */
-    .attribute {
-        border-top: 1px solid #e6ecef;
-        border-left: 1px solid #e6ecef;
-        border-right: 1px solid #e6ecef;
-        border-bottom: 1px solid #e6ecef;
-        padding: 2px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .collection-container>.item-container:first-child {
-
-    }
-
-    .item-container:hover {
-        background-color: rgb(200, 227, 252);
-    }
-
-    /* Center header labels */
-    .collection-container>.item-container:first-child .attribute {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-overflow: initial;
-    overflow: auto;
-    white-space: normal;
-    color: black;
-    }
-}
-
-#la_value::before,
-#nm_value::before {
-  content: "$";
-}
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800);
