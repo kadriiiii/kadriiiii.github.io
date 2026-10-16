@@ -32,6 +32,8 @@ Apteegist sain oma nohu jaoks pseudoefedriini (loe: kohalik Sudafed). Mis mind i
 
 Järgmine kaubanduskogemus oli kohalik Asia Market ehk "hiina pood". Assooridel olime sarnast kohta külastanud, aga siinne näis suurem. Lühidalt öelduna müüakse seal kõike, mida iganes sul vaja minna võib, ning lisaks kõike, mida sa isegi enne ei teadnud, et sul vaja minna võib. Paari vahekäiku olid nagu käsitöölise unistus - värvilised paberid, vildikad, kleepsud, kotid, karbid, sädelev see ja too, igasugused jupstükid. Kui oskaks ette mõelda, siis saaks siit kõik jõulukinkide pakkimiseks tarviliku koju kaasa vedada ning hind oleks pigem Temu sarnane, mitte nagu Pakendikeskuses. Õnneks mul oli konkreetne plaan ainult väike õmbluskomplekt osta ning kui lisa-niit välja arvata, siis pidasin ka plaanist kinni. Ühtegi värviraamatut ega akutrelli ei lisandunud.
 
+Kui me lõpuks dinosauruse pildiga toidupoes käisime, maksime seal nii palju raha, et saime mingi kampaania raames tasuta poekoti ja münditasku. Vaat' siis. Enne veel ütlesime, et ei, kotti pole vaja, sest eks meil olid ju omad vahendid kaasas. Täielik pettumus muidugi, et eile Lidlis mingeid tasuta asju ei jagatud.
+
 Pärast seda kui teisipäev ja kolmapäev üheks pikaks päevaks kokku sulandusid, tundus neljapäeva hommikul ärgates, et me oleme siin juba pikalt-pikalt olnud. Tegelikult muidugi oli esimene hommik siinses elamises hambaid pesta ja kohvi teha. Õigupoolest vaatasime esimese asjana hoopis terrassil tähti, kuni liikumisanduriga lamp põlema läks (täna olime targemad ja tulime kohe ülemisele terrassile, kus oli pimedam).
 
 ## Neljapäev: argipäev
@@ -39,3 +41,15 @@ Pärast seda kui teisipäev ja kolmapäev üheks pikaks päevaks kokku sulandusi
 Pärast esimese päeva seiklusi oli neljapäev peaaegu nagu igav. Hommikuseks tähtsündmuseks oli minu kolmandalt korruselt teisele tööle kolimine, sest nohule konditsioneer meeldis, aga mulle nohu ei meeldi.
 
 Arvestades, et Eestis on praegu öine temperatuur juba nulli ligi ja ega päevalgi priisata pole, on muidugi seda imelik öelda, aga siin on liiga palav. Tänaseks olen natuke juba harjunud, aga eile, st neljapäeval, oli tunne, et lihtsalt seistes higi voolab, käed kleepuvad klaviatuuri külge ja terrassiust pole mõtet lahti teha.
+
+Hiliste koosolekute tõttu sai tööpäev üpris pikk, aga Eesti ajas töötamise pluss on see, et kui kell pool seitse töö lõpetada, siis siin on kell pool viis ja mõni tund valget aega veel ees ootamas. 
+
+Igal juhul, eile peale tööd läksime autoga tutvuma. Kolmapäeva varahommikul vaatasime, et kuidagi kodu üles leiaks ning ei hoolinud eriti ei sinihamba ühendustest ega regenereerivast piduramisest (tegu on pistikhübriidiga). Õigupoolest, mis ma siin ikka mitmust kasutan - Erki sõitis ja mina vahtisin niisama tee ääres laiuvaid imetabaseid tühimikke. 
+
+Käisime Los Christianoses ujumas, rangelt võttes küll mitte Los Christianose rannas vaid Las Vistases. Ujumiseks on seda vast palju nimetada, aga üleni meres ma lõpuks käisin. Lained ei olnud teab mis suured, aga mulle kui tasase veega harjunud eestlasele oli natuke liig. Eriti kui võtta arvesse, et ma läksin ujuma ilma prillideta, mis tähendab, et ega ma hästi ei näinud ka. Või pigem, et kui ma oma lühinägelike silmadega juba lainet nägin, siis pidi see ju väga suur olema... Tore oli sellele vaatamata. 
+
+Los Christianoses nägime ka esimest kohalikku "metslooma" (sest kassid ei lähe arvesse) - sisalikku. Oli üsna kodusisalike moodi. Kodustest rääkides - õhtul lendasid taevas pääsukesed ning täna hommikul istus terrassinurgal musträstas. Hakkasin mõtlema, kui paljud neist kodust pärit olla võiks.
+
+Järgnes Lidli külastus, mis võttis uskumatult kaua aega. Esiteks tahtis Lidli äpp uuendamist (sest jah, mul on Lidli äpp, aga ma kasutasin seda viimati tõenäoliselt kuskil juulis). Teiseks tuli poolte asjade silte Google Lensiga tõlkida. Kolmandaks oli lihtsalt uusi ja toredaid asju, mida vahtida. Autotäie kraami me sealt igal juhul ära tõime, mistõttu auto lõpuks ka garaazi sai.
+
+Kuidagi poolenisti juba unemaal olles segasin mingi salati kokku, sel ajal kui Erki kotlette küpsetas. Ja õunu pestes mõtlesin, et keegi oli selgelt tühja kõhuga puuvilju ostmas käinud...
