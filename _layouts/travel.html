@@ -50,7 +50,17 @@
 
     #container .inner { margin-left: calc(var(--sidebar-width) + 40px); }
     h2 { margin-top: 30px; }
-    h2, h3 { scroll-margin-top: 15px; }
+    h2, h3 { scroll-margin-top: 110px; }
+
+    /* Keep the page title visible while scrolling; reuse the theme's body texture so text doesn't show through. */
+    #container .inner > header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 15px 0;
+      background: #e7e7e7 url({{ '/assets/images/body-bg.png' | relative_url }}) 0 0 repeat;
+      border-bottom: 1px solid #d5d5d5;
+    }
 
     @media (max-width: 1000px) {
       #markdown-toc {
@@ -61,6 +71,7 @@
         border: 1px solid #d5d5d5;
       }
       #container .inner { width: 94%; max-width: 620px; margin: 0 auto; }
+      #container .inner > header h1 { font-size: 32px; }
     }
   </style>
 </head>
