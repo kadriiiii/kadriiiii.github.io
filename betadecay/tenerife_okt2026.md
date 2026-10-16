@@ -34,9 +34,10 @@ Järgmine kaubanduskogemus oli kohalik Asia Market ehk "hiina pood". Assooridel 
 
 Kui me lõpuks dinosauruse pildiga toidupoes käisime, maksime seal nii palju raha, et saime mingi kampaania raames tasuta poekoti ja münditasku. Vaat' siis. Enne veel ütlesime, et ei, kotti pole vaja, sest eks meil olid ju omad vahendid kaasas. Täielik pettumus muidugi, et eile Lidlis mingeid tasuta asju ei jagatud.
 
-Pärast seda kui teisipäev ja kolmapäev üheks pikaks päevaks kokku sulandusid, tundus neljapäeva hommikul ärgates, et me oleme siin juba pikalt-pikalt olnud. Tegelikult muidugi oli esimene hommik siinses elamises hambaid pesta ja kohvi teha. Õigupoolest vaatasime esimese asjana hoopis terrassil tähti, kuni liikumisanduriga lamp põlema läks (täna olime targemad ja tulime kohe ülemisele terrassile, kus oli pimedam).
 
 ## Neljapäev: argipäev
+
+Pärast seda kui teisipäev ja kolmapäev üheks pikaks päevaks kokku sulandusid, tundus neljapäeva hommikul ärgates, et me oleme siin juba pikalt-pikalt olnud. Tegelikult muidugi oli esimene hommik siinses elamises hambaid pesta ja kohvi teha. Õigupoolest vaatasime esimese asjana hoopis terrassil tähti, kuni liikumisanduriga lamp põlema läks (täna olime targemad ja tulime kohe ülemisele terrassile, kus oli pimedam).
 
 Pärast esimese päeva seiklusi oli neljapäev peaaegu nagu igav. Hommikuseks tähtsündmuseks oli minu kolmandalt korruselt teisele tööle kolimine, sest nohule konditsioneer meeldis, aga mulle nohu ei meeldi.
 
@@ -53,3 +54,5 @@ Los Christianoses nägime ka esimest kohalikku "metslooma" (sest kassid ei lähe
 Järgnes Lidli külastus, mis võttis uskumatult kaua aega. Esiteks tahtis Lidli äpp uuendamist (sest jah, mul on Lidli äpp, aga ma kasutasin seda viimati tõenäoliselt kuskil juulis). Teiseks tuli poolte asjade silte Google Lensiga tõlkida. Kolmandaks oli lihtsalt uusi ja toredaid asju, mida vahtida. Autotäie kraami me sealt igal juhul ära tõime, mistõttu auto lõpuks ka garaazi sai.
 
 Kuidagi poolenisti juba unemaal olles segasin mingi salati kokku, sel ajal kui Erki kotlette küpsetas. Ja õunu pestes mõtlesin, et keegi oli selgelt tühja kõhuga puuvilju ostmas käinud...
+
+Eelnevalt mainitud teeäärsetest tühimikest. Kuna ma ei lugenud enne siia tulemist Tenerife kohta peaaegu mitte midagi ning mingil imelikul põhjusel ei ole iga lohu ja mühu juures turistide jaoks silti, siis guugeldasin enne magama jäämist midagi stiilis "miks on Costa del Silencio lähedal teede ääres nii palju lõigatud servadega vanade kaevanduste moodi platse". Tuleb välja, et mõned eelajaloolisemad võivadki kaevandused olla, aga siin teede vahel on tõenäolisemalt tegu pooleli jäänud kinnisvaraarendustega. Miks sellised augud? Sest kuhugi pidid ju keldrid ka tulema. Eks raha sai otsa ja nii ta siis jäi - nüüd on need "keldrid" nähtavasti kaktuste ja muude taimede kodud.
