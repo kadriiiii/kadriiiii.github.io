@@ -1,4 +1,12 @@
-# 16. oktoober 2026, reede
+---
+layout: travel
+title: Tenerife, oktoober 2026
+---
+
+* TOC
+{:toc}
+
+## 16. oktoober 2026, reede
 _Niinimetatud Casa de Sisask, nagu Anna tööl ütles; Costa del Silencio._
 
 Saabusime üleeile. Sõit ise oli meeldivalt sündmustevaene - lennujaama jõudsime võrdlemisi vara, sest teel takistusi ei olnud, ning lend läks ka üsna sujuvalt. Riias tehti küll natuke närvikõdi, kui hakati uurima, kas keegi tahaks oma reisiplaane muuta, sest lend on ülebroneeritud. Ma olen kuulnud, et nii võib juhtuda, aga ei olnud seda kunagi ise kogenud. Ega ma nüüd ei teagi, kes või mil määral vabatahtlikult maha jäi. Meil oli Erki fotoka tõttu raskem käsipagas ostetud ning sellega käis kaasas Priority Boarding, nii et saime oma kohad viperusteta kätte.

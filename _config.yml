@@ -1,7 +1,4 @@
----
-layout: null
 title: Piece of Cake
 theme: jekyll-theme-tactile
 kramdown:
-    toc_levels: 1..2
----
+  toc_levels: 2..3
