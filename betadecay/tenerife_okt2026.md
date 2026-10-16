@@ -1,6 +1,6 @@
 ---
 layout: travel
-title: Tenerife, oktoober 2026
+title: Saarel, vol Tenerife
 ---
 
 * TOC
@@ -9,12 +9,16 @@ title: Tenerife, oktoober 2026
 ## 16. oktoober 2026, reede
 _Niinimetatud Casa de Sisask, nagu Anna tööl ütles; Costa del Silencio._
 
+### Lõpuks kohal
+
 Saabusime üleeile. Sõit ise oli meeldivalt sündmustevaene - lennujaama jõudsime võrdlemisi vara, sest teel takistusi ei olnud, ning lend läks ka üsna sujuvalt. Riias tehti küll natuke närvikõdi, kui hakati uurima, kas keegi tahaks oma reisiplaane muuta, sest lend on ülebroneeritud. Ma olen kuulnud, et nii võib juhtuda, aga ei olnud seda kunagi ise kogenud. Ega ma nüüd ei teagi, kes või mil määral vabatahtlikult maha jäi. Meil oli Erki fotoka tõttu raskem käsipagas ostetud ning sellega käis kaasas Priority Boarding, nii et saime oma kohad viperusteta kätte.
 Lend oli öine - ma kadestasin kõiki neid inimesi, kes rahulikult põõnasid. Tukastasin ka aegajalt poole tunni või tunni kaupa, aga iga kord virgudes oli tunne, et olen veel unisem kui enne.
 
 Kohale jõudsime 4:30 asemel lausa kell 4 (hommikul). Õues oli pime, aga soe. Miks ma tean, et õues oli pime, aga soe? Sest me käisime parklat mööda uitamas, et kontrollida, ega mõni autorendiputka avatud ei ole. Ma nimelt broneerisin kella 5-ks auto, aga lennujaama hoones olid kõik rendifirmade aknad, sh meie Cicar, pimedad. Helistasime klienditoele, kes ei vastanud. Parklas valitses tühjus (hea küll - autod olid; isegi üks kass auto katusel). Me polnud muidugi ainsad hädalised - ühtede eestlastega muljetasime seal pikalt, et mis strateegia valida. Lõpuks tõdesime, et meil võtaks ühistranspordiga majutusse saamine nii kaua aega, et peaks kohe hakkama tagasi auto järele tulema ning pole mõtet jahmerdada. Niisiis ootasime rõõmsalt kella 7-ni, mil kontor avati. Veidi liialdan - nad hakkasid oma pikka saba ikka oma viis kuni kümme minutit enne seitset teenindama ning meie lepingu peale sai isegi kellaaeg 6:59.
 
 Kuna meie siinsesse koju sõites oli väljas kottpime, on mul siiamaani tunne, nagu me oleksime saabunud õhtul. Tegelikult tassisime oma kola tuppa, keerasime veekraani lahti, logisime internetti ning asusime tööle, sest Eestis oli kell juba tasapisi 10 saanud.
+
+### Kolmapäev: torutööd ja poed
 
 Pärast väikest meenutamist, milles mu töö seisnes (sest pea oli tegelikult ikka väga väsinud), läks hoopis kõht tühjaks ning guugeldasin, kust midagi hamba alla saada. Selgus, et ümber nurga on toidupood ning sellest paar sammu edasi nunnu võileivakohvik Vibras del Alma, kus võiku ootamise ajal riiulitel olevaid raamatuid sirvida sai. Hakkasin ühte otsast lugema, aga seni polegi jõudnud edasi lugema minna.
 
@@ -27,3 +31,11 @@ Uues kohas on isegi poes käik nagu väike seiklus. Esimesest väiksest poest os
 Apteegist sain oma nohu jaoks pseudoefedriini (loe: kohalik Sudafed). Mis mind imestama paneb, on et nii siin kui ka Costa Ricas sain ma sellised tabletid, mida võetakse üks kord päevas, samas kui Eestis olen ainult selliseid kohanud, mida kolm-neli korda võtta tuleb. Igal juhul, ma teen nägu, et need tabletid on aidanud mul nohu kontrolli alla saada. 
 
 Järgmine kaubanduskogemus oli kohalik Asia Market ehk "hiina pood". Assooridel olime sarnast kohta külastanud, aga siinne näis suurem. Lühidalt öelduna müüakse seal kõike, mida iganes sul vaja minna võib, ning lisaks kõike, mida sa isegi enne ei teadnud, et sul vaja minna võib. Paari vahekäiku olid nagu käsitöölise unistus - värvilised paberid, vildikad, kleepsud, kotid, karbid, sädelev see ja too, igasugused jupstükid. Kui oskaks ette mõelda, siis saaks siit kõik jõulukinkide pakkimiseks tarviliku koju kaasa vedada ning hind oleks pigem Temu sarnane, mitte nagu Pakendikeskuses. Õnneks mul oli konkreetne plaan ainult väike õmbluskomplekt osta ning kui lisa-niit välja arvata, siis pidasin ka plaanist kinni. Ühtegi värviraamatut ega akutrelli ei lisandunud.
+
+Pärast seda kui teisipäev ja kolmapäev üheks pikaks päevaks kokku sulandusid, tundus neljapäeva hommikul ärgates, et me oleme siin juba pikalt-pikalt olnud. Tegelikult muidugi oli esimene hommik siinses elamises hambaid pesta ja kohvi teha. Õigupoolest vaatasime esimese asjana hoopis terrassil tähti, kuni liikumisanduriga lamp põlema läks (täna olime targemad ja tulime kohe ülemisele terrassile, kus oli pimedam).
+
+### Neljapäev: argipäev
+
+Pärast esimese päeva seiklusi oli neljapäev peaaegu nagu igav. Hommikuseks tähtsündmuseks oli minu kolmandalt korruselt teisele tööle kolimine, sest nohule konditsioneer meeldis, aga mulle nohu ei meeldi.
+
+Arvestades, et Eestis on praegu öine temperatuur juba nulli ligi ja ega päevalgi priisata pole, on muidugi seda imelik öelda, aga siin on liiga palav. Tänaseks olen natuke juba harjunud, aga eile, st neljapäeval, oli tunne, et lihtsalt seistes higi voolab, käed kleepuvad klaviatuuri külge ja terrassiust pole mõtet lahti teha.
