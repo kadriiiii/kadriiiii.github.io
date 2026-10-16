@@ -6,10 +6,10 @@ title: Saarel, vol Tenerife
 * TOC
 {:toc}
 
-## 16. oktoober 2026, reede
+# 16. oktoober 2026, reede
 _Niinimetatud Casa de Sisask, nagu Anna tööl ütles; Costa del Silencio._
 
-### Lõpuks kohal
+## Lõpuks kohal
 
 Saabusime üleeile. Sõit ise oli meeldivalt sündmustevaene - lennujaama jõudsime võrdlemisi vara, sest teel takistusi ei olnud, ning lend läks ka üsna sujuvalt. Riias tehti küll natuke närvikõdi, kui hakati uurima, kas keegi tahaks oma reisiplaane muuta, sest lend on ülebroneeritud. Ma olen kuulnud, et nii võib juhtuda, aga ei olnud seda kunagi ise kogenud. Ega ma nüüd ei teagi, kes või mil määral vabatahtlikult maha jäi. Meil oli Erki fotoka tõttu raskem käsipagas ostetud ning sellega käis kaasas Priority Boarding, nii et saime oma kohad viperusteta kätte.
 Lend oli öine - ma kadestasin kõiki neid inimesi, kes rahulikult põõnasid. Tukastasin ka aegajalt poole tunni või tunni kaupa, aga iga kord virgudes oli tunne, et olen veel unisem kui enne.
@@ -18,7 +18,7 @@ Kohale jõudsime 4:30 asemel lausa kell 4 (hommikul). Õues oli pime, aga soe. M
 
 Kuna meie siinsesse koju sõites oli väljas kottpime, on mul siiamaani tunne, nagu me oleksime saabunud õhtul. Tegelikult tassisime oma kola tuppa, keerasime veekraani lahti, logisime internetti ning asusime tööle, sest Eestis oli kell juba tasapisi 10 saanud.
 
-### Kolmapäev: torutööd ja poed
+## Kolmapäev: torutööd ja poed
 
 Pärast väikest meenutamist, milles mu töö seisnes (sest pea oli tegelikult ikka väga väsinud), läks hoopis kõht tühjaks ning guugeldasin, kust midagi hamba alla saada. Selgus, et ümber nurga on toidupood ning sellest paar sammu edasi nunnu võileivakohvik Vibras del Alma, kus võiku ootamise ajal riiulitel olevaid raamatuid sirvida sai. Hakkasin ühte otsast lugema, aga seni polegi jõudnud edasi lugema minna.
 
@@ -34,7 +34,7 @@ Järgmine kaubanduskogemus oli kohalik Asia Market ehk "hiina pood". Assooridel 
 
 Pärast seda kui teisipäev ja kolmapäev üheks pikaks päevaks kokku sulandusid, tundus neljapäeva hommikul ärgates, et me oleme siin juba pikalt-pikalt olnud. Tegelikult muidugi oli esimene hommik siinses elamises hambaid pesta ja kohvi teha. Õigupoolest vaatasime esimese asjana hoopis terrassil tähti, kuni liikumisanduriga lamp põlema läks (täna olime targemad ja tulime kohe ülemisele terrassile, kus oli pimedam).
 
-### Neljapäev: argipäev
+## Neljapäev: argipäev
 
 Pärast esimese päeva seiklusi oli neljapäev peaaegu nagu igav. Hommikuseks tähtsündmuseks oli minu kolmandalt korruselt teisele tööle kolimine, sest nohule konditsioneer meeldis, aga mulle nohu ei meeldi.
 
