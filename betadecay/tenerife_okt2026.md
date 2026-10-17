@@ -17,7 +17,7 @@ Kohale jõudsime 4:30 asemel lausa kell 4 (hommikul). Õues oli pime, aga soe. M
 
 Kuna meie siinsesse koju sõites oli väljas kottpime, on mul siiamaani tunne, nagu me oleksime saabunud õhtul. Tegelikult tassisime oma kola tuppa, keerasime veekraani lahti, logisime internetti ning asusime tööle, sest Eestis oli kell juba tasapisi 10 saanud.
 
-![](../img/sajajalgsed_saabusid.png)
+![](../img/sajajalgsed_saabusid.png){: .narrow}
 
 ## Kolmapäev: torutööd ja poed
 
@@ -43,7 +43,7 @@ Järgmine kaubanduskogemus oli kohalik Asia Market ehk "hiina pood". Assooridel 
 
 Kui me lõpuks dinosauruse pildiga toidupoes käisime, maksime seal nii palju raha, et saime mingi kampaania raames tasuta poekoti ja münditasku. Vaat' siis. Enne veel ütlesime, et ei, kotti pole vaja, sest eks meil olid ju omad vahendid kaasas. Täielik pettumus muidugi, et eile Lidlis mingeid tasuta asju ei jagatud.
 
-![](../img/n2nn.jpg)
+![](../img/n2nn.jpg){: .small}
 
 
 ## Neljapäev: argipäev
