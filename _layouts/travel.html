@@ -52,7 +52,7 @@
     h2 { margin-top: 30px; }
 
     /* Images: fit the column, centred, with a soft shadow. */
-    #main_content img {
+    #container #main_content img {
       display: block;
       max-width: 85%;  /* ~530px; a bit narrower than the text */
       max-height: 80vh;
@@ -63,8 +63,8 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
     /* Size modifiers, applied in markdown with {: .narrow} or {: .small} after the image. */
-    #main_content img.narrow { max-width: 55%; }  /* ~340px; tall photos */
-    #main_content img.small  { max-width: 65%; }  /* ~400px; small objects */
+    #container #main_content img.narrow { max-width: 55%; }  /* ~340px; tall photos */
+    #container #main_content img.small  { max-width: 65%; }  /* ~400px; small objects */
     /* Caption: an italic line written directly under the image in the same paragraph. */
     #main_content p > img + em {
       display: block;
