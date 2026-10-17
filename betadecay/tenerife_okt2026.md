@@ -7,7 +7,6 @@ title: Saarel, vol Tenerife
 {:toc}
 
 # 16. oktoober 2026, reede
-_Niinimetatud Casa de Sisask, nagu Anna tööl ütles; Costa del Silencio._
 
 ## Lõpuks kohal
 
