@@ -7,6 +7,7 @@ title: Saarel, vol Tenerife
 {:toc}
 
 # 16. oktoober 2026, reede
+_Niinimetatud Casa de Sisask; Costa del Silencio_
 
 ## Lõpuks kohal
 
@@ -77,8 +78,9 @@ Kuidagi poolenisti juba unemaal olles segasin mingi salati kokku, sel ajal kui E
 
 Eelnevalt mainitud teeäärsetest tühimikest. Kuna ma ei lugenud enne siia tulemist Tenerife kohta peaaegu mitte midagi ning mingil imelikul põhjusel ei ole iga lohu ja mühu juures turistide jaoks silti, siis guugeldasin enne magama jäämist midagi stiilis "miks on Costa del Silencio lähedal teede ääres nii palju lõigatud servadega vanade kaevanduste moodi platse". Tuleb välja, et mõned eelajaloolisemad võivadki kaevandused olla, aga siin teede vahel on tõenäolisemalt tegu pooleli jäänud kinnisvaraarendustega. Miks sellised augud? Sest kuhugi pidid ju keldrid ka tulema. Eks raha sai otsa ja nii ta siis jäi - nüüd on need "keldrid" nähtavasti kaktuste ja muude taimede kodud.
 
-<!-- Toimetamata 
+
 # 17. oktoober 2026, laupäev
+_Samas kohas_
 
 ## Reede: retk kohalikule künkale
 
@@ -86,27 +88,50 @@ Reede möödus laias laastus nagu iga teine tavaline tööpäev. Kohalikku elu k
 
 Samal ajal kui mina üle tee asuva kõrbega tutvumise peale mõtlesin (mitte kaugusse vaadates), oli Erki genereerinud kohaliku künka otsa ronimise plaani. Hakkan taipama, miks ma tavaliselt ise kõik ära planeerin, et talle üldse mitte võimalustki anda - erinevalt künkast oleks kõrb üsna ühetasane olnud. Et tänapäeva infoküllusest viimast võtta, uurisin enne minekut rajaplaani AllTrailsist (internet soovitas), Mapyst (vennad soovitasid) ja muidugi Google kaardilt (lihtsalt vana harjumus). Nii kui avastasin, et AllTrails ja Mapy täiesti erinevaid valikuid pakuvad, hakkasin hoopis guugeldama, kust nad oma andmeid saavad ning millest selline ebakõla. Lõpuks olin sunnitud siiski õue minema.
 
-Kohaliku künka ehk Monta&ntilde;a Amarilla ümber on õigupoolest paras radadevõrgustik. Enim reklaamitud alguspunkt näis olevat rannas, niisiis suundusime sinna. Erinevalt paari päeva tagusest muljest, et ujumas tuleb käia tunniajase jalutuskäigu kaugusel, on siinne rand meie elukohast paari tänavavahe kaugusel. Rand tähendab meie külas umbes 20 meetri kõrgust kallast, mitte veepiiri. Näib, et "ranna" juures saavad kokku eri vanuses pinnavormid - ujumisala on äratuntavalt tardunud laavast koosnev must kivilahmakas, samas kui kõrval asuv küngas oma siiruviirulise jalamiga on pruun mis pruun. 
+Kohaliku künka ehk Monta&ntilde;a Amarilla ümber on õigupoolest paras radadevõrgustik. Enim reklaamitud alguspunkt näis olevat rannas, niisiis suundusime sinna. Erinevalt paari päeva tagusest muljest, et ujumas tuleb käia tunniajase jalutuskäigu kaugusel, on siinne rand meie elukohast paari tänavavahe kaugusel. Rand tähendab meie külas umbes 20 meetri kõrgust kallast, mitte veepiiri. Näib, et "ranna" juures saavad kokku eri vanuses pinnavormid - ujumisala on äratuntavalt tardunud laavast koosnev must kivilahmakas, samas kui kõrval asuv küngas oma siiruviirulise jalamiga on pruun mis pruun. Või noh... nime järgi siiski kollane.
 
 ![](../img/kohalik_rand.jpg)
-_Kohalik rand_
+_Meie küla rand_
 
-Pealiskaudsel vaatlusel on Monta&ntilde;a Amarilla näol tegemist tavalise kõrbekünkaga (kui selline asi olemas on...), aga õnneks on lained tema sisemise ilu nähtavale toonud. Mere poolses küljes on imeilusad siiru-viirulised kivimikihid, mida inimesed hordide kaupa pildistamas käivad. 
+Pealiskaudsel vaatlusel on Monta&ntilde;a Amarilla näol tegemist tavalise kõrbekünkaga (kui selline asi olemas on...), aga õnneks on lained tema sisemise ilu nähtavale toonud. Mere poolses küljes on imeilusad siiru-viirulised kivimikihid, mida inimesed hordide kaupa pildistamas käivad. Internet ütleb, et niisugused kihid tekkisid veealusel vulkaanipurskel laava järsu jahtumise tõttu, kui too mereveega kohtus.
 
 ![](../img/siiruviiruline.jpg)
-_
+_Siirud-viirud_
 
-Enne ronima hakkamist imetlesime sillerdavat vett ning künka jalamil paistvaid siuglevaid mustreid, mida kihiti ladestunud kivikihid (laavakihid?) tekitasid. Künka otsa viis ilus rada. Kuni enam ei viinud. Korra tundus, et ei saa me ei edasi ega tagasi, aga siis ikkagi tuvastasime, et natuke alla poole minnes hargnes rada rõõmsalt vasakule ja sealt on palju laugem tõus. Üles ronisime peaaegu viisteist minutit. Ja taaskord sai selgeks, et ei Erki ega minu kere ei ole sellise asjaga harjunud, et lisaks kaugusele tee ka kõrgusesse viib. Iga kell valime jalutuskäigu ümber mäe, isegi kui see on mitmeid kordi pikem. Juba mäe poole peal hakkasid silma omapärased kivikihid. Künka pealne nägi aga välja nagu mõne vöölase selg - kivikihid üksteise järel rivis. Eks neid vulkaanilist päritolu maastikke on nüüdseks juba mõned korrad nähtud, aga igaüks neist on ikka isemoodi. Hulkusime natuke mäe harja pidi, laskusime sujuvalt alla ning olime pettunud, et õhtuselt madal päike ikkagi mäe taha ei läinud vaid kangekaelselt lagipähe paistis. Mäe ümbrus on tegelikult looduskaitseala ja mööda kaitseala piiri jooksis madal kiviaed. Selle äärde oli päris korralik rada tehtud, kohati trepiastmetega ja puha. Üleülduselt raja kvaliteet ka mäe otsas varieerus - siinseal olid silmnähtavalt kivisse raiutud astmed ning sealsamas kõrval mäekülje peal mõtteline rada. Tagasiteel sain aru, et me olime enamvähem oma tänava nurgal ning minnes olime suure ringi teinud.
+Künka otsa viis ilus rada. Kuni enam ei viinud. Korra tundus, et ei saa me ei edasi ega tagasi, kuni selgus, et olime õigest teeotsast mööda pannud. Siinseal näis, et inimene on looduse loodud trepiastmetele hoogu juurde andnud, et meil lihtsam oleks. Üles ronisime peaaegu viisteist minutit. Pole justkui midagi, aga taaskord sai selgeks, et ei Erki ega minu kere ei ole niisuguse asjaga harjunud, et lisaks sammu pikkusele ka sammu kõrgus loeb. Juba pidasime plaani, et kui künkatagust lauskmaad uudistama läheme, siis rahumeeli ringiga ümber igasuguste pinnavormide. Kaardi pealt vaatasime, et tegemist on vaid umbes kuuekümne meetri kõrguse mühuga, aga poole nõlva peal selja taha vaadates tundus kohalik kodu küll väga kaugel olevat.
 
-Õhtul lugesime terrassil. Võtsin majast leitud Minu Tenerife ette. Olavi Antonsi oma - selgus, et minu tenerifesid on kaks. Näib, et tolle raamatu tegevustik toimub põhimõtteliselt naaberkülas nii et igati asjakohane. 
+![](../img/pilk_kodu_poole.jpg)
+_Pilk selja taha, kodu poole_
 
-Õhtul läks muidugi jahedaks ka - sokid ja pusad tuli välja otsida. Pidasin AIga vestlusi reisiplaanist. Viisime prügi välja. Vaatasie prügikastide taga tähti.
+Eks neid vulkaanilist päritolu maastikke on nüüdseks juba mõned korrad nähtud, aga igaüks neist on ikka isemoodi. Nagu juba allpool näha oli, moodustavad Montana Amarilla laavakihid (kirjanduslik lihtsustus). Tipus jätsid need samad kihid mulje justkui oleksime hiiglasliku vöölase seljas. Hulkusime natuke künka harja pidi, nautisime vaateid, laskusime sujuvalt allapoole ning olime pettunud, et õhtuselt madal päike ikka veel kangekaelselt lagipähe paistis.
+
+![](../img/v88lase_selg.jpg)
+_Vöölase selg_
+
+Monta&ntilde;a Amarilla oma ümbrusega on väike looduskaitseala, mis on madala kiviaiaga ümbritsetud. Aiaäärset rada pidi retke alguspunkti poole tagasi suundudes leidsime end peagi enamvähem omaenda tänavanurgalt ning lugesime reedeõhtuse jalutuskäigu lõpetatuks. 
+
+![](../img/looduskaitseala_piir.jpg)
+_Meil aiaäärne tänavas..._
+
+Õhtul võtsin ette majast leitud "Minu Tenerife" lugemise. Autor, Olavi Antons, kirjutab oma aastatetagustest seiklustest enamvähem naaberkülas,nii et igati asjakohane materjal. Reeglina ei sünni otsused ühest põhjusest vaid nende summast, aga raamatust koorub välja suur soojuse- ja päikeseigatsus, mida Tenerife imehästi leevendas. Jajah, aga õhtul tuli ikkagi sokid ja pusa välja otsida, sest õues oli raudselt alla kahekümneviie kraadi sooja.
+
 
 ## Laupäev: lebo
 
-Laupäeval magasime peaaegu lõunani (loe: üheksani), nii et ärgates oli õues juba valge ja puha. Nii algas lõunamaareisi passiivpuhkuse osa - vahtisin terrassil kohvi juues mööduvaid lennukeid, mis hommikupäikeses kõiki oma värve demonstreerisid.
+Laupäeval magasime peaaegu lõunani (loe: üheksani), nii et ärgates oli õues juba valge ja puha. Algas lõunamaareisi passiivpuhkuse osa - vahtisin terrassil kohvi juues mööduvaid lennukeid, mis hommikupäikeses kõiki oma värve demonstreerisid. Õige pea ilmus ei-tea-kust mingi rahutus, võtsime jalad kõhu alt välja ja asusime Las Galletase poole teele. Plaan oli igati hea: jalutame randa, ujume ning selleks ajaks on mõni kalaresto uksed avanud ja saame kõhud täis vitsutada.
+
+Seekord jalutasime mööda mereäärset rada, mis algas "metsaraja" tüüpi teekesega üle musta kivikamara ning jätkus korraliku kõnniteena. Kõnnitee äärsest müürist üle kiigates imetlesime musti kivistunud laavakänkaraid, mille juures lained vett üles pritsisid. Nähes mitmel pool kivide peal võrdlemisi suuri veeloike, hakkasime kohaliku tõusu ja mõõna kohta uurima. Näib, et tõusu- ja mõõnaaegse veeseisu vahe on ainult umbes meeter. Ega lõpuni sotti ei saanudki, kas basseinikesed on pigem tõusust või pigem lainetest tingitud. Jalutasime nimelt mõõna ajal, nii et oma silmaga kah hinnata ei saanud. Aegajalt olid kivimürakate vahel kalamehed või päevitajad. Ja kui ma ütlen "kivimürakad", siis eestlase vaatest on need ikka üsna kaljude moodi. Tekkis küsimus, kuidas nad sinna said ja üleüldse, kuidas nad sinna ronida julgesid. Aga äkki ongi nii nagu meie omal ajal ronisime ja kolasime omal maal, nii nemad on elu aeg roninud ja kolanud nende laavamürakate keskel ning see ei olegi probleem... 
+
+![](../img/rannik.jpg)
+_Mustadest laavakänkaratest rannik_
+
+_Jätkub..._
+
+<!-- Toimetamata ja kirjutamata
+
+Lähtusime põhimõttest, et distants ei tapa, tempo tapab, ning uimerdasime mõnuga. Jätkutasime veevarusid esimese poeni 
 
 Geopeitus rannas. Rannaäärne rada Las Galletasesse. Esimene paks tuvi. Laavakividel päevitajad ja kalamehed - kuidas nad sinna said ja kuidas nad julgevad? Ujumine - päriselt rahulikus vees. Kirjatarvete ja ajakirjade pood. Krõpsud ja sai, mitte restos käik. Kohalik park. Vihma ootus.
 
-Turistid ja vesi: 3x päevas duši all käimine ja iga päev pesu pesemine.
+Koju jõudes vee all ligunedes nentisin omaette, et täiesti arusaadav, miks Kanaaride inimesed turiste välja puksida soovivad - ükspäev käisin asjaolude kokkulangemise tõttu kolm korda duši all ja nelja siin oldud päeva jooksul oleme kolm korda pesu pesnud, nii see mage vesi otsa saabki.
 -->
