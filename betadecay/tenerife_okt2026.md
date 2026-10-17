@@ -125,7 +125,7 @@ Seekord jalutasime mööda mereäärset rada, mis algas "metsaraja" tüüpi teek
 ![](../img/rannik.jpg)
 _Mustadest laavakänkaratest rannik_
 
-_Jätkub..._
+_**Jätkub...**_
 
 <!-- Toimetamata ja kirjutamata
 
