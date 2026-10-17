@@ -38,6 +38,8 @@ Uues kohas on isegi poes käik nagu väike seiklus. Esimesest väiksest poest os
 
 Apteegist sain oma nohu jaoks pseudoefedriini (loe: kohalik Sudafed). Mis mind imestama paneb, on et nii siin kui ka Costa Ricas sain ma sellised tabletid, mida võetakse üks kord päevas, samas kui Eestis olen ainult selliseid kohanud, mida kolm-neli korda võtta tuleb. Igal juhul, ma teen nägu, et need tabletid on aidanud mul nohu kontrolli alla saada. 
 
+![](../img/raamatukogu.jpg)
+
 Järgmine kaubanduskogemus oli kohalik Asia Market ehk "hiina pood". Assooridel olime sarnast kohta külastanud, aga siinne näis suurem. Lühidalt öelduna müüakse seal kõike, mida iganes sul vaja minna võib, ning lisaks kõike, mida sa isegi enne ei teadnud, et sul vaja minna võib. Paar vahekäiku olid nagu käsitöölise unistus - värvilised paberid, vildikad, kleepsud, kotid, karbid, sädelev see ja too, igasugused jupstükid. Kui oskaks ette mõelda, siis saaks siit kõik jõulukinkide pakkimiseks tarviliku koju kaasa vedada ning hind oleks pigem Temu sarnane, mitte nagu Pakendikeskuses. Õnneks mul oli konkreetne plaan ainult väike õmbluskomplekt osta ning kui lisa-niit välja arvata, siis pidasin ka plaanist kinni. Ühtegi värviraamatut ega akutrelli ei lisandunud.
 
 Kui me lõpuks dinosauruse pildiga toidupoes käisime, maksime seal nii palju raha, et saime mingi kampaania raames tasuta poekoti ja münditasku. Vaat' siis. Enne veel ütlesime, et ei, kotti pole vaja, sest eks meil olid ju omad vahendid kaasas. Täielik pettumus muidugi, et eile Lidlis mingeid tasuta asju ei jagatud.
