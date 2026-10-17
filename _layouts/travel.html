@@ -50,6 +50,26 @@
 
     #container .inner { margin-left: calc(var(--sidebar-width) + 40px); }
     h2 { margin-top: 30px; }
+
+    /* Images: fit the column, centred, with a soft shadow. */
+    #main_content img {
+      display: block;
+      max-width: 100%;
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      margin: 25px auto 0;
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+    /* Caption: an italic line written directly under the image in the same paragraph. */
+    #main_content p > img + em {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #6d6d6d;
+    }
     h2, h3 { scroll-margin-top: 110px; }
 
     /* Keep the page title visible while scrolling; reuse the theme's body texture so text doesn't show through. */

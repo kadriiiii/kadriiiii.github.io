@@ -18,7 +18,7 @@ Kohale jõudsime 4:30 asemel lausa kell 4 (hommikul). Õues oli pime, aga soe. M
 
 Kuna meie siinsesse koju sõites oli väljas kottpime, on mul siiamaani tunne, nagu me oleksime saabunud õhtul. Tegelikult tassisime oma kola tuppa, keerasime veekraani lahti, logisime internetti ning asusime tööle, sest Eestis oli kell juba tasapisi 10 saanud.
 
-![](../img/sajajalgsed_saabusid.jpg)
+![](../img/sajajalgsed_saabusid.png)
 
 ## Kolmapäev: torutööd ja poed
 
