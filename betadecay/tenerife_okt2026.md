@@ -7,7 +7,7 @@ title: Saarel, vol Tenerife
 {:toc}
 
 # 16. oktoober 2026, reede
-_Niinimetatud Casa de Sisask; Costa del Silencio_
+_Costa del Silencio_
 
 ## Lõpuks kohal
 
@@ -28,7 +28,7 @@ Pärast väikest meenutamist, milles mu töö seisnes (sest pea oli tegelikult i
 ![](../img/v6iku_kohvik.jpg)
 _Vibras des Alma_
 
-Esimese päeva seiklused jätkusid torutööde koordineerimisega. Ses osas oli Andreas mind hoiatanud, et kõikides ridaelamuboksides plaanitakse majja sisse tulev vesi ühelt poolt maja teisele poole maja ringi tõsta. Lubati, et tehakse eelmisel nädalal, aga kuna siis ei olnud kippu ega kõppu, oli arvata, et tõenäoliselt hakkab meie siinoleku ajal asju juhtuma. Õnneks tekkis meil lõuna paiku huvi vett kasutada, tänu millele saime teada, et mida pole seda pole. (Ses mõttes, et hommikul oli vesi ilusti olemas.) Vastavalt Andrease juhtnööridele läksin õue torumeest otsima. Leidsingi ühe kuti, kes inglise keeles rääkimise oskuste kohta küsimise peale vastas, et "natukene". Igal juhul piisavalt, et sai aru, et ma tahan kangesti vett tagasi saada. Uitasime siis garaaži juurde, vaatasime torujupi üle. Edasi külastasime boileriruumi, kus torumees katsus torusid ning oli veendunud, et majja sisse tuleb üks, mis käega katsudes jahedam tundub. Ma ajasin nagu uni peale, et majja sisse tuleb ikkagi see toru, mis on paremal pool teistest eraldi ning mille juurde on pandud silt, et see on majja sisenev peamine veetoru. Pärast seda kui lubasin omanikule helistada ning üle küsida, arvas töömees, et ju mul on ikka õigus. Kui ta seal hiljem seina auku puuris ja toru vedas, siis käisin ikkagi igaks juhuks piilumas, kas ta lõikab ikka õige toru läbi... Aukudest rääkides - lisaks käisime maja ees aias, kus torumees kohe seina äärest labida haaras ning maad kaevama hakkas. Saanud kinnitust, et seal tõepoolest on majja sisse tulev toru, läks asus rahulolevalt tööle. Eks see esialgne torusegadus natuke kahtlusi tekitas, aga kui Andrease uute juhtnööride kohaselt torumehega rääkima läksin, et tegelikult peab aia kastmise vesi ikkagi ka alles jääma, siis teatati mulle rõõmsalt, et "si-si" ning jäi mulje, et ta vist ikka teab, mis ta teeb. Lootust andis ka see, et garaažide vahel ringi konnates tuvastasin, et osade bokside toruühendused on siiski juba tehtud ning meie oma ei ole esimene katsetus. Töö sai üllatavalt ruttu valmis (oleme ju ometi Lõuna-Euroopas) ning täna, kaks päeva hiljem, näib ka veel kõik korras olevat.
+Esimese päeva seiklused jätkusid torutööde koordineerimisega. Ses osas oli mind enne tulekut hoiatatud, et kõikides ridaelamuboksides plaanitakse majja sisse tulev vesi ühelt poolt maja teisele poole maja ringi tõsta. Lubati, et tehakse eelmisel nädalal, aga kuna siis ei olnud kippu ega kõppu, oli arvata, et tõenäoliselt hakkab meie siinoleku ajal asju juhtuma. Õnneks tekkis meil lõuna paiku huvi vett kasutada, tänu millele saime teada, et mida pole seda pole. (Ses mõttes, et hommikul oli vesi ilusti olemas.) Vastavalt peremehe juhtnööridele läksin õue torumeest otsima. Leidsingi ühe kuti, kes inglise keeles rääkimise oskuste kohta küsimise peale vastas, et "natukene". Igal juhul piisavalt, et sai aru, et ma tahan kangesti vett tagasi saada. Uitasime siis garaaži juurde, vaatasime torujupi üle. Edasi külastasime boileriruumi, kus torumees katsus torusid ning oli veendunud, et majja sisse tuleb üks, mis käega katsudes jahedam tundub. Ma ajasin nagu uni peale, et majja sisse tuleb ikkagi see toru, mis on paremal pool teistest eraldi ning mille juurde on pandud silt, et see on majja sisenev peamine veetoru. Pärast seda kui lubasin omanikule helistada ning üle küsida, arvas töömees, et ju mul on ikka õigus. Kui ta seal hiljem seina auku puuris ja toru vedas, siis käisin ikkagi igaks juhuks piilumas, kas ta lõikab ikka õige toru läbi... Aukudest rääkides - lisaks käisime maja ees aias, kus torumees kohe seina äärest labida haaras ning maad kaevama hakkas. Saanud kinnitust, et seal tõepoolest on majja sisse tulev toru, läks asus rahulolevalt tööle. Eks see esialgne torusegadus natuke kahtlusi tekitas, aga kui peremehe uute juhtnööride kohaselt torumehega rääkima läksin, et tegelikult peab aia kastmise vesi ikkagi ka alles jääma, siis teatati mulle rõõmsalt, et "si-si" ning jäi mulje, et ta vist ikka teab, mis ta teeb. Lootust andis ka see, et garaažide vahel ringi konnates tuvastasin, et osade bokside toruühendused on siiski juba tehtud ning meie oma ei ole esimene katsetus. Töö sai üllatavalt ruttu valmis (oleme ju ometi Lõuna-Euroopas) ning täna, kaks päeva hiljem, näib ka veel kõik korras olevat.
 
 Kolmapäev jätkus töö lainel, väikse lõunauinakuga vahepeal. Õhtuks tekkis kaks plaani - käia mere ääres (kuigi mitte ujumas, sest mul oli mingi jõle nohu) ning toidupoes. Jalgsi. Oma rumalusest ma ei pööranud Erki plaanidele erilist tähelepanu ning sain alles teekonna lõpupoole teada, et me ei läinud teps mitte kohaliku mere äärde, vaid Las Galletase külje äärde tillukesse soppi, kus interneti andmetel kohalikud ujumas käia armastavad. Kohal endal ei olnud häda midagi ning vesi oli väga soe (jalad pistsime ikka sisse, mis siis, et ujumas ei käinud), aga koos poodides kolistamise ning siit-sealt ringi minekuga jalutasime lõpuks umbes 8 kilomeetrit ehk kolm tundi. Pärast sisuliselt magamata ööd tähendas see, et koju jõudes käisid jalad ikka väga linta-lonta.
 
@@ -127,11 +127,33 @@ _Mustadest laavakänkaratest rannik_
 
 _**Jätkub...**_
 
-<!-- Toimetamata ja kirjutamata
 
-Lähtusime põhimõttest, et distants ei tapa, tempo tapab, ning uimerdasime mõnuga. Jätkutasime veevarusid esimese poeni 
+# 18. oktoober 2026, pühapäev
+_Ikka siin_
 
-Geopeitus rannas. Rannaäärne rada Las Galletasesse. Esimene paks tuvi. Laavakividel päevitajad ja kalamehed - kuidas nad sinna said ja kuidas nad julgevad? Ujumine - päriselt rahulikus vees. Kirjatarvete ja ajakirjade pood. Krõpsud ja sai, mitte restos käik. Kohalik park. Vihma ootus.
+## Laupäev: jalutuskäik randa
 
-Koju jõudes vee all ligunedes nentisin omaette, et täiesti arusaadav, miks Kanaaride inimesed turiste välja puksida soovivad - ükspäev käisin asjaolude kokkulangemise tõttu kolm korda duši all ja nelja siin oldud päeva jooksul oleme kolm korda pesu pesnud, nii see mage vesi otsa saabki.
--->
+Õigupoolest väsisin ma eile õhtul kirjutamisest ära ning nii see laupäeva lugu pooleli jäigi. Lühidalt öelduna logisime põhimõtte pärast ühe lihtsama geopeituse aarde ära; saime liiga palju päikest; Erki tegi vea ja lasi mu üksi ajakirjade/kirjatarvete kioskisse; unustasime, et me ei ole viiesed ning sõime lõunaks kala asemel poest ostetud saia ja krõpse. Mitu tundi hiljem saabusid väsinud turistid koju ja viskasid sirakile.
+
+![](../img/kylaline.jpg){: .small}
+_Külaline_
+
+Aga kõige tähtsam - me leidsime lõpuks laineteta ranna, kus sai päriselt ujuda! Las Galletase sadamas. Ma ei ole päris kindel, kui tervislik jahtidele nii lähedal asuvas vee sulistamine on, aga ega eriti ei hooli ka. Natukeseks oli tunne, et ma ei tulegi sealt enam välja ja maetagu mind koos selle merega.
+
+Mõnevõrra imeks pandav on siinne riietumiskultuur. Kuuldavasti on mõndades randades ka riietumiseks ette nähtud kabiinikesed, aga neis, kuhu me seni sattunud oleme, on isegi tualettruumid kinni olnud, muudest putkadest rääkimata. Orienteerujana olen ma muidugi harjunud suvakas kohas riideid vahetama, aga arvasin, et see on mingi Eesti järve- ja metsakultuuri osa ning siinsed inimesed (loe: turistid) on pepsimad. Näib, et mitte.
+
+## Pühapäev: uus lebo-katse ja rattasõit
+
+Kuna eile kuumenesime veits üle, otsustasime täna kodus konutada ja tõsiselt passiivpuhkusele rõhuda.
+
+Mõnda aega see isegi töötas, kuni ma läksin keldrisse jalgrattaid uurima. Kui uurima juba läksin, eks ma siis pumpasin kummid ka täis. Kummid täis, võis ju garaaži juures ju väikse testsõidu ka teha. Kurja, kui hea ratas! Ega mu kodune Radon ka paha ei ole, aga see siin muutub sõites nagu su enda kehaosaks. Kraamisin rattariided välja, Erki andis mulle kaks veepudelit ka kaasa ja minek!
+
+![](../img/elu_k6rvaln2hud_k6rbes.jpg)
+_Kõrbes leidus lisaks kaktustele igasugust inimtekkelist kola_
+
+Esimesed paar minutit sõitsin asfalti mööda, siis suundusin kohalikku kõrbesse. Eks ma pabistasin ka - suured kivid, võõras maastik, lõõskav päike. Tegelikult õnnestus mul väiksemate radade vahelt paar täitsa laia "kruusateed" ka leida ning, kui maastikust rääkida, siis ei pea ju künka otsa sõitma, kui ei taha. Päikese osas ei olnud paraku midagi teha, nii et vähem kui tunni pärast olin kõpsti kodus tagasi, plaaniga homme kas varasemal või hilisemal kellaajal käiku korrata. Sest see oli lihtsalt nii lõbus!
+
+![](../img/meri_ja_kyngas_paistavad.jpg)
+_Kodutee_
+
+Edasi rõhun nüüd jälle lebotamisele.
