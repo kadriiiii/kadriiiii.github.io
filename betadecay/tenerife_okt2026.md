@@ -84,7 +84,7 @@ _Samas kohas_
 
 ## Reede: retk kohalikule künkale
 
-Reede möödus laias laastus nagu iga teine tavaline tööpäev. Kohalikku elu kuulsin ja nägin nii paljukest, et vahepeal panin akna kinni, et naabrite müristamine ei segaks. Erilist tähelepanu ma nende tegevusele ei pööranud, aga õhtul selgus, et ülejärgmnise naabri aiast oli suur puu kadunud ning meil vaade kohe teine. Ülemisel terrassil mõtlikult kaugusse vaadates võib kõrvaltvaatajaile nüüd mulje jääda, et vahin naabermaja basseini äärset tegevust. Õnneks ma ei mõtle ega vaata kaugusse liialt tihti.
+Reede möödus laias laastus nagu iga teine tavaline tööpäev. Kohalikku elu kuulsin ja nägin nii paljukest, et vahepeal panin akna kinni, et naabrite müristamine ei segaks. Erilist tähelepanu ma nende tegevusele ei pööranud, aga õhtul selgus, et ülejärgmnise naabri aiast oli suur puu kadunud ning meil vaade kohe teine. Ülemisel terrassil mõtlikult kaugusse vaadates võib kõrvaltvaatajaile nüüd mulje jääda, et vahin naabermaja basseini äärset tegevust. Õnneks ma ei mõtle (haa-haa) ega vaata kaugusse (see osa on tõsi) liialt tihti.
 
 Samal ajal kui mina üle tee asuva kõrbega tutvumise peale mõtlesin (mitte kaugusse vaadates), oli Erki genereerinud kohaliku künka otsa ronimise plaani. Hakkan taipama, miks ma tavaliselt ise kõik ära planeerin, et talle üldse mitte võimalustki anda - erinevalt künkast oleks kõrb üsna ühetasane olnud. Et tänapäeva infoküllusest viimast võtta, uurisin enne minekut rajaplaani AllTrailsist (internet soovitas), Mapyst (vennad soovitasid) ja muidugi Google kaardilt (lihtsalt vana harjumus). Nii kui avastasin, et AllTrails ja Mapy täiesti erinevaid valikuid pakuvad, hakkasin hoopis guugeldama, kust nad oma andmeid saavad ning millest selline ebakõla. Lõpuks olin sunnitud siiski õue minema.
 
@@ -138,7 +138,7 @@ _Ikka siin_
 ![](../img/kylaline.jpg){: .small}
 _Külaline_
 
-Aga kõige tähtsam - me leidsime lõpuks laineteta ranna, kus sai päriselt ujuda! Las Galletase sadamas. Ma ei ole päris kindel, kui tervislik jahtidele nii lähedal asuvas vee sulistamine on, aga ega eriti ei hooli ka. Natukeseks oli tunne, et ma ei tulegi sealt enam välja ja maetagu mind koos selle merega.
+Aga kõige tähtsam - me leidsime lõpuks laineteta ranna, kus sai päriselt ujuda! Las Galletase sadamas. Ma ei ole päris kindel, kui tervislik jahtidele nii lähedal asuvas vees sulistamine on, aga ega eriti ei hooli ka. Natukeseks oli tunne, et ma ei tulegi sealt enam välja ja maetagu mind koos selle merega.
 
 Mõnevõrra imeks pandav on siinne riietumiskultuur. Kuuldavasti on mõndades randades ka riietumiseks ette nähtud kabiinikesed, aga neis, kuhu me seni sattunud oleme, on isegi tualettruumid kinni olnud, muudest putkadest rääkimata. Orienteerujana olen ma muidugi harjunud suvakas kohas riideid vahetama, aga arvasin, et see on mingi Eesti järve- ja metsakultuuri osa ning siinsed inimesed (loe: turistid) on pepsimad. Näib, et mitte.
 
@@ -146,7 +146,7 @@ Mõnevõrra imeks pandav on siinne riietumiskultuur. Kuuldavasti on mõndades ra
 
 Kuna eile kuumenesime veits üle, otsustasime täna kodus konutada ja tõsiselt passiivpuhkusele rõhuda.
 
-Mõnda aega see isegi töötas, kuni ma läksin keldrisse jalgrattaid uurima. Kui uurima juba läksin, eks ma siis pumpasin kummid ka täis. Kummid täis, võis ju garaaži juures ju väikse testsõidu ka teha. Kurja, kui hea ratas! Ega mu kodune Radon ka paha ei ole, aga see siin muutub sõites nagu su enda kehaosaks. Kraamisin rattariided välja, Erki andis mulle kaks veepudelit ka kaasa ja minek!
+Mõnda aega see isegi töötas, kuni ma läksin keldrisse jalgrattaid uurima. Kui uurima juba läksin, eks ma siis pumpasin kummid ka täis. Kummid täis, võis ju garaaži juures väikse testsõidu ka teha. Kurja, kui hea ratas! Ega mu kodune Radon ka paha ei ole, aga see siin muutub sõites nagu su enda kehaosaks. Kraamisin rattariided välja, Erki andis mulle kaks veepudelit ka kaasa ja minek!
 
 ![](../img/elu_k6rvaln2hud_k6rbes.jpg)
 _Kõrbes leidus lisaks kaktustele igasugust inimtekkelist kola_
