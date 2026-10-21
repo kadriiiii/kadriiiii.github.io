@@ -75,6 +75,27 @@
     }
     h2, h3 { scroll-margin-top: 110px; }
 
+    /* Lightbox: click an image to view it large; click anywhere or press Esc to close. */
+    #main_content img { cursor: zoom-in; }
+    #lightbox {
+      max-width: none;
+      max-height: none;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-out;
+    }
+    #lightbox::backdrop { background: rgba(0, 0, 0, 0.85); }
+    #lightbox[open] { display: flex; align-items: center; justify-content: center; }
+    #lightbox img {
+      max-width: 95vw;
+      max-height: 95vh;
+      border-radius: 6px;
+    }
+
     /* Keep the page title visible while scrolling; reuse the theme's body texture so text doesn't show through. */
     #container .inner > header {
       position: sticky;
@@ -109,5 +130,19 @@
       </section>
     </div>
   </div>
+  <dialog id="lightbox"><img alt=""></dialog>
+  <script>
+    (function () {
+      var box = document.getElementById('lightbox');
+      var big = box.querySelector('img');
+      document.getElementById('main_content').addEventListener('click', function (e) {
+        if (e.target.tagName !== 'IMG') return;
+        big.src = e.target.src;
+        big.alt = e.target.alt;
+        box.showModal();
+      });
+      box.addEventListener('click', function () { box.close(); });
+    })();
+  </script>
 </body>
 </html>
