@@ -195,7 +195,7 @@ _Datliõgard omas elemendis_
 #### Poes käik on endiselt seiklus
 Kes oleks võinud arvata, et Coca-Cola pudelitest torni otsas olev punane Coca-Cola kirjaga silt on tegelikult lihaleti järjekorranumbrite väljastamise aparaat.
 
-![](../img/j2rjekorranumbrid.jpg){: .narrow}
+![](../img/j2rjekorranumbrid.jpg){: .small}
 _Coca-Cola kui lihaleti sponsor_
 
 #### Inimene harjub kõigega, eriti heade asjadega
