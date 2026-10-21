@@ -194,7 +194,7 @@ Kes oleks võinud arvata, et Coca-Cola pudelitest torni otsas olev punane Coca-C
 ![](../img/j2rjekorranumbrid.jpg){: .small}
 _Coca-Cola kui lihaleti sponsor_
 
-### Inimene harjub kõigega, eriti heade asjadega
+#### Inimene harjub kõigega, eriti heade asjadega
 Isegi palavusega. Võib lausa nii ära harjuda, et kui ühel hommikul õues ainult 24 kraadi sooja oli, siis jõin kohvi terrassi asemel toas.
 
 ## Kolmapäev: lõpuks puhkus
