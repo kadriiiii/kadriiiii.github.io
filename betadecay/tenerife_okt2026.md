@@ -175,20 +175,24 @@ Igal juhul oli minul juba lõunapaus planeeritud ja rattariidedki seljas, kui se
 
 ## Teisipäev: märkmeid elust
 
-### Naabrilastel on uskumatus koguses palle
+#### Naabrilastel on uskumatus koguses palle
 Nii suured kui ka väiksed mängivad aias jalkat, mis tähendab, et aegajalt lendab mõni pall ka meie aeda. Eks me viskame tagasi. Aga enne meie saabumist oli siinne pererahvas mõnda aega ära olnud, nii et keegi polnud palle üle aia tagasi loopinud. Niisiis leidsime me eest üle kümne palli ja tõdesime, et olukord oli ilmselt juba päris hull, sest jalgpallina olid kasutusele võetud nii kummist, kangast kui ka švammist pallid.
 
-### Linnud on teised, aga samas ka justkui samad
-- Võtame näiteks tuvid. Näed mõnda, siis saad ilmselgelt aru, et tegu on tuviga. Kuju on tuvi oma, hääl samuti, aga värv on kuidagi kahvatu ja kõhnakesed on nad ka. Seni oleme näinud üht "tavasuuruses" tuvi. Too kõhutas mere ääres kivinuki peal ja vaatas ookeani. Meretuvi?
-- Musträstas, ei teagi, kas üks või mitu. Hüpleb aegajalt maja läheduses ringi - mõtlen, et kas ta võib mõni meie kodune olla, kes siia talvituma lennanud on.
-- Sama lugu pääsukestega (vabandust, kui nad tegelikult piiritajad on) - kas nad on statsionaarsed või peaks neile "tere" ütlema, sest on samad, kes kodus naabrite räästas pesitsevad?
-- Või kõnnime poest koju ja kuuleme, et palmide otsast kostab tuttav "silk-solk", nagu kevadisel Eestimaal. Tore linnu-äpp Merlin ütles, et tegu oligi lehelinnuga, kes meilgi sama häält teeb. Ainult, et kanaari lehelinnuga, kes on välimuselt absoluutselt teistsugune kui meie väike lehelind (mitte, et neid kumbagi oleks võimalik kuidagi lehestikust eristada ja ma neid kunagi näinud oleks).
-- Aga rohelisi kaeluspapagoisid ma kutsun kohalikeks hakkideks, sest nad räuskavad igal pool ning nende tõttu on datlipalmide alused liga-löga täis. Nad nimelt käivad nonde otsas söömas, mille käigus nii kive kui ka poolikuid datleid muudkui pudeneb.
+#### Linnud on teised, aga samas ka justkui samad
+Võtame näiteks tuvid. Näed mõnda, siis saad ilmselgelt aru, et tegu on tuviga. Kuju on tuvi oma, hääl samuti, aga värv on kuidagi kahvatu ja kõhnakesed on nad ka. Seni oleme näinud üht "tavasuuruses" tuvi. Too kõhutas mere ääres kivinuki peal ja vaatas ookeani. Meretuvi?
+
+Musträstas, ei teagi, kas üks või mitu. Hüpleb aegajalt maja läheduses ringi - mõtlen, et kas ta võib mõni meie kodune olla, kes siia talvituma lennanud on.
+
+Sama lugu pääsukestega (vabandust, kui nad tegelikult piiritajad on) - kas nad on statsionaarsed või peaks neile "tere" ütlema, sest on samad, kes kodus naabrite räästas pesitsevad?
+
+Või kõnnime poest koju ja kuuleme, et palmide otsast kostab tuttav "silk-solk", nagu kevadisel Eestimaal. Tore linnu-äpp Merlin ütles, et tegu oligi lehelinnuga, kes meilgi sama häält teeb. Ainult, et kanaari lehelinnuga, kes on välimuselt absoluutselt teistsugune kui meie väike lehelind (mitte, et neid kumbagi oleks võimalik kuidagi lehestikust eristada ja ma neid kunagi näinud oleks).
+
+Aga rohelisi kaeluspapagoisid ma kutsun kohalikeks hakkideks, sest nad räuskavad igal pool ning nende tõttu on datlipalmide alused liga-löga täis. Nad nimelt käivad nonde otsas söömas, mille käigus nii kive kui ka poolikuid datleid muudkui pudeneb.
 
 ![](../img/datli6gard.jpg)
 _Datliõgard omas elemendis_
 
-### Poes käik on endiselt seiklus
+#### Poes käik on endiselt seiklus
 Kes oleks võinud arvata, et Coca-Cola pudelitest torni otsas olev punane Coca-Cola kirjaga silt on tegelikult lihaleti järjekorranumbrite väljastamise aparaat.
 
 ![](../img/j2rjekorranumbrid.jpg){: .small}
