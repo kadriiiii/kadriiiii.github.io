@@ -233,16 +233,16 @@ _Üks väheke tervem niisutussüsteemi jupp_
 
 ## Neljapäev: Teide ei võtnud külalisi vastu
 
-Hommik algas imekenasti - väravast välja astudes nägin esimse asjana pilvevaba Teidet ning nii me tema poole vurama hakkasime. Väike ohumärk vast oli, et Teide tipp oli kuidagi valge.
+Hommik algas imekenasti - väravast välja astudes nägin esimese asjana pilvevaba Teidet ning nii me tema poole vurama hakkasime. Väike ohumärk vast oli, et Teide tipp oli kuidagi valge.
 
 Poole tee peal, kui mul pea kummaliselt kumises, tegime väikse hingamis- ja pildistamispeatuse. Seal juhtusin ka telefoni vaatama ning selgus, et igasugused küsimused selles osas, kas me jaksame tippu ka matkata või mitte, lahenesid iseenesest - halva ilma tõttu on köisraudtee (loe: trossi otsas kõlkuv kabiin) suletud.
 
-Eks see oht oli alati teada olnud, aga eks natuke kurb on ikka. Uue aja saamise nimel oma saarel olemise aega vast pikendama ka ei hakka. Järelikult tuleb tagasi tulla!
+Eks see oht oli alati teada olnud, aga natuke kurb on ikka. Uue aja saamise nimel oma saarel olemise aega vast pikendama ka ei hakka. Järelikult tuleb tagasi tulla!
 
 ![](../img/teide_pilves.jpg)
 _Teide on see parempoolne, kes end pilves peidab_
 
-Otsustasime siis mägiteedest ja looduse vaatlemisest viimast võtta. Kuna peatumiskohad olid paksult autosid täis, tegin mõned pildid sõidu pealt aknast. Kahes kohas õnnestus meil siiski ka nina korraks välja pista. Hispaania kõrgeimal asuvaks külaks nimetatud Vilaflori ümbruses on väga ilusad männimetsad. Täna uuesti sealtkandist läbi sõites guugeldasin, et mis see tähendab, et looduskaitse ala nimi on Corona Forestal. Selgus, et laias laastus tähendab see "metsast krooni", sest männimetsa ala ulatub vahelduva eduga mõnesaja meetri kõrguselt vaat' et 2700 meetri peale välja ning ümbritseb Teide "pealage" nagu kroon. 
+Otsustasime hoopis mägiteedest ja looduse vaatlemisest viimast võtta. Kuna peatumiskohad olid paksult autosid täis, tegin mõned pildid sõidu pealt aknast. Kahes kohas õnnestus meil siiski ka nina korraks välja pista. Hispaania kõrgeimal asuvaks külaks nimetatud Vilaflori ümbruses on väga ilusad männimetsad. Täna uuesti sealtkandist läbi sõites guugeldasin, et mis see tähendab, et looduskaitseala nimi on Corona Forestal. Selgus, et laias laastus tähendab see "metsast krooni", sest männimetsa ala ulatub vahelduva eduga mõnesaja meetri kõrguselt vaat' et 2700 meetri peale välja ning ümbritseb Teide "pealage" nagu kroon. 
 
 ![](../img/pealpool_pilvi.jpg)
 _Vilaflori lähistel pealpool pilvi_
@@ -261,7 +261,7 @@ Nojah... kodus pakkisime siis pikad püksid, matkakepid ja vihmajoped ilusti koh
 ![](../img/teide_loojangus.jpg)
 _Teide meid külla ei oodanud, aga õhtul peesitas loojangus küll nagu õige mees kunagi_
 
-Vahemärkus - kõik Tenerife elanikud ja külalised võivad nüüd kindlad olla, et vulkaanidest lähtuva ohu hoiatussüsteem töötab nagu nalja. Täna nimelt oli teavitussõnumite saatmise test (mõnel pool ka evakuatsiooniõppus) ning nii hommikul kui ka päeval hakkasid meie telefonid korralikult üürgama. Päeval saime kinnitust, et sama juhtus paljude teistega, sest alarm saadeti ajal, mil me poes olime. Juhtumisi oli poes ka teisi inimesi ning teatavasti on enamikel telefon kogu aeg kaasas. Nii läks üle terve poe selline lärm lahti, et ma arvsin esialgu, et mõni maja enda turvasüsteem läks häiresse, enne kui taipasin, et üks neist lärmajatest on mu enda taskus.
+Vahemärkus - kõik Tenerife elanikud ja külalised võivad nüüd kindlad olla, et vulkaanidest lähtuva ohu hoiatussüsteem töötab nagu nalja. Neljapäeval nimelt oli teavitussõnumite saatmise test (mõnel pool ka evakuatsiooniõppus) ning nii hommikul kui ka päeval hakkasid meie telefonid korralikult üürgama. Päeval saime kinnitust, et sama juhtus paljude teistega, sest alarm saadeti ajal, mil me poes olime. Juhtumisi oli poes ka teisi inimesi ning teatavasti on enamikel telefon kogu aeg kaasas. Nii läks üle terve poe selline lärm lahti, et ma arvasin esialgu, et mõni maja enda turvasüsteem läks häiresse, enne kui taipasin, et üks neist lärmajatest on mu enda taskus.
 
 ![](../img/volcanic_emergency_drill.jpg){: .small}
 _Samal päeval, kui me vulkaanile ei saanud, toimus ka ülesaareline õppus_
@@ -270,7 +270,7 @@ _Samal päeval, kui me vulkaanile ei saanud, toimus ka ülesaareline õppus_
 
 Reede hommikuks panime äratuskella, et enne palavat keskpäeva Las Galletase turule jõuda. Me ei osanud täpselt oodata ka, mis see va turg endast kujutab. Meie mõistes oli tegu pisikese laadakesega, kus käsitöölised oma kaupa pakkusid. Minu eesmärk mingit liiki kohalikku näputööd koju viia sai kolme paari kõrvarõngaste näol täidetud.
 
-Järgmine päevakorrapunkt oli Finca Canarias aloe vera kasvanduse külastus. Kui me kella kaheks sinna ilmusime, olid nad muidugi unustanud, et meil üldse ekskursioon tellitud oli, aga nad võtsid ennast võrdlemisi kiiresti kokku ja tegid asja ära. Saime teada, et aaloed on umbes kolmsada liiki ning päris paljud neist liikidest on mürgised. (Suvakat aaloed enam naljalt käppima minna ei taha...) Nemad kasvatavad oma toodete tegemiseks kollaseõielist sorti, mille nime ma päris kindlasti ei mäleta. Lehti saab korjama hakata 3-5 aastastelt taimedelt ning kuni umbes 40 aastani välja. Oli täitsa huvitav ja lõpuks jätsin neile muidugi ka märkimisväärse osa oma palgast, sest kui juba kohaliku aaloe kasvandusse minna, tuleb kõigile kodustele sealt 98-protsendilist geeli ka kaasa tuua. 
+Järgmine päevakorrapunkt oli Finca Canarias Aloe Vera kasvanduse külastus. Kui me kella kaheks sinna ilmusime, olid nad muidugi unustanud, et meil üldse ekskursioon tellitud oli, aga nad võtsid ennast võrdlemisi kiiresti kokku ja tegid asja ära. Saime teada, et aaloed on umbes kolmsada liiki ning päris paljud neist liikidest on mürgised. (Suvakat aaloed enam naljalt käppima minna ei taha...) Nemad kasvatavad oma toodete tegemiseks kollaseõielist sorti, mille nime ma päris kindlasti ei mäleta. Lehti saab korjama hakata 3-5 aastastelt taimedelt ning kuni umbes 40 aastani välja. Oli täitsa huvitav ja lõpuks jätsin neile märkimisväärse osa oma palgast, sest kui juba kohaliku aaloe kasvandusse minna, tuleb kõigile kodustele sealt 98-protsendilist geeli ka kaasa tuua. 
 
 ![](../img/aloe_kasvatus.jpg)
 _Arona aaloed_
@@ -317,7 +317,7 @@ Kuna veesilm oli sellega nähtud, pöörasime otsa ringi ja läksime metsa otsim
 ![](../img/tsiviliseeritud_rada.jpg)
 _Lebo-rada järvekeste juurde ja tagasi_
 
-Metsani juhatas meid ka kõikvõimalike äppide ja kaartide asemel hoopis AI, mis ütles, et kui ma tahan loorberimetsas puid käega katsuda, aga ei taha Kirde-Tenerifele minna, siis hakaku ma aga Erjosest Monte del Agua suunas astuma ning küll see mets varsti vastu tuleb.
+Metsani juhatas meid kõikvõimalike äppide ja kaartide asemel niisiis AI, mis ütles, et kui ma tahan loorberimetsas puid käega katsuda, aga ei taha Kirde-Tenerifele minna, siis hakaku ma aga Erjosest Monte del Agua suunas astuma ning küll see mets varsti vastu tuleb.
 
 Pärast pisikest tõusu leidsime end parklast, mida ükski äpp meile soovitanud ei olnud ning kust läks asfalteeritud jalgrada läbi loorberimetsa Las Portelasesse. Võibolla on hea, et me ei osanud kohe sinna sõita - oleksid nii küla ise kui ka need eelmised rajakesed nägemata jäänud. Kuigi minu maitsele oli leitud jalgrada isegi natuke liiga inimtekkeline, siis loorberiteni ta kahtlemata viis ning lisaks olid tee äärde vaatamiseks välja pandud ka kaks aukartustäratava välimusega mändi.
 
