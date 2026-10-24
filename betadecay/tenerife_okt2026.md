@@ -275,6 +275,8 @@ Järgmine päevakorrapunkt oli Finca Canarias aloe vera kasvanduse külastus. Ku
 ![](../img/aloe_kasvatus.jpg)
 _Arona aaloed_
 
+Täna õppisime lisaks, et agaav, mida siin ka võrdlemisi tihedalt kasvab ja mis näeb välja nagu üleelusuuruses aaloe, ei ole temaga üldse mitte suguluses.
+
 ## Laupäev: väljasõit rohelusse
 
 Mõned päevad tagasi tekkis mul loorberimetsas käimise kinnisidee. Vanimad ja kauneimad pidavat saare kirdeosas asuma. Kuna me otsutasime, et too nurk jääb seekord külastamata, hakkasin uurima, kus sarnast kraami veel kasvab. Loode-Tenerifel asuv Teno rahvuspark aitas hädast välja. Pärast mõningast arutelu võtsime suuna Erjose küla poole.
