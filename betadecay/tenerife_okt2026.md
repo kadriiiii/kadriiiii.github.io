@@ -40,7 +40,7 @@ Uues kohas on isegi poes käik nagu väike seiklus. Esimesest väiksest poest os
 Apteegist sain oma nohu jaoks pseudoefedriini (loe: kohalik Sudafed). Mis mind imestama paneb, on et nii siin kui ka Costa Ricas sain ma sellised tabletid, mida võetakse üks kord päevas, samas kui Eestis olen ainult selliseid kohanud, mida kolm-neli korda võtta tuleb. Igal juhul, ma teen nägu, et need tabletid on aidanud mul nohu kontrolli alla saada. 
 
 ![](../img/raamatukogu.jpg)
-_Kohalik pargiraamatukogu - mitmes keeles_
+_Pargiraamatukogu - mitmes keeles_
 
 Järgmine kaubanduskogemus oli kohalik Asia Market ehk "hiina pood". Assooridel olime sarnast kohta külastanud, aga siinne näis suurem. Lühidalt öelduna müüakse seal kõike, mida iganes sul vaja minna võib, ning lisaks kõike, mida sa isegi enne ei teadnud, et sul vaja minna võib. Paar vahekäiku olid nagu käsitöölise unistus - värvilised paberid, vildikad, kleepsud, kotid, karbid, sädelev see ja too, igasugused jupstükid. Kui oskaks ette mõelda, siis saaks siit kõik jõulukinkide pakkimiseks tarviliku koju kaasa vedada ning hind oleks pigem Temu sarnane, mitte nagu Pakendikeskuses. Õnneks mul oli konkreetne plaan ainult väike õmbluskomplekt osta ning kui lisa-niit välja arvata, siis pidasin ka plaanist kinni. Ühtegi värviraamatut ega akutrelli ei lisandunud.
 
@@ -149,7 +149,7 @@ Kuna eile kuumenesime veits üle, otsustasime täna kodus konutada ja tõsiselt 
 Mõnda aega see isegi töötas, kuni ma läksin keldrisse jalgrattaid uurima. Kui uurima juba läksin, eks ma siis pumpasin kummid ka täis. Kummid täis, võis ju garaaži juures väikse testsõidu ka teha. Kurja, kui hea ratas! Ega mu kodune Radon ka paha ei ole, aga see siin muutub sõites nagu su enda kehaosaks. Kraamisin rattariided välja, Erki andis mulle kaks veepudelit ka kaasa ja minek!
 
 ![](../img/elu_k6rvaln2hud_k6rbes.jpg)
-_Kõrbes leidus lisaks kaktustele igasugust inimtekkelist kola_
+_Kõrbes leidub lisaks kaktustele igasugust inimtekkelist kola_
 
 Esimesed paar minutit sõitsin asfalti mööda, siis suundusin kohalikku kõrbesse. Eks ma pabistasin ka - suured kivid, võõras maastik, lõõskav päike. Tegelikult õnnestus mul väiksemate radade vahelt paar täitsa laia "kruusateed" ka leida ning, kui maastikust rääkida, siis ei pea ju künka otsa sõitma, kui ei taha. Päikese osas ei olnud paraku midagi teha, nii et vähem kui tunni pärast olin kõpsti kodus tagasi, plaaniga homme kas varasemal või hilisemal kellaajal käiku korrata. Sest see oli lihtsalt nii lõbus!
 
@@ -228,3 +228,110 @@ Möödunud aegadest annavad märku pikad kiviaedade rivid ning siinseal vedeleva
 
 ![](../img/niisutussysteem.jpg)
 _Üks väheke tervem niisutussüsteemi jupp_
+
+# 24. oktoober 2026, laupäev
+
+## Neljapäev: Teide ei võtnud külalisi vastu
+
+Hommik algas imekenasti - väravast välja astudes nägin esimse asjana pilvevaba Teidet ning nii me tema poole vurama hakkasime. Väike ohumärk vast oli, et Teide tipp oli kuidagi valge.
+
+Poole tee peal, kui mul pea kummaliselt kumises, tegime väikse hingamis- ja pildistamispeatuse. Seal juhtusin ka telefoni vaatama ning selgus, et igasugused küsimused selles osas, kas me jaksame tippu ka matkata või mitte, lahenesid iseenesest - halva ilma tõttu on köisraudtee (loe: trossi otsas kõlkuv kabiin) suletud.
+
+Eks see oht oli alati teada olnud, aga eks natuke kurb on ikka. Uue aja saamise nimel oma saarel olemise aega vast pikendama ka ei hakka. Järelikult tuleb tagasi tulla!
+
+![](../img/teide_pilves.jpg)
+_Teide on see parempoolne, kes end pilves peidab_
+
+Otsustasime siis mägiteedest ja looduse vaatlemisest viimast võtta. Kuna peatumiskohad olid paksult autosid täis, tegin mõned pildid sõidu pealt aknast. Kahes kohas õnnestus meil siiski ka nina korraks välja pista. Hispaania kõrgeimal asuvaks külaks nimetatud Vilaflori ümbruses on väga ilusad männimetsad. Täna uuesti sealtkandist läbi sõites guugeldasin, et mis see tähendab, et looduskaitse ala nimi on Corona Forestal. Selgus, et laias laastus tähendab see "metsast krooni", sest männimetsa ala ulatub vahelduva eduga mõnesaja meetri kõrguselt vaat' et 2700 meetri peale välja ning ümbritseb Teide "pealage" nagu kroon. 
+
+![](../img/pealpool_pilvi.jpg)
+_Vilaflori lähistel pealpool pilvi_
+
+Teises suunas, Los Gigantese poolt Teidele lähenedes, kust me neljapäeval alla sõitsime, on suured laavaväljad. Sarnased neile, mida me poolteist aastat tagasi Lanzarotel nägime. Etteruttavalt mainin, et täna rändasime sealt poolt Teidele ning peatusime värskeima ehk 1909 aastal tekkinud laavavälja servas. Natuke nagu Kalevipoja kartulimaa, vaod veel sisse ajamata.
+
+![](../img/m2nnik.jpg)
+_Ilus männik Kalevipoja kartulimaa naabruses_
+
+Los Gigantese vaatluspunktis me peatuda ei saanud, jällegi autode rohkuse tõttu. Vaatasime siis tee pealt aknast. Väga muljetavaldav... 
+
+Ootan huviga Loode-Tenerife metsamaastiku külastust, arvestades kui erinevad juba Vilaflori männimetsad meie rannaäärsest loodusest olid.
+
+Nojah... kodus pakkisime siis pikad püksid, matkakepid ja vihmajoped ilusti kohvrisse tagasi. On väga vähe tõenäoline, et neid selle reisi jooksul enne Riia lennujaama tarvis läheb.
+
+![](../img/teide_loojangus.jpg)
+_Teide meid külla ei oodanud, aga õhtul peesitas loojangus küll nagu õige mees kunagi_
+
+Vahemärkus - kõik Tenerife elanikud ja külalised võivad nüüd kindlad olla, et vulkaanidest lähtuva ohu hoiatussüsteem töötab nagu nalja. Täna nimelt oli teavitussõnumite saatmise test (mõnel pool ka evakuatsiooniõppus) ning nii hommikul kui ka päeval hakkasid meie telefonid korralikult üürgama. Päeval saime kinnitust, et sama juhtus paljude teistega, sest alarm saadeti ajal, mil me poes olime. Juhtumisi oli poes ka teisi inimesi ning teatavasti on enamikel telefon kogu aeg kaasas. Nii läks üle terve poe selline lärm lahti, et ma arvsin esialgu, et mõni maja enda turvasüsteem läks häiresse, enne kui taipasin, et üks neist lärmajatest on mu enda taskus.
+
+![](../img/volcanic_emergency_drill.jpg){: .small}
+_Samal päeval, kui me vulkaanile ei saanud, toimus ka ülesaareline õppus_
+
+## Reede: toetan siinseid väikeettevõtjaid
+
+Reede hommikuks panime äratuskella, et enne palavat keskpäeva Las Galletase turule jõuda. Me ei osanud täpselt oodata ka, mis see va turg endast kujutab. Meie mõistes oli tegu pisikese laadakesega, kus käsitöölised oma kaupa pakkusid. Minu eesmärk mingit liiki kohalikku näputööd koju viia sai kolme paari kõrvarõngaste näol täidetud.
+
+Järgmine päevakorrapunkt oli Finca Canarias aloe vera kasvanduse külastus. Kui me kella kaheks sinna ilmusime, olid nad muidugi unustanud, et meil üldse ekskursioon tellitud oli, aga nad võtsid ennast võrdlemisi kiiresti kokku ja tegid asja ära. Saime teada, et aaloed on umbes kolmsada liiki ning päris paljud neist liikidest on mürgised. (Suvakat aaloed enam naljalt käppima minna ei taha...) Nemad kasvatavad oma toodete tegemiseks kollaseõielist sorti, mille nime ma päris kindlasti ei mäleta. Lehti saab korjama hakata 3-5 aastastelt taimedelt ning kuni umbes 40 aastani välja. Oli täitsa huvitav ja lõpuks jätsin neile muidugi ka märkimisväärse osa oma palgast, sest kui juba kohaliku aaloe kasvandusse minna, tuleb kõigile kodustele sealt 98-protsendilist geeli ka kaasa tuua. 
+
+![](../img/aloe_kasvatus.jpg)
+_Arona aaloed_
+
+## Laupäev: väljasõit rohelusse
+
+Mõned päevad tagasi tekkis mul loorberimetsas käimise kinnisidee. Vanimad ja kauneimad pidavat saare kirdeosas asuma. Kuna me otsutasime, et too nurk jääb seekord külastamata, hakkasin uurima, kus sarnast kraami veel kasvab. Loode-Tenerifel asuv Teno rahvuspark aitas hädast välja. Pärast mõningast arutelu võtsime suuna Erjose küla poole.
+
+![](../img/erjos.jpg)
+_Erjose küla pilve mässituna_
+
+Küla osutus vaikseks pilve sees tukkuvaks kohakeseks. Nägime kohalike inimeste elamisi, aialappe, kaktuse viljade korjamist ning isegi üht kana. Müstiline, kuidas ühele saarele nii erinevad paigad mahuvad; eriti arvestades, et me ei ole päris põhjarannikule veel jõudnudki. Costa del Silencios vaevu kasvab midagi ning huvilised võivad hommikust õhtuni päikest võtta, samas kui Erjoses tervitas meid udu (loe: pilv, mis siin-seal üle tee ujus), lopsakas taimestik ning mõnus alla kahekümnekraadine temperatuur.
+
+![](../img/aia_pidamine.jpg)
+_Üks kohalikest aedadest_
+
+Matkaradadega näib siinmail nii olevat, et on igasuguseid äppe, neist kõige enam soovitatud TenerifeON. Lisaks on meil Erkiga kahepeale kolm-neli kaardirakendust, nii _online_ kui ka _offline_. Ja lõpuks kukkus ikkagi nii välja, et leidsime Erjose küla servast metsa poole mineva raja kohalike siltide ja Gemini koostöös.
+
+![](../img/risttee.jpg)
+_Rajad on äppide erimeelsustele vaatamata vähemalt maastikul hästi tähistatud_
+
+Alustasime Erjose keskelt. Matkaradu näis jaguvat. Samas ei olnud nad kõik tingimata samade nimede ja pikkustega, mida äpis lubati. 
+
+Esimeseks valisime Cuevas Negras. Olgu ka öeldud, et enne kui ma loorberimetsa jutuga lagedale tulin, plaanisime me kohalikke järvi vaatama minna. Sest järved. Tenerifel.
+Rada oli selles mõttes tore, et viis meid kahtlemata rohelusse - möödusime mõningatest aedadest ning kivine rada jätkus meie mõistes võsa vahel. Ümberringi märg pilv. Kuna meil päris kindlat plaani selle rajaga polnud ning järvedeni see ilmselgelt ei viinud, siis otsustasime kuskilt maalt, et on seda libedat kivi pidi kuhugi orgu juba astutud kah, pöörame otsa ringi ja proovime midagi muud.
+
+![](../img/udu.jpg)
+_Tee mustade koobaste juurde, nähtavuse asemel piimasupivaade_
+
+Järgmine valik oli küla servast majade vahelt Las Portelase poole lõiku panna. Peagi leidsime end ristteelt. Väike erinevate äppidega sahmerdamine tegi selgeks, kus pool järvekesed asuvad ning jalutuskäik jätkus. Pikemas plaanis läks rada Punta del Teno poole ning tegu oli päris korraliku teega - sellisega, kus mahub kõrvuti käima ning saab vahepeal lisaks jalge ette vaatamisele ka ringi vahtida. Samuti oli teekond valdavalt varjus - kas siis pilve või võsa või mõlema tõttu. Päris mõnus vaheldus lauspäikeses rannikule. Vastu tuli nii käimiskeppidega matkajaid kui ka koertega jalutajaid. Kogu kogemus oli võibolla isegi liiga tsiviliseeritud. Põhiliselt tekitasid elevust tee ääres krabistavad sisalikud ning üllatavalt suured ja lõhnavad tillipuhmad. Samas - on seda elevust siis kogu aeg vaja, puhkus ikkagi, võta rahulikult.
+
+![](../img/tillipuhmad.jpg)
+_Kohati ääristasid teed lõhnavad tillipuhmad_
+
+Aga järved. Ühe aerofoto peal, mida kodus vaatasime, oli pruun loik. Teine allikas ütles, et järvedes ei ole aastaid vett olnud. Kuskil tee peal me igal juhul astusime ametlikust rajast kõrvale ja leidsime põõsaste tagant tiigi. Isegi veelinnud olid sees. Vesi muidugi ka. Uskumatu lugu! 
+
+![](../img/loik_linnuga.jpg)
+_Tähelepanelik vaatleja märkab, et linnu ümber on tõepoolest tiik_
+
+Kuna veesilm oli sellega nähtud, pöörasime otsa ringi ja läksime metsa otsima. Hiljem kaarti uurides selgus, et see loik oli ametlikult alles soo ning päris järved olid jupp maad kaugemal. Ja tõsi - mööda mäekülge sõites silmasin orus tõesti vähe suuremat veekogu kah.
+
+![](../img/tsiviliseeritud_rada.jpg)
+_Lebo-rada järvekeste juurde ja tagasi_
+
+Metsani juhatas meid ka kõikvõimalike äppide ja kaartide asemel hoopis AI, mis ütles, et kui ma tahan loorberimetsas puid käega katsuda, aga ei taha Kirde-Tenerifele minna, siis hakaku ma aga Erjosest Monte del Agua suunas astuma ning küll see mets varsti vastu tuleb.
+
+Pärast pisikest tõusu leidsime end parklast, mida ükski äpp meile soovitanud ei olnud ning kust läks asfalteeritud jalgrada läbi loorberimetsa Las Portelasesse. Võibolla on hea, et me ei osanud kohe sinna sõita - oleksid nii küla ise kui ka need eelmised rajakesed nägemata jäänud. Kuigi minu maitsele oli leitud jalgrada isegi natuke liiga inimtekkeline, siis loorberiteni ta kahtlemata viis ning lisaks olid tee äärde vaatamiseks välja pandud ka kaks aukartustäratava välimusega mändi.
+
+![](../img/tee_l2bi_loorberimetsa.jpg)
+_Loorberimets Erjose lähedal_
+
+Loorberite osas - oma mäletamist mööda ma ei olegi neid varem näinud. Muidugi oli varasemate radade ääres ka põõsa mõõtu looberipuid, kuid mets on ikkagi midagi muud. Isegi kui tegu on võrdlemisi väikse metsatukaga. Võin vaid ette kujutada, kui muinasjutulised võivad Kirde-Tenerife loorberilaaned olla.
+
+![](../img/noor_maa.jpg)
+_Üks värskemaid osi Tenerifest_
+
+Pärast metsakülastust sõitsime Teidele külla. Teada oli, et köisraudteega üles me ei saa, aga tahtsime alumisegi jaama ära näha. Erinevalt neljapäevast oli täna mõnes peatuspaigas isegi ruumi, nii et käisime näiteks Tenerife värskemaid osi ehk 1909 vulkaanipurske jälgi vaatamas.
+
+Teide jalamil ootas meid parkimis-tohuvabohu. Kuhugi tee äärde me ennast siiski mahutasime ning suveniiripoes ja kohvikus ära käisime. 
+
+![](../img/teide_alumises_baasjaamas.jpg)
+_Vaade Teide alumisest servast eelajaloolisele kaldeerale_
+
+Vähemalt teame nüüd, kuhu teinekord lootusrikkalt sõita.
