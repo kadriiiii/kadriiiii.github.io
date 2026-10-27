@@ -345,7 +345,7 @@ _Silencios, aga poolenisti välja kolinud_
 
 ## Pühapäev: Teide obs ehk astronoomiatehnika peatükk
 
-Pühapäevl sõitsime nelja päeva jooksul kolmandat korda mäkke. Seekord kuhugi 2390 meetri kanti, Iza&ntilde;a mäe otsa, Teide observatooriumi ekskursioonile. Eelnevalt lugesin, et tegu on justkui maailma suurima päikese-observatooriumiga, aga kohapeal selgus, et tehakse siiski ka palju muud. Ja et ühtlasi on päikeseteleskoopide diameetri osas USA juba Kanaaridest ette läinud, kuigi siin loodetakse neile varsti jälle 20 sentimeetriga ära panna. Seni peavad Teide omad Euroopa suurima päikeseteleskoobi (1,5 meetrise läbimõõduga) kodukoha tiitliga leppima.
+Pühapäeval sõitsime nelja päeva jooksul kolmandat korda mäkke. Seekord kuhugi 2390 meetri kanti, Iza&ntilde;a mäe otsa, Teide observatooriumi ekskursioonile. Eelnevalt lugesin, et tegu on justkui maailma suurima päikese-observatooriumiga, aga kohapeal selgus, et tehakse siiski ka palju muud. Ja et ühtlasi on päikeseteleskoopide diameetri osas USA juba Kanaaridest ette läinud, kuigi siin loodetakse neile varsti jälle 20 sentimeetriga ära panna. Seni peavad Teide omad Euroopa suurima päikeseteleskoobi (1,5 meetrise läbimõõduga) kodukoha tiitliga leppima.
 
 ![](../img/vtt_ja_gregor.jpg)
 _Päikeseteleskoobid_
@@ -356,6 +356,9 @@ Varem olin muidugi kuulnud La Palma suurest teleskoobist, kus ka Eesti teadlased
 _Teide observatoorium Iza&ntilde;a mäel_
 
 Lisaks sellele, et siinne taevas pidavat kolmesajal päeval aastast selge olema, asub Tenerife ekvaatorile meeldivalt lähedal ja valgusreostusest piisavalt kaugel. Ekvaatori lähedusest rääkides - väidetavalt pidi kuskil märtsis siit isegi Lõunarist ära paistma. Valgusreostuse vastu aitab esiteks väga hästi ookean, aga lisaks on saare peal kõik valgustusega seonduv põhjalikult reguleeritud - millise lainepikkusega pirne võib kasutada ja kui vastu maad tänavavalgustus suunatud peab olema. Kui sellest kõigest veel ei piisa, siis lisaks tekib siinkandis tihti kuhugi 1500+ meetri peale paks pilvekiht, mistõttu obs nagunii justkui omas taevases maailmas asub.
+
+![](../img/teide_obs_1.jpg)
+_Nunnu-kuplid_
 
 Kõik need nunnud teleskoobikuplid ning jutt universumist, galaktikatest ja päikesest tuletasid mulle meelde, kuidas ma kunagi astronoomiks saada tahtsin. Aga noh, olnuks, võinuks, saanuks... Ekskursiooni tegi meile astronoomia-magistrant, kes otsib eksoplaneete ehk mõne teise tähe ümber tiirlevaid planeete. Küsiti ka, et kui kaugelt me otsime ning giid lajatas meile prauhti reaalsusega, et Linnuteest ja Andromedast edasi pole mõtet vaadatagi, sest inimkond ei jõuaks iialgi kaugemaid planeete vaatama minna. Kuna enne magistrandiks hakkamist olevat sama tüüp insener olnud ning tema põhifookus on hoopis kosmoseteleskoopide ehitus, siis võibolla võib teda kosmosetehnika osas isegi uskuda.
 
