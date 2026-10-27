@@ -230,6 +230,7 @@ Möödunud aegadest annavad märku pikad kiviaedade rivid ning siinseal vedeleva
 _Üks väheke tervem niisutussüsteemi jupp_
 
 # 24. oktoober 2026, laupäev
+_Silencios_
 
 ## Neljapäev: Teide ei võtnud külalisi vastu
 
@@ -337,3 +338,62 @@ Teide jalamil ootas meid parkimis-tohuvabohu. Kuhugi tee äärde me ennast siisk
 _Vaade Teide alumisest servast eelajaloolisele kaldeerale_
 
 Vähemalt teame nüüd, kuhu teinekord lootusrikkalt sõita.
+
+
+# 27. oktoober 2026, teisipäev
+_Silencios, aga poolenisti välja kolinud_
+
+## Pühapäev: Teide obs ehk astronoomiatehnika peatükk
+
+Pühapäevl sõitsime nelja päeva jooksul kolmandat korda mäkke. Seekord kuhugi 2390 meetri kanti, Iza&ntilde;a mäe otsa, Teide observatooriumi ekskursioonile. Eelnevalt lugesin, et tegu on justkui maailma suurima päikese-observatooriumiga, aga kohapeal selgus, et tehakse siiski ka palju muud. Ja et ühtlasi on päikeseteleskoopide diameetri osas USA juba Kanaaridest ette läinud, kuigi siin loodetakse neile varsti jälle 20 sentimeetriga ära panna. Seni peavad Teide omad Euroopa suurima päikeseteleskoobi (1,5 meetrise läbimõõduga) kodukoha tiitliga leppima.
+
+![](../img/vtt_ja_gregor.jpg)
+_Päikeseteleskoobid_
+
+Varem olin muidugi kuulnud La Palma suurest teleskoobist, kus ka Eesti teadlased mõõtmisi tegemas on käinud. Selgus, et Teide obs on isegi vanem ning La Palma omaga sama katusorganisatsiooni all: Instituto de Astrofísica de Canarias.
+
+![](../img/teide_obs_4.jpg)
+_Teide observatoorium Iza&ntilde;a mäel_
+
+Lisaks sellele, et siinne taevas pidavat kolmesajal päeval aastast selge olema, asub Tenerife ekvaatorile meeldivalt lähedal ja valgusreostusest piisavalt kaugel. Ekvaatori lähedusest rääkides - väidetavalt pidi kuskil märtsis siit isegi Lõunarist ära paistma. Valgusreostuse vastu aitab esiteks väga hästi ookean, aga lisaks on saare peal kõik valgustusega seonduv põhjalikult reguleeritud - millise lainepikkusega pirne võib kasutada ja kui vastu maad tänavavalgustus suunatud peab olema. Kui sellest kõigest veel ei piisa, siis lisaks tekib siinkandis tihti kuhugi 1500+ meetri peale paks pilvekiht, mistõttu obs nagunii justkui omas taevases maailmas asub.
+
+Kõik need nunnud teleskoobikuplid ning jutt universumist, galaktikatest ja päikesest tuletasid mulle meelde, kuidas ma kunagi astronoomiks saada tahtsin. Aga noh, olnuks, võinuks, saanuks... Ekskursiooni tegi meile astronoomia-magistrant, kes otsib eksoplaneete ehk mõne teise tähe ümber tiirlevaid planeete. Küsiti ka, et kui kaugelt me otsime ning giid lajatas meile prauhti reaalsusega, et Linnuteest ja Andromedast edasi pole mõtet vaadatagi, sest inimkond ei jõuaks iialgi kaugemaid planeete vaatama minna. Kuna enne magistrandiks hakkamist olevat sama tüüp insener olnud ning tema põhifookus on hoopis kosmoseteleskoopide ehitus, siis võibolla võib teda kosmosetehnika osas isegi uskuda.
+
+Suurte vabanduste järel tegi giid meile ka väikse PowerPointi presentatsiooni - tõesti lühikese, nii et selles hirmus ei tasu ekskursiooni vahele jätta. Muuhulgas näitas ta pilte päikeseplekkidest ja -loidetest, mis muidu oleksid võibolla mittemidagiütlevad, aga ta pani võrdluseks Maa pildi sinna kõrvale. Taaskord sain kinnitust, et me oleme ikka üks väike täpike ja ei midagi muud.
+
+![](../img/again_terrigyingly_earth_for_scale.jpg){: .small}
+_Päikeseloide ja "terrifyingly Earth for scale"_
+
+Teleskoope võivad siia teatavatel tingimustel väga erinevad riigid ja institutsioonid ehitada. On nii ülikoolide ühisprojekte kui ka ülemaailmse vaatlusvõrgustiku elemente. Enamusel ei ole tänapäeval kontrollruumigi, vaid neid juhitakse puhtalt kaugteel. Muuhulgas näidati meile üht kuplikest, mille all on Sankt-Peterburi ülikooliga koostöös valminud teleskoop, millel Venemaa sõjatgevuse valguses üks päev lihtsalt juhtmed läbi lõigati ja asi vask. 
+
+Selleks, et astronoomihakatised siiski päris eluvõõraks ei kasvaks, on üks hispaanlaste endi teleskoop tudengitele kohapeal mängimiseks. Igal teleskoobil olevat oma logo ning selle oma on tigu, sest selle ehitamine võtnud 11 aastat. Aga valmis ta sai. Ning kuigi tänapäeval antakse see teleskoop peamiselt tudengite kätte, siis 1994. aastal avastati sellega esimene pruun kääbus, mis sai nimeks Teide 1.
+
+![](../img/6ppeteleskoop.jpg)
+_IAC80 ehk nüüdne õppeteleskoop_
+
+Tuuri lõpupoole taheti meile väikestest teleskoobikestest päikeseplekke ja -loiteid näidata. Plekid olid õnnetul kombel ainult päikese ühes servas. Veel õnnetumal kombel ujusid päikese ees pilved. Nii et sattusime sinna ühest neist 65-st päevast kui Teide obsis pilved on. Me Erkiga õnneks oleme sarnaseid vaateid paar aastat tagasi Greenwichis näinud, nii et vähemalt mina mingit erilist pettumust ei tundnud. Kogu ülejäänud obsi-kogemus oli sellest ühest seigast mäe kõrguselt üle (ja mägi oli teatavasti 2390 meetrine).
+
+
+## Esmaspäev: pilveteki all soojas
+
+Eile nägi taevas välja nagu kodus (päris kodus, mitte siinses kodus) - ühtlaselt helehall. Mägesid ega päikest ei olnud justkui olemaski. Ainult, et seejuures oli siin tuulevaikne ja 32 kraadi sooja. Kuna eelneval õhtul olime pilvedes ka kollast triipu märganud, hakkasime meteo-lehti mööda kolama ja saime selgeks, et nüüd on see siis käes - _calima_. See tähendab, et Saharast on kuum tuul kogu oma liivaga siiakanti tulnud. Detailsem kaart näitab, et siit ekvaatori poole ookeani peal on olukord muidugi hullem, aga ka meie kandis on väikesed hoiatused antud: ära tegele õues spordiga, kuivata pesu toas ning, kui oled astmaatik, siis kuula oma arsti. Astmaatik ma õnneks pole ning pesu ei õnnestunud ka eile asjaolude kokkusattumise tõttu pesta, aga väiksel kõrbe-rattasõidul käisin küll enne ära kui lugesin, et äkki ei olnud mõistlik. Nüüd ma saan vähemalt öelda, et sõit ei läinud vaevaliselt mitte sellepärast, et mina väsinud või nõrk oleksin, vaid loomulikult oli põhjuseks õhus lendlev tolm. 
+
+![](../img/ajutise_s6braga_6ues_m2ngimas.jpg)
+_Calima aegu õues mängimas_
+
+## Teisipäev: segadus saarte arvuga
+
+Nagu ma juba kuskil eespool mainisin, siis ega ma enne siia tulekut Tenerife kohta liiga palju ei uurinud. Tuleb tunnistada, et olen ka Kanaaride kohta üldiselt võrdlemisi vähe uurinud. Siit-sealt, et kus milline loodus on (sellest meie paari aasta tagune käik must-valgele Lanzarotele) ja lootus _midagigi_ teada saada nende inimeste kohta, kes siin enne hispaanlasi elasid. 
+
+Seda, et Kanaari saari on seitse, sain ma teada alles siis, kui peatänava äärset kunstiteost guugeldasin. See kandvat nime "Seitsme saare purskkaev" ning tähistavat seitset Kanaari saart.
+
+![](../img/seitse_saart.jpg)
+_Seitsme saare purskkaev_
+
+Ja seda, et Kanaari saari on kaheksa, sain ma teada alles eile, kui me olude sunnil lähedalasuvasse Villa 8 Islas nimelisse majutusasutusse ümber asusime.
+
+![](../img/kaheksa_saart.jpg){: .small}
+_Kaheksa saare villa_
+
+Kaheksa saare villas on meie toa nimi Alegranza, mis vastu kõiki ootusi ei ole üheksas Kanaari saar, vaid hoopis osa Chinijo saarestikust.
+
