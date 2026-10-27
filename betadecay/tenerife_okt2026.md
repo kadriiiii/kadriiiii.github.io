@@ -379,14 +379,14 @@ Tuuri lõpupoole taheti meile väikestest teleskoobikestest päikeseplekke ja -l
 
 ## Esmaspäev: pilveteki all soojas
 
-Eile nägi taevas välja nagu kodus (päris kodus, mitte siinses kodus) - ühtlaselt helehall. Mägesid ega päikest ei olnud justkui olemaski. Ainult, et seejuures oli siin tuulevaikne ja 32 kraadi sooja. Kuna eelneval õhtul olime pilvedes ka kollast triipu märganud, hakkasime meteo-lehti mööda kolama ja saime selgeks, et nüüd on see siis käes - _calima_. See tähendab, et Saharast on kuum tuul kogu oma liivaga siiakanti tulnud. Detailsem kaart näitab, et siit ekvaatori poole ookeani peal on olukord muidugi hullem, aga ka meie kandis on väikesed hoiatused antud: ära tegele õues spordiga, kuivata pesu toas ning, kui oled astmaatik, siis kuula oma arsti. Astmaatik ma õnneks pole ning pesu ei õnnestunud ka eile asjaolude kokkusattumise tõttu pesta, aga väiksel kõrbe-rattasõidul käisin küll enne ära kui lugesin, et äkki ei olnud mõistlik. Nüüd ma saan vähemalt öelda, et sõit ei läinud vaevaliselt mitte sellepärast, et mina väsinud või nõrk oleksin, vaid loomulikult oli põhjuseks õhus lendlev tolm. 
+Eile nägi taevas välja nagu kodus (päris kodus, mitte siinses kodus) - ühtlaselt helehall. Mägesid ega päikest ei olnud justkui olemaski. Ainult, et seejuures oli siin tuulevaikne ja 32 kraadi sooja. Kuna eelneval õhtul olime pilvedes ka kollast triipu märganud, hakkasime meteo-lehti mööda kolama ja saime selgeks, et nüüd on see siis käes - _calima_. See tähendab, et Saharast on kuum tuul kogu oma liivaga siiakanti tulnud. Detailsem kaart näitab, et siit ekvaatori poole ookeani peal on olukord muidugi hullem, aga ka meie kandis on väikesed hoiatused antud: ära tegele õues spordiga, kuivata pesu toas ning, kui oled astmaatik, siis kuula oma arsti. Astmaatik ma õnneks pole ning pesu ei õnnestunud ka eile asjaolude kokkusattumise tõttu pesta, aga väiksel kõrbe-rattasõidul käisin küll enne ära kui lugesin, et äkki ei olnud mõistlik. Nüüd saan vähemalt öelda, et sõit ei läinud vaevaliselt mitte sellepärast, et mina väsinud või nõrk oleksin, vaid loomulikult oli põhjuseks õhus lendlev tolm. 
 
 ![](../img/ajutise_s6braga_6ues_m2ngimas.jpg)
 _Calima aegu õues mängimas_
 
 ## Teisipäev: segadus saarte arvuga
 
-Nagu ma juba kuskil eespool mainisin, siis ega ma enne siia tulekut Tenerife kohta liiga palju ei uurinud. Tuleb tunnistada, et olen ka Kanaaride kohta üldiselt võrdlemisi vähe uurinud. Siit-sealt, et kus milline loodus on (sellest meie paari aasta tagune käik must-valgele Lanzarotele) ja lootus _midagigi_ teada saada nende inimeste kohta, kes siin enne hispaanlasi elasid. 
+Nagu ma juba kuskil eespool mainisin, siis ega ma enne siia tulekut Tenerife kohta liiga palju ei lugenud. Tuleb tunnistada, et olen ka Kanaaride kohta üldiselt võrdlemisi vähe uurinud. Siit-sealt, et kus milline loodus on (sellest meie paari aasta tagune käik must-valgele Lanzarotele) ja lootus _midagigi_ teada saada nende inimeste kohta, kes siin enne hispaanlasi elasid. 
 
 Seda, et Kanaari saari on seitse, sain ma teada alles siis, kui peatänava äärset kunstiteost guugeldasin. See kandvat nime "Seitsme saare purskkaev" ning tähistavat seitset Kanaari saart.
 
