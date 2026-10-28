@@ -413,7 +413,7 @@ Otsisime omale paariks ööks lähedalasuva elamise ning järgmisel hommikul oli
 
 Vantsisime eile õhtul siis jälle oma ajutisse elukohta. Tänaseks meil veel alternatiivset majutust plaanitud ei ole. Ühtlasi on meie viimane õhtu Tenerifel ning parimal juhul tahaksime ikkagi üht-teist ära pesta ja maja puhtana maha jätta. Hommikul jätkas üks tüüp sügavate ohete saatel kaevamist. Teine tüüp ilmus mõni aeg hiljem ja, imdede ime, tegi torusse augu.
 
-Mis nad siis leidsid? Nii meie kui ka pererahvas olid pikalt imestanud, kuidas siia üldse mingi ummistus tekkida sai. Mulle ei mahtunud pähe, kuidas ükspäev on kanalisatsioonitoru natuke umbes ja järgmine päev on aias sügav auk ning vee äravoolu tagasi saamist pole kuskilt otsast näha. Tuli välja, et toru oli täis - trummipõrin! - puujuuri. Kas on peamine kurikael kõrval kasvav lopsakas mangopuu või on ka teised taimed asjasse segatud, pole päris kindel, kuid torumeeste arvamus oli, et kuna torude ühenduskohas oli pragu, siis sealt need juured sisse kasvama hakkasid. Sellist asja poleks osanud unes ka näha.
+Mis nad siis leidsid? Nii meie kui ka pererahvas olid pikalt imestanud, kuidas siia üldse mingi ummistus tekkida sai. Mulle ei mahtunud pähe, kuidas ükspäev on kanalisatsioonitoru natuke umbes ja järgmine päev on aias sügav auk ning vee äravoolu tagasi saamist pole kuskilt otsast näha. Tuli välja, et toru oli täis - _trummipõrin!_ - puujuuri. Kas on peamine kurikael kõrval kasvav lopsakas mangopuu või on ka teised taimed asjasse segatud, pole päris kindel, kuid torumeeste arvamus oli, et kuna torude ühenduskohas oli pragu, siis sealt need juured sisse kasvama hakkasid. Sellist asja poleks osanud unes ka näha.
 
 ![](../img/mangopuu.jpg)
 _Mangopuu ja tema uus naaber - auk_
@@ -451,3 +451,4 @@ Kui kaks nädalat väikses linnakeses samu tänavaid mööda käia, võid hakata
 - Elurajoonid on valdavalt lukustatud aedadega ümbritsetud. Tihti on aia peal ka paar riba okastraati.
 - Cicar näib olevat väga populaarne autorendifirma.
 - Täna nägin lõpuks kohalikku lehelindu.
+- Üleile sadas nii palju vihma, et kõnniteekivid läksid libedaks. (Loe: siuke väike seenekas oli; vähemalt ühel inimesel oli vihmavari.)
