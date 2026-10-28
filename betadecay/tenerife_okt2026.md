@@ -400,3 +400,54 @@ _Kaheksa saare villa_
 
 Kaheksa saare villas on meie toa nimi Alegranza, mis vastu kõiki ootusi ei ole üheksas Kanaari saar, vaid hoopis osa Chinijo saarestikust.
 
+# 28. oktoober, 2026, kolmapäev
+_Costa del Silencio_
+
+## Esmaspäevast kolmapäevani: uued huvitavad torutööd
+
+Esmaspäeval selgus, et meil on kanalisatsioonitoru umbes. Sel ajal kui mina teisel korrusel õndsas teadmatuses pead pesin, hakkas Erki esimesel korrusel juba põrandat kuivatama. Käisime kodukaupade poes igasuguste tarvikute järel, aga oma jõududega probleemile siiski lahendust ei leidnud.
+
+Niisiis tulid pererahva orgunnitud torumehed. Kolistasid, lammutasid, tõid muudkui suuremaid ja mürisevamaid aparaate ning nentisid ühel hetkel, et _"muy complicado"_. Mitu tundi hiljem olid torumehed jõudnud diagnoosini, et ummistus on hoopis majast väljapool ning aeda tuleb auk kaevata. Ainult, et nemad auku ei kaeva ja seda tuleb teeb keegi Marco ning alles homme.
+
+Otsisime omale paariks ööks lähedalasuva elamise ning järgmisel hommikul olime kõpsti siin tagasi Marcot ootamas. "Üheksa paiku" tähendas õnneks, et töömees jõudis juba pool kaheksa ning asus asja kallale. Esialgu tundus, et mis seal ikka niiväga teha on, aga toru leidmiseks läks kahel mehel neli-viis tundi. Selleks ajaks oli kell juba pool kaks ning oligi aeg asjad kokku pakkida ja lubada homme tagasi tulla.
+
+Vantsisime eile õhtul siis jälle oma ajutisse elukohta. Tänaseks meil veel alternatiivset majutust plaanitud ei ole. Ühtlasi on meie viimane õhtu Tenerifel ning parimal juhul tahaksime ikkagi üht-teist ära pesta ja maja puhtana maha jätta. Hommikul jätkas üks tüüp sügavate ohete saatel kaevamist. Teine tüüp ilmus mõni aeg hiljem ja, imdede ime, tegi torusse augu.
+
+Mis nad siis leidsid? Nii meie kui ka pererahvas olid pikalt imestanud, kuidas siia üldse mingi ummistus tekkida sai. Mulle ei mahtunud pähe, kuidas ükspäev on kanalisatsioonitoru natuke umbes ja järgmine päev on aias sügav auk ning vee äravoolu tagasi saamist pole kuskilt otsast näha. Tuli välja, et toru oli täis - trummipõrin! - puujuuri. Kas on peamine kurikael kõrval kasvav lopsakas mangopuu või on ka teised taimed asjasse segatud, pole päris kindel, kuid torumeeste arvamus oli, et kuna torude ühenduskohas oli pragu, siis sealt need juured sisse kasvama hakkasid. Sellist asja poleks osanud unes ka näha.
+
+![](../img/mangopuu.jpg)
+_Mangopuu ja tema uus naaber - auk_
+
+Nüüdseks kaks tundi tagasi läksid töömehed toru kokku panemiseks vajalikke tarvikuid tooma. Eks lõuna tuli ka peale. Üldiselt nad lubasid selle täna kokku tagasi panna... lihtsalt, et kellaaeg liigub juba kahtlaselt sinna kanti, kus nad eile üldse päeva ära lõpetasid.
+
+## Mitmed tunnid hiljem
+
+Kõigi asjaosaliste suureks kergenduseks said torud täna õhtupoolikul tõesti korda. Hurraa! Nagu kodused juba kommenteerisid - alustame ja lõpetame oma reisi torutöödega. Sinna vahele jäi aga õnneks väga palju toredat: päikest, merd, mägesid, udu, metsa ja kõrbe.
+
+![](../img/6htup2ike.jpg)
+_Päikeseloojang Costa del Silencios_
+
+# Lisa 1, juhuslikud märkmed
+
+Kui kaks nädalat väikses linnakeses samu tänavaid mööda käia, võid hakata võrdlemisi ebaolulisi detaile märkama:
+
+- Ühele puule tekkisid oranžid õied.
+- Lähimas bussipeatuses näib elavat üks mees.
+- Bussid number 467 käivad tihtilugu mitmekaupa.
+- Mere ääres on tõesti tõus ja mõõn näha.
+- Ükspäev käisime mööda peatänavat nii mitu korda, et lõpuks tuli üks kohalik kass meile saba püsti vastu pai nuruma.
+- Lisaks minituvidele elavad siin siiski ka tavatuvid.
+- Diana tänava nurga lähedal pargib Tesla. Poola numbriga. Tekitab küsimusi. Mandrilt praamiga siia on päris pikk tee.
+- Ühes basseinis on mõnel päeval rohelised ja mõnel päeval punased lipud.
+- Koerte jalutamiseks näivad olevat standardsed kellaajad.
+- Täna toimus vulkaanikestega kõrbes mingi pildistamine.
+- "Kauge suure poe" juures asuva torni tipus põleb öösiti tuli.
+- Erinevalt Lõuna-Euroopa mandriosast, ei ole Kanaaridel tsikaade ning siristavad tõenäoliselt ritsikad.
+- Tänavad kannavad Costa del Silencios tähtkujude ning muude kosmosega seotud tegelaste ja sündmuste nimesid. Tähtkujude nimed on muidugi valdavad ka Kreeka ja Rooma jumalate nimed. Näiteks Andromeda, Zeus, Herakles ja Diana. Samas, näiteks on siin Dante tänav - peamiselt vist tema sügava astronoomiahuvi tõttu.
+- Kuigi naaberküla nimi on Las Galletas, on tal ajaloolised seosed rohkem mere ja vähem küpsistega. Interneti arvates tuleb nimi "mereküpsistest". 
+- Meie küla näeb välja nagu inimtekkeline oaas keset kivikõrbe sellepäras, et just seda ta on - kuuekümnendatel tühermaale ehitatud kuurort. Klausliga, et kui su puhkuse ajal on kasvõi üks päikseta päev, saad raha tagasi. Ma nüüd mõtlen, et kas meie _calima_-pilvisus kvalifitseerub päikeseta päevaks (või lausa kaheks).
+- Mu arust elab keegi üle tee parklas kaubikus.
+- Lähimas pargis asuv ronimissein pole veel ühelgi päeval avatud olnud.
+- Elurajoonid on valdavalt lukustatud aedadega ümbritsetud. Tihti on aia peal ka paar riba okastraati.
+- Cicar näib olevat väga populaarne autorendifirma.
+- Täna nägin lõpuks kohalikku lehelindu.
