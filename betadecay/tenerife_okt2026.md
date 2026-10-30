@@ -400,7 +400,7 @@ _Kaheksa saare villa_
 
 Kaheksa saare villas on meie toa nimi Alegranza, mis vastu kõiki ootusi ei ole üheksas Kanaari saar, vaid hoopis osa Chinijo saarestikust.
 
-# 28. oktoober, 2026, kolmapäev
+# 28. oktoober 2026, kolmapäev
 _Costa del Silencio_
 
 ## Esmaspäevast kolmapäevani: uued huvitavad torutööd
@@ -449,6 +449,6 @@ Kui kaks nädalat väikses linnakeses samu tänavaid mööda käia, võid hakata
 - Mu arust elab keegi üle tee parklas kaubikus.
 - Lähimas pargis asuv ronimissein pole veel ühelgi päeval avatud olnud.
 - Elurajoonid on valdavalt lukustatud aedadega ümbritsetud. Tihti on aia peal ka paar riba okastraati.
-- Cicar näib olevat väga populaarne autorendifirma.
+- Cicar, mida ka meie kasutame, näib olevat väga populaarne autorendifirma.
 - Täna nägin lõpuks kohalikku lehelindu.
 - Üleile sadas nii palju vihma, et kõnniteekivid läksid libedaks. (Loe: siuke väike seenekas oli; vähemalt ühel inimesel oli vihmavari.)
